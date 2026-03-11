@@ -1,8 +1,27 @@
-@media (max-width: 1300px) {
-  .imageDiv {
-margin-top: 50px;
-margin-bottom: 30px;
-padding: 0;
-order: 0;
+display: none;
+  }
+
+  .heroTextOverlay {
+    padding: 40px 32px;
+  }
+}
+
+@media (max-width: 480px) {
+  .heroHeading {
+    font-size: 32px;
+  }
+
+  .heroCtas {
+    flex-direction: column;
+  }
+
+  .ctaPrimary, .ctaSecondary {
+    width: 100%;
+    text-align: center;
+  }
+
+  .trimesterStrip {
+    flex-direction: column;
+    align-items: center;
   }
 }
