@@ -100,13 +100,7 @@ export default function Home() {
       </button>
       <button className="btnS" onClick={() => router.push("/trimester-1/summary")}>
         Explore Resources
-      </button>
-    </div>
-  </div>
-</div>
-                </button>
-              </div>
-            </div>
+      
           </div>
 
           <div className="heroRight">
