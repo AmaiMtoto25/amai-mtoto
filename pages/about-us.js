@@ -1,42 +1,263 @@
-import { Heading, Text } from "@chakra-ui/react";
-import React from "react";
-import Layout from "../components/Layout";
-import Media from "../components/Media";
+/* eslint-disable */
+import { useRouter } from "next/router";
+import { useAuth } from "../context/AuthContext";
+import Head from "next/head";
 
-// About:
+export async function getServerSideProps() {
+  return { props: {} };
+}
 
-const AboutUs = () => {
+export default function AboutUs() {
+  const router = useRouter();
+  const { user } = useAuth();
+
+  const team = [
+    { name: "Dr. Amara Osei", role: "Lead Midwife & Co-Founder", bio: "A consultant midwife with 18 years of NHS experience, Amara has dedicated her career to closing the racial gap in maternal outcomes.", initial: "AO", color: "#C4622D" },
+    { name: "Yemi Adebayo", role: "Community Lead & Co-Founder", bio: "Yemi brings lived experience as a Black mother and a decade of community organising in South London to the heart of Amai Mtoto.", initial: "YA", color: "#2D6A4F" },
+    { name: "Dr. Priya Nair", role: "Mental Health Advisor", bio: "A perinatal psychologist specialising in the unique mental health challenges faced by women of colour during pregnancy and postpartum.", initial: "PN", color: "#C4622D" },
+    { name: "Fatima Al-Hassan", role: "Nutrition & Wellness Coach", bio: "Fatima weaves traditional African and Caribbean food wisdom with evidence-based nutrition guidance for expectant and new mothers.", initial: "FA", color: "#2D6A4F" },
+  ];
+
+  const stats = [
+    { number: "2,400+", label: "Mothers supported" },
+    { number: "4×", label: "Higher risk faced by Black women" },
+    { number: "18", label: "NHS partner trusts" },
+    { number: "100%", label: "Culturally-led care" },
+  ];
+
+  const values = [
+    { icon: "✦", title: "Cultural Rootedness", desc: "We honour the wisdom, traditions and lived experiences of African and Caribbean communities — weaving them into every resource we create.", accent: "#2D6A4F" },
+    { icon: "◈", title: "Midwifery-Led", desc: "Every piece of guidance on Amai Mtoto is developed with and reviewed by qualified NHS midwives and perinatal specialists.", accent: "#C4622D" },
+    { icon: "❋", title: "Community Power", desc: "We are built by mothers, for mothers. The women who use this platform shape it, grow it, and lead it.", accent: "#2D6A4F" },
+    { icon: "◉", title: "Radical Honesty", desc: "We name the systemic failures that cause harm and give women the information and agency to advocate for themselves.", accent: "#C4622D" },
+  ];
+
   return (
-    <Layout>
-      <Heading>About Us</Heading>
-      <Text>
-        <strong>Amai Mtoto</strong> simply translates as mother and child, taken
-        from the languages from Shona <em>(Zimbabwe)</em> and Swahili
-        <em>(South Africa)</em>. <br />
-        This pregnancy wellness app has been designedfor those from a
-        Afro-Caribbean background to give you evidence based information in the
-        areas of exercise, nutrition and diet, mental wellbeing, and parent
-        education to help support and empower you and your family through your
-        pregnancy journey and beyond. <br />
-        The aim is to make topics surrounding pregnancy wellness easier for you
-        to navigate, by supporting you with knowledge, recommending exercises
-        that are safe during and after pregnancy, setting goals in selfcare, and
-        finding cultural recipes that you will find tasty and nutritious.
-        <br />
-        What makes this pregnancy wellness app different is that you will feel
-        culturally represented from the videos that you can watch, the foods
-        that you can eat and the topics of conversation/articles that you will
-        read. knowing you have trusted knowledge
-      </Text>
+    <>
+      <Head>
+        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+        <style>{`
+          * { margin: 0; padding: 0; box-sizing: border-box; }
+          body { font-family: 'DM Sans', sans-serif; }
+          .page { min-height: 100vh; background: #FDF6F0; }
 
-      <Media
-        height="400"
-        width="600"
-        mediaType="image"
-        mediaSrc="https://cdn.discordapp.com/attachments/1046449122737131643/1047552129000296488/image.png"
-      />
-    </Layout>
+          /* Akoko Nan repeating pattern */
+          .akoko-pattern { position: relative; }
+          .akoko-pattern::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: url('/akoko-nan-medium.png');
+            background-size: 80px 80px;
+            background-repeat: repeat;
+            opacity: 0.05;
+            pointer-events: none;
+            z-index: 0;
+          }
+          .akoko-pattern > * { position: relative; z-index: 1; }
+
+          /* Top bar */
+          .topBar { background: #5C1200; display: flex; align-items: center; justify-content: space-between; padding: 8px 40px; font-size: 13px; color: rgba(255,255,255,0.85); }
+          .topBarWelcome strong { color: #F5A623; }
+          .topBarLinks { display: flex; gap: 4px; }
+          .topBarActive { background: #2D6A4F; color: white; border: none; border-radius: 20px; padding: 5px 16px; font-size: 12px; font-weight: 600; cursor: pointer; font-family: 'DM Sans', sans-serif; }
+          .topBarBtn { background: transparent; color: rgba(255,255,255,0.75); border: none; padding: 5px 14px; font-size: 12px; cursor: pointer; font-family: 'DM Sans', sans-serif; border-radius: 20px; }
+
+          /* Nav */
+          .mainNav { background: #C4622D; display: flex; align-items: center; justify-content: space-between; padding: 0 40px; height: 64px; }
+          .navLogo { font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 700; color: white; cursor: pointer; }
+          .navLogo span { color: #F5C87A; }
+          .navLinks { display: flex; gap: 24px; }
+          .navLinks a { color: white; text-decoration: none; font-size: 14px; font-weight: 500; opacity: 0.9; }
+          .navLinks a:hover { opacity: 1; }
+          .navLinks a.active { text-decoration: underline; text-underline-offset: 4px; opacity: 1; }
+          .signInBtn { background: transparent; color: white; border: 2px solid rgba(255,255,255,0.6); border-radius: 24px; padding: 8px 22px; font-size: 14px; font-weight: 600; cursor: pointer; font-family: 'DM Sans', sans-serif; }
+
+          /* Hero */
+          .aboutHero { position: relative; overflow: hidden; min-height: 520px; display: flex; align-items: center; }
+          .heroImgBg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; }
+          .heroImgOverlay { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(10,2,0,0.88) 0%, rgba(61,18,0,0.72) 50%, rgba(61,18,0,0.15) 100%); }
+          .heroContent { position: relative; z-index: 2; padding: 80px; max-width: 640px; }
+          .heroBadge { display: inline-flex; align-items: center; gap: 8px; background: rgba(45,106,79,0.35); border: 1px solid rgba(82,183,136,0.45); border-radius: 24px; padding: 6px 16px; color: #74C69D; font-size: 11px; font-weight: 700; letter-spacing: 1.5px; margin-bottom: 24px; width: fit-content; }
+          .dot { width: 8px; height: 8px; background: #52B788; border-radius: 50%; display: inline-block; }
+          .heroTitle { font-family: 'Playfair Display', serif; font-size: clamp(38px, 4.5vw, 62px); font-weight: 700; color: white; line-height: 1.08; margin-bottom: 20px; }
+          .heroTitle em { font-style: italic; color: #F5C87A; }
+          .heroSub { font-size: 16px; color: rgba(255,255,255,0.85); line-height: 1.75; max-width: 460px; font-weight: 300; }
+
+          /* Stats bar */
+          .statsBar { background: #1B4332; display: grid; grid-template-columns: repeat(4, 1fr); }
+          .statItem { padding: 28px 20px; text-align: center; border-right: 1px solid rgba(255,255,255,0.1); }
+          .statItem:last-child { border-right: none; }
+          .statNum { font-family: 'Playfair Display', serif; font-size: 34px; font-weight: 700; color: #74C69D; display: block; }
+          .statLabel { font-size: 11px; color: rgba(255,255,255,0.65); font-weight: 500; letter-spacing: 0.5px; margin-top: 4px; display: block; }
+
+          /* Sections */
+          .section { padding: 72px 80px; }
+          .sectionLabel { font-size: 11px; font-weight: 700; letter-spacing: 2px; color: #2D6A4F; text-transform: uppercase; margin-bottom: 12px; }
+          .sectionTitle { font-family: 'Playfair Display', serif; font-size: clamp(28px, 3vw, 42px); font-weight: 700; color: #1a0800; line-height: 1.15; margin-bottom: 24px; }
+          .sectionTitle em { font-style: italic; color: #C4622D; }
+
+          /* Mission */
+          .missionSection { background: #FDF6F0; }
+          .missionGrid { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; }
+          .missionText p { font-size: 15px; color: #4a2010; line-height: 1.8; font-weight: 300; margin-bottom: 18px; }
+          .missionText p:last-child { margin-bottom: 0; }
+          .quoteCard { background: linear-gradient(135deg, #1B4332, #2D6A4F); border: 1px solid rgba(82,183,136,0.2); border-radius: 20px; padding: 40px; position: relative; overflow: hidden; }
+          .quoteCard::before { content: '"'; position: absolute; top: -10px; left: 20px; font-family: 'Playfair Display', serif; font-size: 120px; color: rgba(116,198,157,0.12); line-height: 1; }
+          .quoteText { font-family: 'Playfair Display', serif; font-size: 20px; font-style: italic; color: #B7E4C7; line-height: 1.6; position: relative; z-index: 2; }
+          .quoteAuthor { font-size: 13px; color: rgba(255,255,255,0.5); margin-top: 20px; font-weight: 500; }
+
+          /* Values */
+          .valuesSection { background: #FFF8F3; border-top: 1px solid #EDD8C8; }
+          .valuesGrid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-top: 40px; }
+          .valueCard { background: white; padding: 32px; border-radius: 16px; border: 1px solid #EDD8C8; }
+          .valueIcon { font-size: 22px; margin-bottom: 14px; display: block; }
+          .valueTitle { font-family: 'Playfair Display', serif; font-size: 19px; color: #1a0800; margin-bottom: 10px; }
+          .valueDesc { font-size: 14px; color: #6b4030; line-height: 1.7; font-weight: 300; }
+
+          /* Team */
+          .teamSection { background: #FDF6F0; border-top: 1px solid #EDD8C8; }
+          .teamGrid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-top: 40px; }
+          .teamCard { background: white; border: 1px solid #EDD8C8; border-radius: 16px; padding: 28px 20px; text-align: center; }
+          .teamAvatar { width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; color: white; margin: 0 auto 18px; }
+          .teamName { font-family: 'Playfair Display', serif; font-size: 16px; color: #1a0800; margin-bottom: 4px; }
+          .teamRole { font-size: 11px; font-weight: 600; letter-spacing: 0.5px; margin-bottom: 14px; }
+          .teamBio { font-size: 13px; color: #6b4030; line-height: 1.65; font-weight: 300; }
+
+          /* CTA */
+          .ctaSection { background: linear-gradient(135deg, #1B4332 0%, #2D6A4F 40%, #C4622D 100%); padding: 80px; text-align: center; }
+          .ctaTitle { font-family: 'Playfair Display', serif; font-size: clamp(28px, 3vw, 44px); color: white; margin-bottom: 18px; }
+          .ctaTitle em { font-style: italic; color: #F5C87A; }
+          .ctaSub { font-size: 16px; color: rgba(255,255,255,0.85); max-width: 480px; margin: 0 auto 40px; line-height: 1.75; font-weight: 300; }
+          .ctaBtns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+          .btnP { background: #F5A623; color: #3D1200; border: none; border-radius: 32px; padding: 15px 34px; font-size: 15px; font-weight: 700; cursor: pointer; font-family: 'DM Sans', sans-serif; }
+          .btnS { background: transparent; color: white; border: 2px solid rgba(255,255,255,0.55); border-radius: 32px; padding: 15px 34px; font-size: 15px; font-weight: 500; cursor: pointer; font-family: 'DM Sans', sans-serif; }
+
+          /* Responsive */
+          @media (max-width: 900px) {
+            .heroContent { padding: 56px 32px; }
+            .aboutHero { min-height: 420px; }
+            .section { padding: 56px 24px; }
+            .statsBar { grid-template-columns: repeat(2, 1fr); }
+            .statItem:nth-child(2) { border-right: none; }
+            .statItem:nth-child(3) { border-top: 1px solid rgba(255,255,255,0.1); }
+            .missionGrid { grid-template-columns: 1fr; gap: 36px; }
+            .valuesGrid { grid-template-columns: 1fr; }
+            .teamGrid { grid-template-columns: repeat(2, 1fr); }
+            .topBar { flex-direction: column; gap: 8px; padding: 10px 20px; text-align: center; }
+            .mainNav { padding: 0 20px; }
+            .navLinks { display: none; }
+            .ctaSection { padding: 56px 24px; }
+          }
+          @media (max-width: 540px) {
+            .teamGrid { grid-template-columns: 1fr; }
+          }
+        `}</style>
+      </Head>
+
+      <div className="page">
+
+        <div className="topBar">
+          <span className="topBarWelcome">Welcome to <strong>Amai-Mtoto</strong> — choose your space</span>
+          <div className="topBarLinks">
+            <button className="topBarActive">For Mothers</button>
+            <button className="topBarBtn">NHS Staff</button>
+            <button className="topBarBtn">Lambeth</button>
+          </div>
+        </div>
+
+        <nav className="mainNav">
+          <div className="navLogo" onClick={() => router.push("/")}>Amai-<span>Mtoto</span></div>
+          <div className="navLinks">
+            <a href="/trimester-1/nutrition">Nutrition</a>
+            <a href="/trimester-1/exercise">Exercise</a>
+            <a href="/trimester-1/wellbeing">Wellbeing</a>
+            <a href="/faq">FAQ</a>
+            <a href="/about-us" className="active">About Us</a>
+          </div>
+          <button className="signInBtn" onClick={() => router.push(user ? "/dashboard" : "/log-in")}>
+            {user ? "My Dashboard" : "Sign In"}
+          </button>
+        </nav>
+
+        <div className="aboutHero">
+          <img src="/women smiling.png" alt="Four Black and mixed-race women laughing together in ankara print" className="heroImgBg" />
+          <div className="heroImgOverlay"></div>
+          <div className="heroContent">
+            <div className="heroBadge"><span className="dot"></span>OUR STORY</div>
+            <h1 className="heroTitle">Born from <em>community.</em><br />Built for change.</h1>
+            <p className="heroSub">Amai Mtoto was created because Black and mixed-race women in the UK are four times more likely to die in childbirth than white women. We refuse to accept that statistic as inevitable.</p>
+          </div>
+        </div>
+
+        <div className="statsBar">
+          {stats.map((s) => (
+            <div className="statItem" key={s.label}>
+              <span className="statNum">{s.number}</span>
+              <span className="statLabel">{s.label}</span>
+            </div>
+          ))}
+        </div>
+
+        <div className="section missionSection akoko-pattern">
+          <div className="missionGrid">
+            <div className="missionText">
+              <p className="sectionLabel">Our Mission</p>
+              <h2 className="sectionTitle">Why <em>Amai Mtoto</em> exists</h2>
+              <p>The UK has one of the worst records in the developed world for racial disparities in maternal health. Black women are four times more likely to die during or after childbirth. Mixed-race women face twice the risk. These are not inevitable outcomes — they are the result of systemic failures.</p>
+              <p>Amai Mtoto was built to change that. We combine midwifery expertise with the lived wisdom of African and Caribbean communities to give mothers the information, tools and community they deserve.</p>
+              <p>Our name says it all: <em style={{color:"#2D6A4F"}}>Amai</em> means mother in Shona. <em style={{color:"#2D6A4F"}}>Mtoto</em> means child in Swahili. Two languages. One mission.</p>
+            </div>
+            <div className="quoteCard">
+              <p className="quoteText">"Every woman deserves to feel seen, heard and safe during the most transformative experience of her life — regardless of the colour of her skin."</p>
+              <p className="quoteAuthor">— Dr. Amara Osei, Co-Founder</p>
+            </div>
+          </div>
+        </div>
+
+        <div className="section valuesSection akoko-pattern">
+          <p className="sectionLabel">What drives us</p>
+          <h2 className="sectionTitle">Our <em>values</em></h2>
+          <div className="valuesGrid">
+            {values.map((v) => (
+              <div className="valueCard" key={v.title} style={{borderTop: `3px solid ${v.accent}`}}>
+                <span className="valueIcon" style={{color: v.accent}}>{v.icon}</span>
+                <h3 className="valueTitle">{v.title}</h3>
+                <p className="valueDesc">{v.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="section teamSection akoko-pattern">
+          <p className="sectionLabel">The people behind the platform</p>
+          <h2 className="sectionTitle">Meet the <em>team</em></h2>
+          <div className="teamGrid">
+            {team.map((m) => (
+              <div className="teamCard" key={m.name} style={{borderTop: `3px solid ${m.color}`}}>
+                <div className="teamAvatar" style={{background: m.color}}>{m.initial}</div>
+                <h3 className="teamName">{m.name}</h3>
+                <p className="teamRole" style={{color: m.color}}>{m.role}</p>
+                <p className="teamBio">{m.bio}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="ctaSection">
+          <h2 className="ctaTitle">Ready to join our <em>community?</em></h2>
+          <p className="ctaSub">Thousands of mothers are already finding support, knowledge and connection on Amai Mtoto.</p>
+          <div className="ctaBtns">
+            <button className="btnP" onClick={() => router.push(user ? "/dashboard" : "/sign-up")}>
+              {user ? "Go to My Dashboard" : "Join Our Community"}
+            </button>
+            <button className="btnS" onClick={() => router.push("/trimester-1/summary")}>
+              Explore Resources
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </>
   );
-};
-
-export default AboutUs;
+}
