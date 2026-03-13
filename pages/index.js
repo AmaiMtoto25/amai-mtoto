@@ -87,19 +87,23 @@ export default function Home() {
         </nav>
 
         <div className="hero">
-          <div className="heroLeft">
-            <img src="/landingPageImages/ChatGPT_Image_Mar_13__2026__03_40_32_PM.png"
-            <div className="overlay"></div>
-            <div className="heroText">
-              <div className="badge"><span className="dot"></span>FOR BLACK AND MIXED-RACE MOTHERS</div>
-              <h1 className="h1">Your Pregnancy.<br />Your Culture.<br /><em>Your Community.</em></h1>
-              <p className="sub">A safe, culturally-rooted space for Black and mixed-race women navigating pregnancy, birth and the postnatal journey — midwifery-led, community-powered.</p>
-              <div className="btns">
-                <button className="btnP" onClick={() => router.push(user ? "/dashboard" : "/sign-up")}>
-                  {user ? "Go to My Dashboard" : "Join Our Community"}
-                </button>
-                <button className="btnS" onClick={() => router.push("/trimester-1/summary")}>
-                  Explore Resources
+         <div className="heroLeft">
+  <img src="/landingPageImages/ChatGPT_Image_Mar_13__2026__03_40_32_PM.png" alt="Ankara fabric pattern" className="ankaraImg" />
+  <div className="overlay"></div>
+  <div className="heroText">
+    <div className="badge"><span className="dot"></span>FOR BLACK AND MIXED-RACE MOTHERS</div>
+    <h1 className="h1">Your Pregnancy.<br />Your Culture.<br /><em>Your Community.</em></h1>
+    <p className="sub">A safe, culturally-rooted space for Black and mixed-race women navigating pregnancy, birth and the postnatal journey — midwifery-led, community-powered.</p>
+    <div className="btns">
+      <button className="btnP" onClick={() => router.push(user ? "/dashboard" : "/sign-up")}>
+        {user ? "Go to My Dashboard" : "Join Our Community"}
+      </button>
+      <button className="btnS" onClick={() => router.push("/trimester-1/summary")}>
+        Explore Resources
+      </button>
+    </div>
+  </div>
+</div>
                 </button>
               </div>
             </div>
