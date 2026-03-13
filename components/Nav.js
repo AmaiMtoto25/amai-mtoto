@@ -1,87 +1,37 @@
-import {
-  Box,
-  Flex,
-  Text,
-  IconButton,
-  Button,
-  Stack,
-  Collapse,
-  Icon,
-  Link,
-  Popover,
-  PopoverTrigger,
-  PopoverContent,
-  useColorModeValue,
-  useBreakpointValue,
-  useDisclosure,
-} from "@chakra-ui/react";
-import {
-  HamburgerIcon,
-  CloseIcon,
-  ChevronDownIcon,
-  ChevronRightIcon,
-} from "@chakra-ui/icons";
-import Logo from "./Logo";
-import { useAuth } from "../context/AuthContext";
+/* eslint-disable */
+import React from "react";
 import { useRouter } from "next/router";
-import ChakraButton from "./ChakraButton";
+import { useAuth } from "../context/AuthContext";
+import { useState } from "react";
+
+function createTrimesterItems() {
+  const TRIMESTERS = 3;
+  const TOPICS = [
+    { label: "Summary", subLabel: "What to expect this trimester", href_key: "summary" },
+    { label: "Exercise", subLabel: "Exercises tailored for you", href_key: "exercise" },
+    { label: "Wellbeing", subLabel: "Advice on how to feel good", href_key: "wellbeing" },
+    { label: "Nutrition", subLabel: "Sort the facts from the fads", href_key: "nutrition" },
+  ];
+  return Array.from({ length: TRIMESTERS }, (_, i) => ({
+    label: `Trimester ${i + 1}`,
+    children: TOPICS.map((t) => ({ ...t, href: `/trimester-${i + 1}/${t.href_key}` })),
+  }));
+}
 
 const trimesterItems = createTrimesterItems();
 const navItems = [
-  { label: "Home", href: "/home-page?trimester=1" },
+  { label: "Home", href: "/" },
   { label: "FAQ", href: "/faq" },
   { label: "About Us", href: "/about-us" },
   ...trimesterItems,
 ];
 
-function createTrimesterItems() {
-  const TRIMESTERS = 3;
-  const TOPICS = [
-    {
-      label: "Summary",
-      subLabel: "Find out what to expect during this trimester",
-    },
-    {
-      label: "Exercise",
-      subLabel: "Find exercises tailored for you",
-    },
-    {
-      label: "Well-being",
-      subLabel: "Here you'll find advice on how to feel good",
-    },
-    {
-      label: "Nutrition",
-      subLabel:
-        "Confused about what you should be eating? Sort the facts from the fads here!",
-    },
-  ];
-  let trimesterItems = [];
-
-  for (
-    let trimesterNumber = 1;
-    trimesterNumber <= TRIMESTERS;
-    trimesterNumber++
-  ) {
-    trimesterItems.push({
-      label: `Trimester ${trimesterNumber}`,
-      children: [
-        ...TOPICS.map((topic) => {
-          const topicName = topic.label.toLowerCase().replace("-", "");
-          return {
-            ...topic,
-            href: `/trimester-${trimesterNumber}/${topicName}`,
-          };
-        }),
-      ],
-    });
-  }
-  return trimesterItems;
-}
-
 export default function Nav() {
-  const { isOpen, onToggle } = useDisclosure();
   const { user, logOut, setUser } = useAuth();
   const router = useRouter();
+  const [openDropdown, setOpenDropdown] = useState(null);
+  const [mobileOpen, setMobileOpen] = useState(false);
+
   const handleLogout = async () => {
     try {
       await logOut();
@@ -93,243 +43,118 @@ export default function Nav() {
   };
 
   return (
-    <nav>
-      <Box>
-        <Flex
-          bg={useColorModeValue("white", "gray.800")}
-          color={useColorModeValue("gray.600", "white")}
-          minH={"60px"}
-          py={{ base: 2 }}
-          px={{ base: 4 }}
-          borderBottom={1}
-          borderStyle={"solid"}
-          borderColor={useColorModeValue("gray.200", "gray.900")}
-          align={"center"}
-        >
-          <Flex
-            flex={{ base: 1, md: "auto" }}
-            ml={{ base: -2 }}
-            display={{ base: "flex", md: "none" }}
-          >
-            <IconButton
-              onClick={onToggle}
-              icon={
-                isOpen ? (
-                  <CloseIcon w={3} h={3} />
-                ) : (
-                  <HamburgerIcon w={5} h={5} />
-                )
-              }
-              variant={"ghost"}
-              aria-label={"Toggle Navigation"}
-            />
-          </Flex>
-          <Flex flex={{ base: 1 }} justify={{ base: "center", md: "start" }}>
-            <Logo />
+    <>
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap');
+        .am-topbar { background: #5C1200; display: flex; align-items: center; justify-content: space-between; padding: 8px 40px; font-size: 13px; color: rgba(255,255,255,0.85); font-family: 'DM Sans', sans-serif; }
+        .am-topbar strong { color: #F5A623; }
+        .am-topbar-btns { display: flex; gap: 4px; }
+        .am-tbactive { background: #2D6A4F; color: white; border: none; border-radius: 20px; padding: 5px 16px; font-size: 12px; font-weight: 600; cursor: pointer; font-family: 'DM Sans', sans-serif; }
+        .am-tbbtn { background: transparent; color: rgba(255,255,255,0.75); border: none; padding: 5px 14px; font-size: 12px; cursor: pointer; font-family: 'DM Sans', sans-serif; border-radius: 20px; }
+        .am-nav { background: #C4622D; display: flex; align-items: center; justify-content: space-between; padding: 0 40px; height: 64px; position: relative; font-family: 'DM Sans', sans-serif; }
+        .am-nav-logo { font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 700; color: white; cursor: pointer; text-decoration: none; }
+        .am-nav-logo span { color: #F5C87A; }
+        .am-nav-links { display: flex; gap: 4px; align-items: center; }
+        .am-nav-item { position: relative; }
+        .am-nav-link { color: white; text-decoration: none; font-size: 14px; font-weight: 500; opacity: 0.9; padding: 8px 12px; border-radius: 8px; display: block; background: transparent; border: none; cursor: pointer; font-family: 'DM Sans', sans-serif; white-space: nowrap; }
+        .am-nav-link:hover { opacity: 1; background: rgba(255,255,255,0.12); }
+        .am-nav-link.active { opacity: 1; text-decoration: underline; text-underline-offset: 4px; }
+        .am-dropdown { position: absolute; top: calc(100% + 8px); left: 0; background: white; border-radius: 12px; padding: 8px; min-width: 240px; box-shadow: 0 8px 32px rgba(0,0,0,0.15); z-index: 100; }
+        .am-dropdown-item { display: block; padding: 10px 14px; border-radius: 8px; text-decoration: none; color: #1a0800; transition: background 0.15s; }
+        .am-dropdown-item:hover { background: #FFF0E8; }
+        .am-dropdown-label { font-size: 14px; font-weight: 500; color: #1a0800; }
+        .am-dropdown-sub { font-size: 12px; color: #888; margin-top: 2px; }
+        .am-nav-right { display: flex; gap: 10px; align-items: center; }
+        .am-signin { background: transparent; color: white; border: 2px solid rgba(255,255,255,0.6); border-radius: 24px; padding: 8px 20px; font-size: 14px; font-weight: 600; cursor: pointer; font-family: 'DM Sans', sans-serif; }
+        .am-signup { background: #F5A623; color: #3D1200; border: none; border-radius: 24px; padding: 8px 20px; font-size: 14px; font-weight: 700; cursor: pointer; font-family: 'DM Sans', sans-serif; }
+        .am-hamburger { display: none; background: transparent; border: none; cursor: pointer; padding: 8px; }
+        .am-hamburger span { display: block; width: 22px; height: 2px; background: white; margin: 5px 0; border-radius: 2px; transition: all 0.3s; }
+        .am-mobile-menu { display: none; background: #3D1200; padding: 16px 24px; }
+        .am-mobile-link { display: block; color: white; text-decoration: none; padding: 10px 0; font-size: 15px; border-bottom: 1px solid rgba(255,255,255,0.1); font-family: 'DM Sans', sans-serif; }
+        .am-mobile-group { font-size: 12px; font-weight: 700; letter-spacing: 1.5px; color: #F5A623; text-transform: uppercase; padding: 14px 0 6px; }
+        @media (max-width: 900px) {
+          .am-topbar { padding: 6px 20px; flex-direction: column; gap: 6px; text-align: center; }
+          .am-nav { padding: 0 20px; }
+          .am-nav-links { display: none; }
+          .am-hamburger { display: block; }
+          .am-mobile-menu { display: block; }
+          .am-mobile-menu.hidden { display: none; }
+        }
+      `}</style>
 
-            <Flex display={{ base: "none", md: "flex" }} ml={10}>
-              <DesktopNav />
-            </Flex>
-          </Flex>
-          {user ? (
-            <ChakraButton functionToCallWhenButtonIsClicked={handleLogout}>
-              Logout
-            </ChakraButton>
-          ) : (
-            <Stack
-              flex={{ base: 1, md: 0 }}
-              justify={"flex-end"}
-              direction={"row"}
-              spacing={6}
+      <div className="am-topbar">
+        <span>Welcome to <strong>Amai-Mtoto</strong> — choose your space</span>
+        <div className="am-topbar-btns">
+          <button className="am-tbactive">For Mothers</button>
+          <button className="am-tbbtn">NHS Staff</button>
+          <button className="am-tbbtn">Lambeth</button>
+        </div>
+      </div>
+
+      <nav className="am-nav">
+        <a className="am-nav-logo" onClick={() => router.push("/")}>Amai-<span>Mtoto</span></a>
+
+        <div className="am-nav-links">
+          {navItems.map((item) => (
+            <div
+              key={item.label}
+              className="am-nav-item"
+              onMouseEnter={() => item.children && setOpenDropdown(item.label)}
+              onMouseLeave={() => setOpenDropdown(null)}
             >
-              <Button
-                className="sign-in"
-                as={"a"}
-                fontSize={"sm"}
-                fontWeight={400}
-                variant={"link"}
-                href={"/log-in"}
+              <a
+                className={`am-nav-link ${router.pathname === item.href ? "active" : ""}`}
+                href={item.href || "#"}
               >
-                Sign In
-              </Button>
-              <Button
-                display={{ base: "none", md: "inline-flex" }}
-                fontSize={"sm"}
-                fontWeight={600}
-                color={"white"}
-                bg={"pink.400"}
-                onClick={() => router.push("/sign-up")}
-                _hover={{
-                  bg: "pink.300",
-                }}
-              >
-                Sign Up
-              </Button>
-            </Stack>
-          )}
-        </Flex>
+                {item.label} {item.children && "▾"}
+              </a>
+              {item.children && openDropdown === item.label && (
+                <div className="am-dropdown">
+                  {item.children.map((child) => (
+                    <a key={child.label} className="am-dropdown-item" href={child.href}>
+                      <div className="am-dropdown-label">{child.label}</div>
+                      <div className="am-dropdown-sub">{child.subLabel}</div>
+                    </a>
+                  ))}
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
 
-        <Collapse in={isOpen} animateOpacity>
-          <MobileNav />
-        </Collapse>
-      </Box>
-    </nav>
+        <div className="am-nav-right">
+          {user ? (
+            <button className="am-signin" onClick={handleLogout}>Logout</button>
+          ) : (
+            <>
+              <button className="am-signin" onClick={() => router.push("/log-in")}>Sign In</button>
+              <button className="am-signup" onClick={() => router.push("/sign-up")}>Sign Up</button>
+            </>
+          )}
+          <button className="am-hamburger" onClick={() => setMobileOpen(!mobileOpen)}>
+            <span></span><span></span><span></span>
+          </button>
+        </div>
+      </nav>
+
+      <div className={`am-mobile-menu ${mobileOpen ? "" : "hidden"}`}>
+        {navItems.map((item) => (
+          <div key={item.label}>
+            {item.children ? (
+              <>
+                <div className="am-mobile-group">{item.label}</div>
+                {item.children.map((child) => (
+                  <a key={child.label} className="am-mobile-link" href={child.href} style={{paddingLeft: "12px", fontSize: "14px"}}>
+                    {child.label}
+                  </a>
+                ))}
+              </>
+            ) : (
+              <a className="am-mobile-link" href={item.href}>{item.label}</a>
+            )}
+          </div>
+        ))}
+      </div>
+    </>
   );
 }
-
-const DesktopNav = () => {
-  const linkColor = useColorModeValue("gray.600", "gray.200");
-  const linkHoverColor = useColorModeValue("gray.800", "white");
-  const popoverContentBgColor = useColorModeValue("white", "gray.800");
-
-  return (
-    <Stack direction={"row"} spacing={4} align={"center"}>
-      {navItems.map((navItem) => (
-        <Box key={navItem.label}>
-          <Popover trigger={"hover"} placement={"bottom-start"}>
-            <PopoverTrigger>
-              <Link
-                p={1}
-                href={navItem.href ?? "#"}
-                fontSize={"sm"}
-                fontWeight={500}
-                color={linkColor}
-                _hover={{
-                  textDecoration: "none",
-                  color: linkHoverColor,
-                }}
-              >
-                {navItem.label}
-              </Link>
-            </PopoverTrigger>
-
-            {navItem.children && (
-              <PopoverContent
-                border={0}
-                boxShadow={"xl"}
-                bg={popoverContentBgColor}
-                p={4}
-                rounded={"xl"}
-                minW={"sm"}
-              >
-                <Stack>
-                  {navItem.children.map((child) => (
-                    <DesktopSubNav
-                      key={child.label}
-                      id={child.label}
-                      {...child}
-                    />
-                  ))}
-                </Stack>
-              </PopoverContent>
-            )}
-          </Popover>
-        </Box>
-      ))}
-    </Stack>
-  );
-};
-
-const DesktopSubNav = ({ label, href, subLabel }) => {
-  return (
-    <Link
-      href={href}
-      role={"group"}
-      display={"block"}
-      p={2}
-      rounded={"md"}
-      _hover={{ bg: useColorModeValue("pink.50", "gray.900") }}
-    >
-      <Stack direction={"row"} align={"center"}>
-        <Box>
-          <Text
-            transition={"all .3s ease"}
-            _groupHover={{ color: "pink.400" }}
-            fontWeight={500}
-          >
-            {label}
-          </Text>
-          <Text fontSize={"sm"}>{subLabel}</Text>
-        </Box>
-        <Flex
-          transition={"all .3s ease"}
-          transform={"translateX(-10px)"}
-          opacity={0}
-          _groupHover={{ opacity: "100%", transform: "translateX(0)" }}
-          justify={"flex-end"}
-          align={"center"}
-          flex={1}
-        >
-          <Icon color={"pink.400"} w={5} h={5} as={ChevronRightIcon} />
-        </Flex>
-      </Stack>
-    </Link>
-  );
-};
-
-const MobileNav = () => {
-  return (
-    <Stack
-      bg={useColorModeValue("white", "gray.800")}
-      p={4}
-      display={{ md: "none" }}
-    >
-      {navItems.map((navItem) => (
-        <MobileNavItem key={navItem.label} {...navItem} />
-      ))}
-    </Stack>
-  );
-};
-
-const MobileNavItem = ({ label, children, href }) => {
-  const { isOpen, onToggle } = useDisclosure();
-
-  return (
-    <Stack spacing={4} onClick={children && onToggle}>
-      <Flex
-        py={2}
-        as={Link}
-        href={href ?? "#"}
-        justify={"space-between"}
-        align={"center"}
-        _hover={{
-          textDecoration: "none",
-        }}
-      >
-        <Text
-          fontWeight={600}
-          color={useColorModeValue("gray.600", "gray.200")}
-        >
-          {label}
-        </Text>
-        {children && (
-          <Icon
-            as={ChevronDownIcon}
-            transition={"all .25s ease-in-out"}
-            transform={isOpen ? "rotate(180deg)" : ""}
-            w={6}
-            h={6}
-          />
-        )}
-      </Flex>
-
-      <Collapse in={isOpen} animateOpacity style={{ marginTop: "0!important" }}>
-        <Stack
-          mt={2}
-          pl={4}
-          borderLeft={1}
-          borderStyle={"solid"}
-          borderColor={useColorModeValue("gray.200", "gray.700")}
-          align={"start"}
-        >
-          {children &&
-            children.map((child) => (
-              <Link key={child.label} py={2} href={child.href}>
-                {child.label}
-              </Link>
-            ))}
-        </Stack>
-      </Collapse>
-    </Stack>
-  );
-};
