@@ -1,32 +1,19 @@
-
 /* eslint-disable */
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import { auth } from "../firebase/auth";
 import Layout from "../components/Layout";
-import { getUserById, db } from "../firebase/firestore";
-import { updateDoc, doc } from "firebase/firestore";
-import {
-  Box,
-  Heading,
-  Text,
-  Input,
-  Button,
-  VStack,
-  HStack,
-  Grid,
-  GridItem,
-  Spinner,
-  Center,
-  FormLabel,
-  FormControl,
-} from "@chakra-ui/react";
+import { auth } from "../firebase/auth";
+import { getUserById } from "../firebase/firestore";
+import { updateDoc, doc, getFirestore } from "firebase/firestore";
+import { Box, Heading, Text, Input, Button, VStack, HStack, Grid, GridItem, Spinner, Center, FormLabel, FormControl } from "@chakra-ui/react";
+
+const db = getFirestore();
 
 const milestones = {
   4: "Your baby is the size of a poppy seed! The neural tube is forming right now.",
   5: "A tiny heart has started beating. Your baby is about the size of a sesame seed.",
   6: "The baby face is beginning to form - tiny nostrils and the start of ears are appearing.",
-  7: "Your baby hands and feet are forming as little paddles. They are about the size of a blueberry!",
+  7: "Your baby hands and feet are forming as little paddles. About the size of a blueberry!",
   8: "All essential organs have begun to develop. Your baby moves, though you cannot feel it yet.",
   9: "Tiny toes are forming! Your baby is now about the size of a grape.",
   10: "Your baby can now swallow and produce urine. Tiny fingernails are starting to grow.",
@@ -99,9 +86,7 @@ function getMilestone(weeks) {
 
 function formatDueDate(dueDateStr) {
   return new Date(dueDateStr).toLocaleDateString("en-GB", {
-    day: "numeric",
-    month: "long",
-    year: "numeric",
+    day: "numeric", month: "long", year: "numeric",
   });
 }
 
@@ -141,11 +126,7 @@ export default function Dashboard() {
         dueDate: dueDateInput,
         location: locationInput,
       });
-      setUserData((prev) => ({
-        ...prev,
-        dueDate: dueDateInput,
-        location: locationInput,
-      }));
+      setUserData((prev) => ({ ...prev, dueDate: dueDateInput, location: locationInput }));
     } catch (e) {
       setError("Something went wrong saving your details. Please try again.");
     }
@@ -155,9 +136,7 @@ export default function Dashboard() {
   if (loading) {
     return (
       <Layout>
-        <Center h="60vh">
-          <Spinner size="xl" color="pink.400" />
-        </Center>
+        <Center h="60vh"><Spinner size="xl" color="pink.400" /></Center>
       </Layout>
     );
   }
@@ -168,54 +147,21 @@ export default function Dashboard() {
     return (
       <Layout>
         <Box maxW="460px" w="100%" bg="white" borderRadius="2xl" p={8} boxShadow="md" mt={10}>
-          <Heading as="h2" fontSize="2xl" mb={2} color="pink.700">
-            Welcome, Mama
-          </Heading>
+          <Heading as="h2" fontSize="2xl" mb={2} color="pink.700">Welcome, Mama</Heading>
           <Text color="gray.500" fontSize="sm" mb={8}>
-            Let us personalise your experience. Enter your details once and
-            we will track your journey every time you log in.
+            Let us personalise your experience. Enter your details once and we will track your journey every time you log in.
           </Text>
           <VStack spacing={5} align="stretch">
             <FormControl>
-              <FormLabel fontSize="sm" color="gray.500" fontWeight="600">
-                YOUR DUE DATE
-              </FormLabel>
-              <Input
-                type="date"
-                value={dueDateInput}
-                onChange={(e) => setDueDateInput(e.target.value)}
-                borderRadius="xl"
-                borderColor="orange.200"
-                _focus={{ borderColor: "orange.400", boxShadow: "none" }}
-                size="lg"
-              />
+              <FormLabel fontSize="sm" color="gray.500" fontWeight="600">YOUR DUE DATE</FormLabel>
+              <Input type="date" value={dueDateInput} onChange={(e) => setDueDateInput(e.target.value)} borderRadius="xl" borderColor="orange.200" size="lg" />
             </FormControl>
             <FormControl>
-              <FormLabel fontSize="sm" color="gray.500" fontWeight="600">
-                YOUR TOWN OR CITY
-              </FormLabel>
-              <Input
-                type="text"
-                placeholder="e.g. Nairobi, Lagos, London"
-                value={locationInput}
-                onChange={(e) => setLocationInput(e.target.value)}
-                borderRadius="xl"
-                borderColor="orange.200"
-                _focus={{ borderColor: "orange.400", boxShadow: "none" }}
-                size="lg"
-              />
+              <FormLabel fontSize="sm" color="gray.500" fontWeight="600">YOUR TOWN OR CITY</FormLabel>
+              <Input type="text" placeholder="e.g. Nairobi, Lagos, London" value={locationInput} onChange={(e) => setLocationInput(e.target.value)} borderRadius="xl" borderColor="orange.200" size="lg" />
             </FormControl>
             {error && <Text color="red.500" fontSize="sm">{error}</Text>}
-            <Button
-              onClick={handleSave}
-              isLoading={saving}
-              loadingText="Saving"
-              bg="orange.400"
-              color="white"
-              size="lg"
-              borderRadius="xl"
-              _hover={{ bg: "orange.500" }}
-            >
+            <Button onClick={handleSave} isLoading={saving} loadingText="Saving" bg="orange.400" color="white" size="lg" borderRadius="xl" _hover={{ bg: "orange.500" }}>
               Start My Journey
             </Button>
           </VStack>
@@ -234,9 +180,7 @@ export default function Dashboard() {
   return (
     <Layout>
       <Box maxW="480px" w="100%" mt={8} pb={16}>
-        <Heading as="h2" fontSize="xl" color="pink.700" mb={1}>
-          Hello, {userData.username || "Mama"}
-        </Heading>
+        <Heading as="h2" fontSize="xl" color="pink.700" mb={1}>Hello, {userData.username || "Mama"}</Heading>
         <Text fontSize="sm" color="gray.400" mb={6}>
           {new Date().toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long", year: "numeric" })}
         </Text>
@@ -244,14 +188,10 @@ export default function Dashboard() {
           <Text fontSize="xs" letterSpacing="widest" opacity={0.8} mb={1}>YOU ARE</Text>
           <Heading fontSize="6xl" lineHeight="1" mb={1}>{weeks}</Heading>
           <Text fontSize="lg" opacity={0.85} fontWeight="300">weeks pregnant</Text>
-          <Box display="inline-block" bg="whiteAlpha.200" border="1px solid" borderColor="whiteAlpha.300" borderRadius="full" px={4} py={1} fontSize="sm" mt={4} mb={6}>
-            {trimester}
-          </Box>
+          <Box display="inline-block" bg="whiteAlpha.200" border="1px solid" borderColor="whiteAlpha.300" borderRadius="full" px={4} py={1} fontSize="sm" mt={4} mb={6}>{trimester}</Box>
           <Box>
             <HStack justify="space-between" fontSize="xs" opacity={0.75} mb={2}>
-              <Text>Conception</Text>
-              <Text>{progress}%</Text>
-              <Text>Due Date</Text>
+              <Text>Conception</Text><Text>{progress}%</Text><Text>Due Date</Text>
             </HStack>
             <Box bg="whiteAlpha.300" borderRadius="full" h="6px">
               <Box bg="white" borderRadius="full" h="6px" w={progress + "%"} />
@@ -283,18 +223,7 @@ export default function Dashboard() {
           <Text fontSize="sm" color="gray.400" mb={4}>
             Based on your location: <Box as="span" fontWeight="600" color="gray.600">{userData.location || "not set"}</Box>
           </Text>
-          <Button
-            as="a"
-            href={"https://www.google.com/maps/search/" + mapsQuery}
-            target="_blank"
-            rel="noopener noreferrer"
-            w="100%"
-            bg="orange.50"
-            color="orange.500"
-            borderRadius="xl"
-            _hover={{ bg: "orange.100" }}
-            fontWeight="500"
-          >
+          <Button as="a" href={"https://www.google.com/maps/search/" + mapsQuery} target="_blank" rel="noopener noreferrer" w="100%" bg="orange.50" color="orange.500" borderRadius="xl" _hover={{ bg: "orange.100" }} fontWeight="500">
             Find Maternity Hospitals Near Me
           </Button>
         </Box>
