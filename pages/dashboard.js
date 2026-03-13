@@ -1,4 +1,4 @@
-import { getUserById } from "../firebase/db";
+import { getUserById, db } from "../firebase/firestore";
 /* eslint-disable */
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
