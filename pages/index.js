@@ -90,7 +90,7 @@ export default function Home() {
         <div className="hero">
 
           <div className="heroLeft">
-           <img src="/landingPageImages/ankara.png.png"
+            <img src="/landingPageImages/ankara.png.png" alt="Ankara fabric pattern" className="ankaraImg" />
             <div className="overlay"></div>
             <div className="heroText">
               <div className="badge"><span className="dot"></span>FOR BLACK AND MIXED-RACE MOTHERS</div>
