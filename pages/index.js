@@ -1,5 +1,4 @@
 /* eslint-disable */
-import { useRouter } from "next/router";
 import styles from "../styles/landing.module.css";
 import Layout from "../components/Layout";
 import { useRouter } from "next/router";
@@ -21,7 +20,7 @@ export default function Home() {
             Welcome to <strong>Amai-Mtoto</strong> — choose your space
           </span>
           <div className={styles.topBarLinks}>
-            <button className={styles.topBarActive}>👤 For Mothers</button>
+            <button className={styles.topBarActive}>For Mothers</button>
             <button className={styles.topBarBtn}>NHS Staff</button>
             <button className={styles.topBarBtn}>Lambeth</button>
           </div>
@@ -30,7 +29,7 @@ export default function Home() {
           <div className={styles.heroTextOverlay}>
             <div className={styles.heroBadge}>
               <span className={styles.heroBadgeDot}></span>
-              FOR BLACK &amp; MIXED-RACE MOTHERS
+              FOR BLACK AND MIXED-RACE MOTHERS
             </div>
             <h1 className={styles.heroHeading}>
               Your Pregnancy.<br />
