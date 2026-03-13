@@ -2,9 +2,10 @@
 /* eslint-disable */
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import Layout from "../components/Layout";
 import { auth } from "../firebase/auth";
-import { getUserById, db, updateDoc, doc } from "../firebase/firestore";
+import Layout from "../components/Layout";
+import { getUserById, db } from "../firebase/firestore";
+import { updateDoc, doc } from "firebase/firestore";
 import {
   Box,
   Heading,
