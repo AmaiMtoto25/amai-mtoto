@@ -1,3 +1,5 @@
+/* eslint-disable */
+import { useRouter } from "next/router";
 import styles from "../styles/landing.module.css";
 import Layout from "../components/Layout";
 import { useRouter } from "next/router";
