@@ -181,7 +181,7 @@ export default function AboutUs() {
         </nav>
 
         <div className="aboutHero">
-          <img src="/women smiling.png" alt="Four Black and mixed-race women laughing together in ankara print" className="heroImgBg" />
+          <img src="/womensmiling.png" alt="Four Black and mixed-race women laughing together in ankara print" className="heroImgBg" />
           <div className="heroImgOverlay"></div>
           <div className="heroContent">
             <div className="heroBadge"><span className="dot"></span>OUR STORY</div>
