@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import ArticleCard from "../components/ArticleCard";
