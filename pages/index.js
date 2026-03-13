@@ -1,8 +1,13 @@
-/* eslint-disable */
-import styles from "../styles/landing.module.css";
+import styles from "../styles/Home.module.css";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination, Autoplay } from "swiper";
 import Layout from "../components/Layout";
+import ChakraButton from "../components/ChakraButton";
 import { useRouter } from "next/router";
-import { useAuth } from "../context/AuthContext";
+import { Flex, VStack, Heading } from "@chakra-ui/react";
+import Image from "next/image";
+import Meditating from "../public/landingPageImages/Meditating.jpeg";
+import landingStyles from "../styles/landing.module.css";
 
 export async function getServerSideProps() {
   return { props: {} };
@@ -10,63 +15,48 @@ export async function getServerSideProps() {
 
 export default function Home() {
   const router = useRouter();
-  const { user } = useAuth();
-
+  const buttonTexts = [
+    "Explore Trimester 1",
+    "Explore Trimester 2",
+    "Explore Trimester 3",
+  ];
+  function onClick(e) {
+    buttonTexts.map((buttonText, i) => {
+      e.target.innerText === buttonText &&
+        router.push(`/trimester-${i + 1}/summary`);
+    });
+  }
   return (
     <Layout>
-      <div className={styles.page}>
-        <div className={styles.topBar}>
-          <span className={styles.topBarWelcome}>
-            Welcome to <strong>Amai-Mtoto</strong> — choose your space
-          </span>
-          <div className={styles.topBarLinks}>
-            <button className={styles.topBarActive}>For Mothers</button>
-            <button className={styles.topBarBtn}>NHS Staff</button>
-            <button className={styles.topBarBtn}>Lambeth</button>
-          </div>
-        </div>
-        <div className={styles.hero}>
-          <div className={styles.heroTextOverlay}>
-            <div className={styles.heroBadge}>
-              <span className={styles.heroBadgeDot}></span>
-              FOR BLACK AND MIXED-RACE MOTHERS
+      <div className={styles.container}>
+        <main>
+          <Flex flexDirection={["column-reverse", "row"]} py={20}>
+            <Flex flexWrap="wrap" justifyContent="center">
+              <VStack mr={30}>
+                <Heading as="h2" fontSize={20} mb={10} mt={10} textAlign="center">
+                  Amai Mtoto, with you on every step of your pregnancy journey
+                </Heading>
+                {buttonTexts.map((button, i) => {
+                  return (
+                    <div key={i}>
+                      <ChakraButton functionToCallWhenButtonIsClicked={onClick}>
+                        {button}
+                      </ChakraButton>
+                    </div>
+                  );
+                })}
+              </VStack>
+            </Flex>
+            <div className={landingStyles.imageDiv}>
+              <Image
+                src={Meditating}
+                alt="A black pregnant woman sitting on a yoga mat looking calm and happy"
+                width={800}
+                height={1833}
+              />
             </div>
-            <h1 className={styles.heroHeading}>
-              Your Pregnancy.<br />
-              Your Culture.<br />
-              <em>Your Community.</em>
-            </h1>
-            <p className={styles.heroSubtext}>
-              A safe, culturally-rooted space for Black and mixed-race women
-              navigating pregnancy, birth and the postnatal journey.
-            </p>
-            <div className={styles.heroCtas}>
-              <button
-                className={styles.ctaPrimary}
-                onClick={() => router.push(user ? "/dashboard" : "/sign-up")}
-              >
-                {user ? "Go to My Dashboard" : "Join Our Community"}
-              </button>
-              <button
-                className={styles.ctaSecondary}
-                onClick={() => router.push("/trimester-1/summary")}
-              >
-                Explore Resources
-              </button>
-            </div>
-          </div>
-        </div>
-        <div className={styles.trimesterStrip}>
-          {[1, 2, 3].map((t) => (
-            <button
-              key={t}
-              className={styles.trimesterBtn}
-              onClick={() => router.push(`/trimester-${t}/summary`)}
-            >
-              Explore Trimester {t}
-            </button>
-          ))}
-        </div>
+          </Flex>
+        </main>
       </div>
     </Layout>
   );
