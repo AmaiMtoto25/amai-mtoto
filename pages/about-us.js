@@ -46,15 +46,27 @@ export default function AboutUs() {
           .akoko-pattern::before {
             content: '';
             position: absolute;
-            inset: 0;
+            inset: -50%;
+            width: 200%;
+            height: 200%;
             background-image: url('/akoko-nan-medium.png');
-            background-size: 80px 80px;
+            background-size: 90px 90px;
             background-repeat: repeat;
-            opacity: 0.05;
+            opacity: 0.07;
             pointer-events: none;
             z-index: 0;
+            transform: rotate(90deg);
           }
           .akoko-pattern > * { position: relative; z-index: 1; }
+
+          /* Text pop over pattern */
+          .sectionTitle { text-shadow: 0 1px 12px rgba(253,246,240,0.9), 0 0 24px rgba(253,246,240,0.7); }
+          .sectionLabel { text-shadow: 0 1px 8px rgba(253,246,240,0.95); }
+          .missionText p { text-shadow: 0 1px 6px rgba(253,246,240,0.8); }
+          .valueTitle { text-shadow: 0 1px 6px rgba(255,255,255,0.9); }
+          .valueDesc { text-shadow: 0 1px 4px rgba(255,255,255,0.7); }
+          .teamName { text-shadow: 0 1px 6px rgba(255,255,255,0.9); }
+          .teamBio { text-shadow: 0 1px 4px rgba(255,255,255,0.7); }
 
           /* Top bar */
           .topBar { background: #5C1200; display: flex; align-items: center; justify-content: space-between; padding: 8px 40px; font-size: 13px; color: rgba(255,255,255,0.85); }
@@ -133,6 +145,16 @@ export default function AboutUs() {
           .btnP { background: #F5A623; color: #3D1200; border: none; border-radius: 32px; padding: 15px 34px; font-size: 15px; font-weight: 700; cursor: pointer; font-family: 'DM Sans', sans-serif; }
           .btnS { background: transparent; color: white; border: 2px solid rgba(255,255,255,0.55); border-radius: 32px; padding: 15px 34px; font-size: 15px; font-weight: 500; cursor: pointer; font-family: 'DM Sans', sans-serif; }
 
+          /* For Who section */
+          .forWhoSection { background: #FDF6F0; border-top: 1px solid #EDD8C8; }
+          .forWhoGrid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 40px; }
+          .forWhoCard { padding: 40px; border-radius: 20px; }
+          .forWhoCardGreen { background: linear-gradient(135deg, #1B4332, #2D6A4F); }
+          .forWhoCardOrange { background: linear-gradient(135deg, #5C1200, #C4622D); }
+          .forWhoIcon { font-size: 28px; margin-bottom: 16px; color: rgba(255,255,255,0.7); }
+          .forWhoTitle { font-family: 'Playfair Display', serif; font-size: 22px; color: white; margin-bottom: 14px; }
+          .forWhoDesc { font-size: 15px; color: rgba(255,255,255,0.82); line-height: 1.8; font-weight: 300; }
+
           /* Responsive */
           @media (max-width: 900px) {
             .heroContent { padding: 56px 32px; }
@@ -143,6 +165,7 @@ export default function AboutUs() {
             .statItem:nth-child(3) { border-top: 1px solid rgba(255,255,255,0.1); }
             .missionGrid { grid-template-columns: 1fr; gap: 36px; }
             .valuesGrid { grid-template-columns: 1fr; }
+            .forWhoGrid { grid-template-columns: 1fr; }
             .teamGrid { grid-template-columns: repeat(2, 1fr); }
             .topBar { flex-direction: column; gap: 8px; padding: 10px 20px; text-align: center; }
             .mainNav { padding: 0 20px; }
@@ -204,13 +227,30 @@ export default function AboutUs() {
             <div className="missionText">
               <p className="sectionLabel">Our Mission</p>
               <h2 className="sectionTitle">Why <em>Amai Mtoto</em> exists</h2>
-              <p>The UK has one of the worst records in the developed world for racial disparities in maternal health. Black women are four times more likely to die during or after childbirth. Mixed-race women face twice the risk. These are not inevitable outcomes — they are the result of systemic failures.</p>
-              <p>Amai Mtoto was built to change that. We combine midwifery expertise with the lived wisdom of African and Caribbean communities to give mothers the information, tools and community they deserve.</p>
-              <p>Our name says it all: <em style={{color:"#2D6A4F"}}>Amai</em> means mother in Shona. <em style={{color:"#2D6A4F"}}>Mtoto</em> means child in Swahili. Two languages. One mission.</p>
+              <p><em style={{color:"#2D6A4F"}}>Amai</em> means Mother in Shona. <em style={{color:"#2D6A4F"}}>Mtoto</em> means Child in Swahili. Together they represent the heart of everything this platform stands for — empowering mothers, supporting families, and building a community that carries each other through the pregnancy journey and beyond.</p>
+              <p>I created Amai Mtoto because I wanted Black and mixed-race women and their families to have a space where they could take ownership of their own health. A place built on evidence-based practice that speaks directly to our community — covering nutrition and cultural foods, exercise, parent education, mental wellbeing, and the medical topics that disproportionately affect us.</p>
+              <p>But it's more than information. It's about building a village. A community where mothers continue to support each other long after the birth — because that network is just as vital as any clinical resource.</p>
             </div>
             <div className="quoteCard">
-              <p className="quoteText">"Every woman deserves to feel seen, heard and safe during the most transformative experience of her life — regardless of the colour of her skin."</p>
-              <p className="quoteAuthor">— Dr. Amara Osei, Co-Founder</p>
+              <p className="quoteText">"I wanted to create a space where Black and mixed-race women could take ownership of their health — with the knowledge, tools and community to do it confidently."</p>
+              <p className="quoteAuthor">— Founder, Amai Mtoto</p>
+            </div>
+          </div>
+        </div>
+
+        <div className="section forWhoSection akoko-pattern">
+          <p className="sectionLabel">Who we serve</p>
+          <h2 className="sectionTitle">Built for <em>mothers</em> and <em>staff</em></h2>
+          <div className="forWhoGrid">
+            <div className="forWhoCard forWhoCardGreen">
+              <div className="forWhoIcon">◉</div>
+              <h3 className="forWhoTitle">For Mothers & Families</h3>
+              <p className="forWhoDesc">A holistic pregnancy wellbeing hub covering nutrition and cultural foods, exercise, parent education, mental wellbeing, and medical topics that affect our community — all with evidence-based information and local signposting to services and health professionals near you.</p>
+            </div>
+            <div className="forWhoCard forWhoCardOrange">
+              <div className="forWhoIcon">✦</div>
+              <h3 className="forWhoTitle">For NHS & Healthcare Staff</h3>
+              <p className="forWhoDesc">Additional signposting and cultural guidance to support your patients — including advice on cultural foods for high BP, gestational diabetes and high BMI, mental health groups for the Black community, and healthy recipe swaps tailored to your patients' backgrounds.</p>
             </div>
           </div>
         </div>
