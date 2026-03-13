@@ -135,7 +135,7 @@ const Topic = ({ trimesterArticlesDb, topicId, resolvedUrl }) => {
       <div style={s.page}>
 
         {/* ── Hero ── */}
-        <div style={s.hero}>
+        <div className="topic-hero" style={s.hero}>
           <div style={s.heroSymbol}></div>
           <div style={s.badge}>
             <span style={s.badgeDot}></span>
@@ -143,7 +143,7 @@ const Topic = ({ trimesterArticlesDb, topicId, resolvedUrl }) => {
           </div>
           <h1 style={s.heroTitle}>{topicContent.title}</h1>
           <p style={s.heroSub}>{intro}</p>
-          <div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
+          <div className="pills-row" style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
             <span style={s.pill}>{icon} {topicId.charAt(0).toUpperCase() + topicId.slice(1)}</span>
             {otherTopics.map(t => (
               <a key={t} href={`/trimester-${trimesterNum}/${t}`} style={s.pillOther}>
@@ -154,11 +154,11 @@ const Topic = ({ trimesterArticlesDb, topicId, resolvedUrl }) => {
         </div>
 
         {/* ── Body ── */}
-        <div style={s.body}>
+        <div className="topic-body" style={s.body}>
           <div style={{ maxWidth: "1000px", margin: "0 auto" }}>
 
             {/* Overview + Key Tips */}
-            <div style={{ display: "grid", gridTemplateColumns: "1.4fr 1fr", gap: "20px", marginBottom: "40px" }}>
+            <div className="overview-grid" style={{ display: "grid", gridTemplateColumns: "1.4fr 1fr", gap: "20px", marginBottom: "40px" }}>
               <div style={s.card}>
                 <div style={{ position: "absolute", right: "-20px", bottom: "-20px", width: "130px", height: "130px", backgroundImage: `url('${AKOKO}')`, backgroundSize: "contain", backgroundRepeat: "no-repeat", opacity: 0.05, transform: "rotate(90deg)", pointerEvents: "none" }}></div>
                 <div style={s.sectionLabel}>Overview</div>
@@ -201,7 +201,7 @@ const Topic = ({ trimesterArticlesDb, topicId, resolvedUrl }) => {
                 <div style={s.sectionLabel}>Videos</div>
                 <div style={s.dividerLine}></div>
               </div>
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: "16px" }}>
+              <div className="video-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: "16px" }}>
                 {topicContent.content?.props?.children && React.Children.toArray(topicContent.content.props.children)
                   .filter(child => child?.props?.src?.includes("youtube"))
                   .slice(0, 3)
@@ -233,7 +233,7 @@ const Topic = ({ trimesterArticlesDb, topicId, resolvedUrl }) => {
             </div>
 
             {/* Articles + Recipes */}
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "24px", marginBottom: "40px" }}>
+            <div className="articles-recipes-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "24px", marginBottom: "40px" }}>
 
               {/* Articles — searchable dropdown */}
               <div>
@@ -326,12 +326,12 @@ const Topic = ({ trimesterArticlesDb, topicId, resolvedUrl }) => {
               </div>
               <div style={{ ...s.card, padding: "32px" }}>
                 <div style={{ position: "absolute", right: "-20px", bottom: "-20px", width: "140px", height: "140px", backgroundImage: `url('${AKOKO}')`, backgroundSize: "contain", backgroundRepeat: "no-repeat", opacity: 0.05, transform: "rotate(-15deg)", pointerEvents: "none" }}></div>
-                <div style={{ display: "flex", alignItems: "center", gap: "24px", flexWrap: "wrap" }}>
+                <div className="services-row" style={{ display: "flex", alignItems: "center", gap: "24px", flexWrap: "wrap" }}>
                   <div style={{ flex: 1, minWidth: "200px" }}>
                     <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: "20px", fontWeight: "700", color: "#1a0800", marginBottom: "8px" }}>Find services near you</h3>
                     <p style={{ fontSize: "14px", color: "#6b4030", fontWeight: "400", lineHeight: "1.6" }}>Midwives, antenatal classes, mental health support and community groups in your area.</p>
                   </div>
-                  <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
+                  <div className="services-input-row" style={{ display: "flex", gap: "10px", alignItems: "center" }}>
                     <input
                       type="text"
                       placeholder="Enter postcode..."
@@ -375,7 +375,7 @@ const Topic = ({ trimesterArticlesDb, topicId, resolvedUrl }) => {
                 <div style={s.sectionLabel}>Community Q&A</div>
                 <div style={s.dividerLine}></div>
               </div>
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px", marginBottom: "20px" }}>
+              <div className="qa-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px", marginBottom: "20px" }}>
                 {[
                   { q: "Is it safe to exercise in the first trimester?", a: "Yes — gentle exercise like walking and swimming is encouraged throughout pregnancy as long as you feel well." },
                   { q: "When should I book my midwife appointment?", a: "Book as soon as possible, ideally before 10 weeks. Contact your GP or self-refer to your local maternity unit." },
@@ -397,7 +397,7 @@ const Topic = ({ trimesterArticlesDb, topicId, resolvedUrl }) => {
             </div>
 
             {/* Bottom trimester nav */}
-            <div style={{ marginTop: "56px", background: `linear-gradient(135deg, ${config.from}, ${config.to})`, borderRadius: "20px", padding: "36px 40px", display: "flex", alignItems: "center", justifyContent: "space-between", gap: "20px", flexWrap: "wrap", position: "relative", overflow: "hidden" }}>
+            <div className="bottom-nav" style={{ marginTop: "56px", background: `linear-gradient(135deg, ${config.from}, ${config.to})`, borderRadius: "20px", padding: "36px 40px", display: "flex", alignItems: "center", justifyContent: "space-between", gap: "20px", flexWrap: "wrap", position: "relative", overflow: "hidden" }}>
               <div style={{ position: "absolute", right: "-20px", bottom: "-20px", width: "160px", height: "160px", backgroundImage: `url('${AKOKO}')`, backgroundSize: "contain", backgroundRepeat: "no-repeat", opacity: 0.07, pointerEvents: "none" }}></div>
               <div>
                 <p style={{ fontFamily: "'Playfair Display', serif", fontSize: "20px", color: "white", marginBottom: "6px", fontWeight: "700" }}>Explore more</p>
@@ -417,11 +417,50 @@ const Topic = ({ trimesterArticlesDb, topicId, resolvedUrl }) => {
       </div>
 
       <style>{`
-        @media (max-width: 900px) {
-          .topic-grid-2 { grid-template-columns: 1fr !important; }
-          .topic-grid-3 { grid-template-columns: 1fr !important; }
-          .topic-hero { padding: 40px 24px !important; }
-          .topic-body { padding: 32px 24px !important; }
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500;600;700&display=swap');
+
+        @media (max-width: 768px) {
+          /* Hero */
+          .topic-hero { padding: 32px 20px !important; }
+          .topic-hero h1 { font-size: 28px !important; }
+          .topic-hero p { font-size: 13px !important; }
+
+          /* Body */
+          .topic-body { padding: 24px 16px !important; }
+
+          /* All 2-col grids -> single col */
+          .grid-2col { grid-template-columns: 1fr !important; }
+          .grid-3col { grid-template-columns: 1fr !important; }
+
+          /* Overview + tips stacked */
+          .overview-grid { grid-template-columns: 1fr !important; }
+
+          /* Recipe cards - make image smaller */
+          .recipe-img { width: 56px !important; }
+
+          /* Bottom nav wrap */
+          .bottom-nav { flex-direction: column !important; align-items: flex-start !important; }
+          .bottom-nav-links { flex-wrap: wrap !important; }
+
+          /* Local services */
+          .services-row { flex-direction: column !important; align-items: flex-start !important; }
+          .services-input-row { width: 100% !important; }
+          .services-input-row input { width: 100% !important; flex: 1 !important; }
+
+          /* Q&A grid */
+          .qa-grid { grid-template-columns: 1fr !important; }
+
+          /* Video grid */
+          .video-grid { grid-template-columns: 1fr !important; }
+
+          /* Article + recipe grid */
+          .articles-recipes-grid { grid-template-columns: 1fr !important; }
+
+          /* Pills wrap */
+          .pills-row { flex-wrap: wrap !important; }
+
+          /* iframe */
+          iframe { border-radius: 8px !important; }
         }
       `}</style>
     </Layout>
