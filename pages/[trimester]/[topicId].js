@@ -37,9 +37,37 @@ const sectionIntros = {
   wellbeing: "Your mental and emotional health matters just as much as your physical health. Here's how to look after yourself.",
 };
 
+const topicOverviewVideos = {
+  "/trimester-1/summary": "https://www.youtube.com/embed/-pyp6xy_vRE",
+  "/trimester-1/exercise": "https://www.youtube.com/embed/OnkIeuJe95M",
+  "/trimester-1/nutrition": "https://www.youtube.com/embed/ZrV09MRqAeo",
+  "/trimester-1/wellbeing": "https://www.youtube.com/embed/ZrV09MRqAeo",
+  "/trimester-2/summary": "https://www.youtube.com/embed/ZrV09MRqAeo",
+  "/trimester-2/exercise": "https://www.youtube.com/embed/PAh8ZF8R3LA",
+  "/trimester-2/wellbeing": "https://www.youtube.com/embed/atywJYp-a70",
+  "/trimester-3/exercise": "https://www.youtube.com/embed/SVMRCH5CpGA",
+};
+
+const topicShortSummary = {
+  "/trimester-1/summary": "The first trimester covers weeks 1–12. Your body is working hard — you may feel tired, nauseous or emotional. All of this is completely normal. Explore the sections below for guidance on exercise, nutrition and wellbeing.",
+  "/trimester-1/exercise": "Gentle exercise in the first trimester is safe and beneficial. Aim for 150 minutes of activity per week — walking, swimming and yoga are all great options.",
+  "/trimester-1/nutrition": "Eating well doesn't mean eating for two. Focus on variety, stay hydrated, and take your folic acid daily. Cultural foods like jollof rice, plantain and egusi are all great choices.",
+  "/trimester-1/wellbeing": "Early pregnancy brings mixed emotions. Taking care of your mental health is just as important as your physical health — give yourself permission to rest and reach out when you need support.",
+  "/trimester-2/summary": "Welcome to the second trimester — weeks 13–26. Many women start to feel better at this stage. Your bump is growing and you may feel your baby's first movements from around 16 weeks.",
+  "/trimester-2/exercise": "Low-impact exercises like swimming, walking and yoga are ideal in the second trimester. As your bump grows, avoid exercises that put pressure on your abdomen.",
+  "/trimester-2/nutrition": "Continue focusing on balanced food groups. Batch cooking can help you stay nourished even on tiring days. Cravings are common — try healthier swaps where you can.",
+  "/trimester-2/wellbeing": "The second trimester can feel more settled emotionally, but worries about your baby are normal. Try affirmations, journaling or talking to a trusted person.",
+  "/trimester-3/summary": "You are in the final stretch — weeks 27–40. Aches and pains are common as your baby grows. Rest as much as you can and prepare for birth.",
+  "/trimester-3/exercise": "Keep movement gentle in the third trimester — walking, stretching, yoga and swimming are all great. Listen to your body and rest when you need to.",
+  "/trimester-3/nutrition": "Energy levels may dip in the third trimester. Choose nutrient-dense foods and limit sugary snacks. Keep hydrated and eat little and often.",
+  "/trimester-3/wellbeing": "The final weeks can bring excitement and anxiety. Talk to your midwife about any worries, prepare your birth plan, and lean on your community for support.",
+};
+
 const Topic = ({ trimesterArticlesDb, topicId, resolvedUrl }) => {
   const [postcode, setPostcode] = useState("");
   const [postcodeSubmitted, setPostcodeSubmitted] = useState(false);
+  const [articleSearch, setArticleSearch] = useState("");
+  const [articlesOpen, setArticlesOpen] = useState(false);
 
   const topicContent = topicSummaryArr.find((topic) => topic.id === resolvedUrl);
   if (!topicContent) return null;
@@ -135,9 +163,23 @@ const Topic = ({ trimesterArticlesDb, topicId, resolvedUrl }) => {
                 <div style={{ position: "absolute", right: "-20px", bottom: "-20px", width: "130px", height: "130px", backgroundImage: `url('${AKOKO}')`, backgroundSize: "contain", backgroundRepeat: "no-repeat", opacity: 0.05, transform: "rotate(90deg)", pointerEvents: "none" }}></div>
                 <div style={s.sectionLabel}>Overview</div>
                 <h2 style={s.sectionTitle}>{topicContent.title}</h2>
-                <div style={{ fontSize: "14px", color: "#3a1808", lineHeight: "1.8", fontWeight: "400" }}>
-                  {topicContent.content}
+
+                {/* Featured overview video */}
+                <div style={{ borderRadius: "12px", overflow: "hidden", marginBottom: "16px", position: "relative", paddingBottom: "56.25%", background: config.from }}>
+                  <div style={{ position: "absolute", inset: 0, backgroundImage: `url('${AKOKO}')`, backgroundSize: "80px", backgroundRepeat: "no-repeat", backgroundPosition: "center", opacity: 0.07 }}></div>
+                  <iframe
+                    src={topicOverviewVideos[resolvedUrl] || "https://www.youtube.com/embed/ZrV09MRqAeo"}
+                    style={{ position: "absolute", inset: 0, width: "100%", height: "100%", border: "none" }}
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                    title="Overview video"
+                  />
                 </div>
+
+                {/* Short summary text */}
+                <p style={{ fontSize: "14px", color: "#3a1808", lineHeight: "1.75", fontWeight: "400" }}>
+                  {topicShortSummary[resolvedUrl] || "Watch the video above for a quick overview, then explore the sections below for detailed guidance."}
+                </p>
               </div>
               <div style={s.greenCard}>
                 <div style={{ position: "absolute", right: "-16px", top: "-16px", width: "100px", height: "100px", backgroundImage: `url('${AKOKO}')`, backgroundSize: "contain", backgroundRepeat: "no-repeat", opacity: 0.08, pointerEvents: "none" }}></div>
@@ -193,23 +235,57 @@ const Topic = ({ trimesterArticlesDb, topicId, resolvedUrl }) => {
             {/* Articles + Recipes */}
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "24px", marginBottom: "40px" }}>
 
-              {/* Articles */}
+              {/* Articles — searchable dropdown */}
               <div>
                 <div style={s.divider}>
                   <div style={s.sectionLabel}>Articles & Resources</div>
                   <div style={s.dividerLine}></div>
                 </div>
-                {topicArticles.length > 0 ? topicArticles.map((article, i) => (
-                  <a key={i} href={article.src} target="_blank" rel="noreferrer" style={s.articleRow}>
-                    <div>
-                      <div style={{ fontSize: "13px", fontWeight: "600", color: "#1a0800", marginBottom: "3px" }}>{article.title}</div>
-                      <div style={{ fontSize: "11px", color: "#888", fontWeight: "500" }}>{article.author}</div>
+
+                {/* Search toggle bar */}
+                <div
+                  onClick={() => setArticlesOpen(!articlesOpen)}
+                  style={{ background: "white", borderRadius: "12px", border: `1.5px solid ${articlesOpen ? "#C4622D" : "#EDD8C8"}`, padding: "14px 18px", display: "flex", alignItems: "center", justifyContent: "space-between", cursor: "pointer", marginBottom: articlesOpen ? "12px" : "0" }}
+                >
+                  <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                    <span style={{ fontSize: "16px", color: "#C4622D" }}>◎</span>
+                    <span style={{ fontSize: "14px", fontWeight: "600", color: "#1a0800" }}>Search articles & resources</span>
+                  </div>
+                  <span style={{ fontSize: "18px", color: "#C4622D", fontWeight: "700", transform: articlesOpen ? "rotate(45deg)" : "none", transition: "transform 0.2s" }}>+</span>
+                </div>
+
+                {articlesOpen && (
+                  <div style={{ background: "white", borderRadius: "12px", border: "1px solid #EDD8C8", overflow: "hidden" }}>
+                    {/* Search input */}
+                    <div style={{ padding: "14px 16px", borderBottom: "1px solid #EDD8C8" }}>
+                      <input
+                        type="text"
+                        placeholder="Search by title or author..."
+                        value={articleSearch}
+                        onChange={e => setArticleSearch(e.target.value)}
+                        onClick={e => e.stopPropagation()}
+                        style={{ width: "100%", border: "1.5px solid #EDD8C8", borderRadius: "8px", padding: "10px 14px", fontSize: "14px", color: "#1a0800", fontFamily: "'DM Sans', sans-serif", fontWeight: "500", outline: "none", background: "#FDF6F0" }}
+                      />
                     </div>
-                    <span style={s.arrow}>→</span>
-                  </a>
-                )) : (
-                  <div style={{ ...s.card, padding: "20px", textAlign: "center" }}>
-                    <div style={{ fontSize: "13px", color: "#888" }}>Resources coming soon.</div>
+
+                    {/* Filtered results */}
+                    <div style={{ maxHeight: "320px", overflowY: "auto" }}>
+                      {topicArticles
+                        .filter(a => !articleSearch || a.title.toLowerCase().includes(articleSearch.toLowerCase()) || (a.author || "").toLowerCase().includes(articleSearch.toLowerCase()))
+                        .map((article, i, arr) => (
+                          <a key={i} href={article.src} target="_blank" rel="noreferrer" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "12px", padding: "14px 18px", borderBottom: i < arr.length - 1 ? "1px solid #EDD8C8" : "none", textDecoration: "none", background: "white" }}>
+                            <div>
+                              <div style={{ fontSize: "13px", fontWeight: "600", color: "#1a0800", marginBottom: "3px" }}>{article.title}</div>
+                              <div style={{ fontSize: "11px", color: "#888", fontWeight: "500" }}>{article.author}</div>
+                            </div>
+                            <span style={s.arrow}>→</span>
+                          </a>
+                        ))
+                      }
+                      {topicArticles.filter(a => !articleSearch || a.title.toLowerCase().includes(articleSearch.toLowerCase()) || (a.author || "").toLowerCase().includes(articleSearch.toLowerCase())).length === 0 && (
+                        <div style={{ padding: "24px", textAlign: "center", fontSize: "13px", color: "#888" }}>No articles found for "{articleSearch}"</div>
+                      )}
+                    </div>
                   </div>
                 )}
               </div>
