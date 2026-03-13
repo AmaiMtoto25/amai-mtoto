@@ -31,18 +31,17 @@ export default function Home() {
           .navLinks a { color: white; text-decoration: none; font-size: 14px; font-weight: 500; opacity: 0.9; }
           .signInBtn { background: transparent; color: white; border: 2px solid rgba(255,255,255,0.6); border-radius: 24px; padding: 8px 22px; font-size: 14px; font-weight: 600; cursor: pointer; font-family: 'DM Sans', sans-serif; }
           .hero { display: flex; min-height: calc(100vh - 104px); }
-          .heroLeft { flex: 1; position: relative; background: #C4622D; overflow: hidden; }
-          .pattern1 { position: absolute; inset: 0; opacity: 0.2; background-image: repeating-linear-gradient(45deg, #F5A623 0, #F5A623 2px, transparent 0, transparent 50%), repeating-linear-gradient(-45deg, #8B2500 0, #8B2500 2px, transparent 0, transparent 50%); background-size: 30px 30px; }
-          .pattern2 { position: absolute; inset: 0; opacity: 0.12; background-image: radial-gradient(circle, #F5C87A 2px, transparent 2px); background-size: 24px 24px; }
-          .overlay { position: absolute; inset: 0; background: linear-gradient(135deg, rgba(90,15,0,0.65) 0%, rgba(196,98,45,0.15) 100%); }
+          .heroLeft { flex: 1; position: relative; overflow: hidden; }
+          .ankaraImg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; }
+          .overlay { position: absolute; inset: 0; background: linear-gradient(135deg, rgba(5,18,12,0.82) 0%, rgba(5,18,12,0.55) 60%, rgba(5,18,12,0.15) 100%); }
           .heroText { position: relative; z-index: 2; padding: 80px 56px; height: 100%; display: flex; flex-direction: column; justify-content: center; }
-          .badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.3); border-radius: 24px; padding: 6px 16px; color: white; font-size: 11px; font-weight: 700; letter-spacing: 1.5px; margin-bottom: 28px; width: fit-content; }
+          .badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(0,0,0,0.35); border: 1px solid rgba(255,255,255,0.25); border-radius: 24px; padding: 6px 16px; color: white; font-size: 11px; font-weight: 700; letter-spacing: 1.5px; margin-bottom: 28px; width: fit-content; }
           .dot { width: 8px; height: 8px; background: #F5A623; border-radius: 50%; display: inline-block; }
           .h1 { font-family: 'Playfair Display', serif; font-size: clamp(38px, 4.5vw, 64px); font-weight: 700; color: white; line-height: 1.1; margin-bottom: 20px; }
           .h1 em { font-style: italic; color: #F5C87A; }
-          .sub { font-size: 15px; color: rgba(255,255,255,0.85); line-height: 1.7; max-width: 420px; margin-bottom: 40px; font-weight: 300; }
+          .sub { font-size: 15px; color: rgba(255,255,255,0.88); line-height: 1.7; max-width: 420px; margin-bottom: 40px; font-weight: 300; }
           .btns { display: flex; gap: 14px; flex-wrap: wrap; }
-          .btnP { background: #F5A623; color: #3D1200; border: none; border-radius: 32px; padding: 15px 34px; font-size: 15px; font-weight: 700; cursor: pointer; font-family: 'DM Sans', sans-serif; box-shadow: 0 6px 24px rgba(0,0,0,0.25); }
+          .btnP { background: #F5A623; color: #3D1200; border: none; border-radius: 32px; padding: 15px 34px; font-size: 15px; font-weight: 700; cursor: pointer; font-family: 'DM Sans', sans-serif; box-shadow: 0 6px 24px rgba(0,0,0,0.3); }
           .btnS { background: transparent; color: white; border: 2px solid rgba(255,255,255,0.5); border-radius: 32px; padding: 15px 34px; font-size: 15px; font-weight: 500; cursor: pointer; font-family: 'DM Sans', sans-serif; }
           .heroRight { flex: 1; position: relative; background: #111; min-height: 500px; }
           .heroImg { width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; }
@@ -89,8 +88,7 @@ export default function Home() {
 
         <div className="hero">
           <div className="heroLeft">
-            <div className="pattern1"></div>
-            <div className="pattern2"></div>
+            <img src="/landingPageImages/ankara-pattern.png" alt="Ankara fabric pattern" className="ankaraImg" />
             <div className="overlay"></div>
             <div className="heroText">
               <div className="badge"><span className="dot"></span>FOR BLACK AND MIXED-RACE MOTHERS</div>
