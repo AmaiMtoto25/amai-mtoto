@@ -1,12 +1,9 @@
-import { getUserById, db } from "../firebase/firestore";
 /* eslint-disable */
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Layout from "../components/Layout";
 import { auth } from "../firebase/auth";
-import { getUserById } from "../firebase/db";
-import { db } from "../firebase/db";
-import { updateDoc, doc } from "firebase/firestore";
+import { getUserById, db, updateDoc, doc } from "../firebase/firestore";
 import {
   Box,
   Heading,
