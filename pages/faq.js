@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import Layout from "../components/Layout";
 import { getAllFAQs } from "../firebase/firestore";
+import Head from "next/head";
 
 export async function getServerSideProps() {
   const questionsData = await getAllFAQs();
@@ -10,46 +11,138 @@ export async function getServerSideProps() {
 
 export default function FaqPage({ questionsData }) {
   const [openIndex, setOpenIndex] = useState(null);
-
   const toggle = (i) => setOpenIndex(openIndex === i ? null : i);
 
   return (
     <Layout>
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap');
-        .faq-page { width: 100%; max-width: 800px; margin: 0 auto; padding: 64px 24px; font-family: 'DM Sans', sans-serif; }
-        .faq-label { font-size: 11px; font-weight: 700; letter-spacing: 2px; color: #2D6A4F; text-transform: uppercase; margin-bottom: 12px; }
-        .faq-title { font-family: 'Playfair Display', serif; font-size: clamp(32px, 4vw, 48px); font-weight: 700; color: #1a0800; line-height: 1.1; margin-bottom: 12px; }
-        .faq-title em { font-style: italic; color: #C4622D; }
-        .faq-sub { font-size: 15px; color: #6b4030; line-height: 1.7; font-weight: 300; margin-bottom: 48px; max-width: 560px; }
-        .faq-list { display: flex; flex-direction: column; gap: 12px; }
-        .faq-item { background: white; border: 1px solid #EDD8C8; border-radius: 14px; overflow: hidden; transition: box-shadow 0.2s; }
-        .faq-item.open { border-color: #C4622D; box-shadow: 0 4px 20px rgba(196,98,45,0.1); }
-        .faq-question { width: 100%; display: flex; align-items: center; justify-content: space-between; padding: 20px 24px; background: transparent; border: none; cursor: pointer; text-align: left; font-family: 'DM Sans', sans-serif; gap: 16px; }
-        .faq-question-text { font-size: 15px; font-weight: 500; color: #1a0800; line-height: 1.4; }
-        .faq-item.open .faq-question-text { color: #C4622D; }
-        .faq-icon { width: 28px; height: 28px; border-radius: 50%; background: #FDF6F0; border: 1px solid #EDD8C8; display: flex; align-items: center; justify-content: center; font-size: 16px; color: #C4622D; flex-shrink: 0; transition: transform 0.2s, background 0.2s; }
-        .faq-item.open .faq-icon { background: #C4622D; color: white; transform: rotate(45deg); }
-        .faq-answer { padding: 0 24px 20px; font-size: 14px; color: #4a2010; line-height: 1.8; font-weight: 300; border-top: 1px solid #EDD8C8; padding-top: 16px; }
-      `}</style>
+      <Head>
+        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+      </Head>
 
-      <div className="faq-page">
-        <p className="faq-label">Got questions?</p>
-        <h1 className="faq-title">Frequently asked <em>questions</em></h1>
-        <p className="faq-sub">Everything you need to know about pregnancy, exercise, nutrition and wellbeing — answered with evidence-based guidance.</p>
+      {/* Hero banner */}
+      <div style={{
+        background: "linear-gradient(135deg, #3D1200 0%, #8B2500 50%, #C4622D 100%)",
+        padding: "72px 80px",
+        position: "relative",
+        overflow: "hidden",
+      }}>
+        <div style={{
+          display: "inline-flex", alignItems: "center", gap: "8px",
+          background: "rgba(45,106,79,0.35)", border: "1px solid rgba(82,183,136,0.45)",
+          borderRadius: "24px", padding: "6px 16px", color: "#74C69D",
+          fontSize: "11px", fontWeight: "700", letterSpacing: "1.5px",
+          marginBottom: "20px", fontFamily: "'DM Sans', sans-serif",
+        }}>
+          <span style={{width:"8px",height:"8px",background:"#52B788",borderRadius:"50%",display:"inline-block"}}></span>
+          GOT QUESTIONS?
+        </div>
+        <h1 style={{
+          fontFamily: "'Playfair Display', serif", fontSize: "clamp(36px, 4.5vw, 60px)",
+          fontWeight: "700", color: "white", lineHeight: "1.1", marginBottom: "16px",
+        }}>
+          Frequently asked <em style={{fontStyle:"italic", color:"#F5C87A"}}>questions</em>
+        </h1>
+        <p style={{
+          fontSize: "16px", color: "rgba(255,255,255,0.82)", lineHeight: "1.75",
+          maxWidth: "500px", fontWeight: "300", fontFamily: "'DM Sans', sans-serif",
+        }}>
+          Everything you need to know about pregnancy, exercise, nutrition and wellbeing — answered with evidence-based guidance tailored for our community.
+        </p>
+      </div>
 
-        <div className="faq-list">
+      {/* FAQ list */}
+      <div style={{
+        background: "#FDF6F0",
+        padding: "64px 80px",
+        fontFamily: "'DM Sans', sans-serif",
+      }}>
+        <div style={{maxWidth: "800px", margin: "0 auto", display: "flex", flexDirection: "column", gap: "14px"}}>
           {questionsData.map((item, i) => (
-            <div key={i} className={`faq-item ${openIndex === i ? "open" : ""}`}>
-              <button className="faq-question" onClick={() => toggle(i)}>
-                <span className="faq-question-text">{item.title}</span>
-                <span className="faq-icon">+</span>
-              </button>
+            <div
+              key={i}
+              onClick={() => toggle(i)}
+              style={{
+                background: openIndex === i ? "white" : "white",
+                border: openIndex === i ? "1.5px solid #C4622D" : "1px solid #EDD8C8",
+                borderRadius: "16px",
+                overflow: "hidden",
+                boxShadow: openIndex === i ? "0 4px 24px rgba(196,98,45,0.12)" : "0 1px 4px rgba(0,0,0,0.04)",
+                cursor: "pointer",
+                transition: "all 0.2s",
+              }}
+            >
+              {/* Question row */}
+              <div style={{
+                display: "flex", alignItems: "center", justifyContent: "space-between",
+                padding: "20px 28px", gap: "16px",
+              }}>
+                <span style={{
+                  fontSize: "15px", fontWeight: "500",
+                  color: openIndex === i ? "#C4622D" : "#1a0800",
+                  lineHeight: "1.4", flex: 1,
+                }}>
+                  {item.title}
+                </span>
+                <span style={{
+                  width: "32px", height: "32px", borderRadius: "50%", flexShrink: 0,
+                  background: openIndex === i ? "#C4622D" : "#FDF6F0",
+                  border: openIndex === i ? "none" : "1px solid #EDD8C8",
+                  display: "flex", alignItems: "center", justifyContent: "center",
+                  fontSize: "20px", fontWeight: "300",
+                  color: openIndex === i ? "white" : "#C4622D",
+                  transform: openIndex === i ? "rotate(45deg)" : "none",
+                  transition: "all 0.2s",
+                }}>
+                  +
+                </span>
+              </div>
+
+              {/* Answer */}
               {openIndex === i && (
-                <div className="faq-answer">{item.content}</div>
+                <div style={{
+                  padding: "0 28px 24px",
+                  borderTop: "1px solid #EDD8C8",
+                  paddingTop: "20px",
+                }}>
+                  <p style={{
+                    fontSize: "14px", color: "#4a2010", lineHeight: "1.85",
+                    fontWeight: "300", margin: 0,
+                  }}>
+                    {item.content}
+                  </p>
+                </div>
               )}
             </div>
           ))}
+        </div>
+
+        {/* Bottom CTA */}
+        <div style={{
+          maxWidth: "800px", margin: "48px auto 0",
+          background: "linear-gradient(135deg, #1B4332, #2D6A4F)",
+          borderRadius: "20px", padding: "40px 48px",
+          display: "flex", alignItems: "center", justifyContent: "space-between",
+          gap: "24px", flexWrap: "wrap",
+        }}>
+          <div>
+            <p style={{fontFamily:"'Playfair Display', serif", fontSize:"22px", color:"white", marginBottom:"8px"}}>
+              Still have questions?
+            </p>
+            <p style={{fontSize:"14px", color:"rgba(255,255,255,0.75)", fontWeight:"300", lineHeight:"1.6"}}>
+              Join our community and connect with other mothers and midwives.
+            </p>
+          </div>
+          <button
+            onClick={() => window.location.href = "/sign-up"}
+            style={{
+              background: "#F5A623", color: "#3D1200", border: "none",
+              borderRadius: "32px", padding: "14px 32px", fontSize: "15px",
+              fontWeight: "700", cursor: "pointer", fontFamily: "'DM Sans', sans-serif",
+              whiteSpace: "nowrap",
+            }}
+          >
+            Join Our Community
+          </button>
         </div>
       </div>
     </Layout>
