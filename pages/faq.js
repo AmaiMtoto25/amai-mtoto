@@ -17,10 +17,20 @@ export default function FaqPage({ questionsData }) {
     <Layout>
       <Head>
         <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+        <style>{`
+          @media (max-width: 768px) {
+            .faq-hero { padding: 40px 20px !important; }
+            .faq-hero h1 { font-size: 28px !important; }
+            .faq-hero p { font-size: 13px !important; }
+            .faq-body { padding: 32px 16px !important; }
+            .faq-cta { padding: 28px 24px !important; flex-direction: column !important; align-items: flex-start !important; }
+            .faq-cta button { width: 100% !important; text-align: center !important; }
+          }
+        `}</style>
       </Head>
 
       {/* Hero banner */}
-      <div style={{
+      <div className="faq-hero" style={{
         background: "linear-gradient(135deg, #3D1200 0%, #8B2500 50%, #C4622D 100%)",
         padding: "72px 80px",
         position: "relative",
@@ -51,7 +61,7 @@ export default function FaqPage({ questionsData }) {
       </div>
 
       {/* FAQ list */}
-      <div style={{
+      <div className="faq-body" style={{
         background: "#FDF6F0",
         padding: "64px 80px",
         fontFamily: "'DM Sans', sans-serif",
@@ -117,7 +127,7 @@ export default function FaqPage({ questionsData }) {
         </div>
 
         {/* Bottom CTA */}
-        <div style={{
+        <div className="faq-cta" style={{
           maxWidth: "800px", margin: "48px auto 0",
           background: "linear-gradient(135deg, #1B4332, #2D6A4F)",
           borderRadius: "20px", padding: "40px 48px",
