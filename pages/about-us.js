@@ -41,32 +41,42 @@ export default function AboutUs() {
           body { font-family: 'DM Sans', sans-serif; }
           .page { min-height: 100vh; background: #FDF6F0; }
 
-          /* Akoko Nan repeating pattern */
-          .akoko-pattern { position: relative; }
-          .akoko-pattern::before {
-            content: '';
+          /* Akoko Nan single symbol per section */
+          .akoko-section { position: relative; overflow: hidden; }
+          .akoko-symbol {
             position: absolute;
-            inset: -50%;
-            width: 200%;
-            height: 200%;
             background-image: url('/akoko-nan-medium.png');
-            background-size: 90px 90px;
-            background-repeat: repeat;
+            background-size: contain;
+            background-repeat: no-repeat;
             opacity: 0.07;
             pointer-events: none;
             z-index: 0;
-            transform: rotate(90deg);
           }
-          .akoko-pattern > * { position: relative; z-index: 1; }
-
-          /* Text pop over pattern */
-          .sectionTitle { text-shadow: 0 1px 12px rgba(253,246,240,0.9), 0 0 24px rgba(253,246,240,0.7); }
-          .sectionLabel { text-shadow: 0 1px 8px rgba(253,246,240,0.95); }
-          .missionText p { text-shadow: 0 1px 6px rgba(253,246,240,0.8); }
-          .valueTitle { text-shadow: 0 1px 6px rgba(255,255,255,0.9); }
-          .valueDesc { text-shadow: 0 1px 4px rgba(255,255,255,0.7); }
-          .teamName { text-shadow: 0 1px 6px rgba(255,255,255,0.9); }
-          .teamBio { text-shadow: 0 1px 4px rgba(255,255,255,0.7); }
+          /* Mission — large symbol right side, upright */
+          .akoko-mission {
+            width: 320px; height: 320px;
+            right: -40px; top: 50%;
+            transform: translateY(-50%);
+          }
+          /* For Who — large symbol left side, rotated */
+          .akoko-forwho {
+            width: 280px; height: 280px;
+            left: -30px; top: 50%;
+            transform: translateY(-50%) rotate(90deg);
+          }
+          /* Values — large symbol centre-right, tilted */
+          .akoko-values {
+            width: 300px; height: 300px;
+            right: 60px; bottom: -40px;
+            transform: rotate(-15deg);
+          }
+          /* Team — large symbol centre-left, upright */
+          .akoko-team {
+            width: 260px; height: 260px;
+            left: 40px; top: 50%;
+            transform: translateY(-50%) rotate(180deg);
+          }
+          .akoko-section > * { position: relative; z-index: 1; }
 
           /* Top bar */
           .topBar { background: #5C1200; display: flex; align-items: center; justify-content: space-between; padding: 8px 40px; font-size: 13px; color: rgba(255,255,255,0.85); }
@@ -222,7 +232,8 @@ export default function AboutUs() {
           ))}
         </div>
 
-        <div className="section missionSection akoko-pattern">
+        <div className="section missionSection akoko-section">
+          <div className="akoko-symbol akoko-mission"></div>
           <div className="missionGrid">
             <div className="missionText">
               <p className="sectionLabel">Our Mission</p>
@@ -238,7 +249,8 @@ export default function AboutUs() {
           </div>
         </div>
 
-        <div className="section forWhoSection akoko-pattern">
+        <div className="section forWhoSection akoko-section">
+          <div className="akoko-symbol akoko-forwho"></div>
           <p className="sectionLabel">Who we serve</p>
           <h2 className="sectionTitle">Built for <em>mothers</em> and <em>staff</em></h2>
           <div className="forWhoGrid">
@@ -255,7 +267,8 @@ export default function AboutUs() {
           </div>
         </div>
 
-        <div className="section valuesSection akoko-pattern">
+        <div className="section valuesSection akoko-section">
+          <div className="akoko-symbol akoko-values"></div>
           <p className="sectionLabel">What drives us</p>
           <h2 className="sectionTitle">Our <em>values</em></h2>
           <div className="valuesGrid">
@@ -269,7 +282,8 @@ export default function AboutUs() {
           </div>
         </div>
 
-        <div className="section teamSection akoko-pattern">
+        <div className="section teamSection akoko-section">
+          <div className="akoko-symbol akoko-team"></div>
           <p className="sectionLabel">The people behind the platform</p>
           <h2 className="sectionTitle">Meet the <em>team</em></h2>
           <div className="teamGrid">
