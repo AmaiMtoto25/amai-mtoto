@@ -18,12 +18,29 @@ function createTrimesterItems() {
   }));
 }
 
+function createTrimester4() {
+  const TOPICS = [
+    { label: "Summary", subLabel: "What to expect after birth", href_key: "summary" },
+    { label: "Exercise & Recovery", subLabel: "Safe postnatal movement", href_key: "exercise" },
+    { label: "Nutrition & Feeding", subLabel: "Nourishing you and baby", href_key: "nutrition" },
+    { label: "Mental Health", subLabel: "Postnatal wellbeing", href_key: "wellbeing" },
+    { label: "Baby Care", subLabel: "Essentials for new parents", href_key: "baby-care" },
+    { label: "Relationships", subLabel: "Support and connection", href_key: "relationships" },
+  ];
+  return {
+    label: "After Birth",
+    children: TOPICS.map(t => ({ ...t, href: `/trimester-4/${t.href_key}` })),
+  };
+}
+
 const trimesterItems = createTrimesterItems();
 const navItems = [
   { label: "Home", href: "/" },
   { label: "FAQ", href: "/faq" },
   { label: "About Us", href: "/about-us" },
+  { label: "Local Services", href: "/local-services" },
   ...trimesterItems,
+  createTrimester4(),
 ];
 
 export default function Nav() {
