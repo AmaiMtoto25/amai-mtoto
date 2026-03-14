@@ -64,9 +64,9 @@ export default function ContactUs() {
             </h2>
 
             {[
-              { icon: "✉", title: "General enquiries", detail: "hello@amai-mtoto.co.uk", href: "mailto:hello@amai-mtoto.co.uk" },
-              { icon: "◈", title: "NHS & partnerships", detail: "nhs@amai-mtoto.co.uk", href: "mailto:nhs@amai-mtoto.co.uk" },
-              { icon: "✦", title: "Funding & press", detail: "funding@amai-mtoto.co.uk", href: "mailto:funding@amai-mtoto.co.uk" },
+              { icon: "✉", title: "General enquiries", detail: "amaimtoto@gmail.com", href: "mailto:amaimtoto@gmail.com" },
+              { icon: "◈", title: "NHS & partnerships", detail: "amaimtoto@gmail.com", href: "mailto:amaimtoto@gmail.com" },
+              { icon: "✦", title: "Funding & press", detail: "amaimtoto@gmail.com", href: "mailto:amaimtoto@gmail.com" },
               { icon: "◉", title: "Community forum", detail: "amai-mtoto.forumotion.com", href: "https://amai-mtoto.forumotion.com/" },
             ].map((item, i) => (
               <a key={i} href={item.href} target={item.href.startsWith("http") ? "_blank" : "_self"} rel="noreferrer" style={{ display: "flex", alignItems: "flex-start", gap: "16px", padding: "18px 0", borderBottom: "1px solid #EDD8C8", textDecoration: "none" }}>
