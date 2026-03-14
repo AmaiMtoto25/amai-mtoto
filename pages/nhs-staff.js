@@ -232,8 +232,8 @@ export default function NHSStaff() {
   const AKOKO = "/akoko-nan-medium.png";
 
   const handleVerify = () => {
-    if (!nhsEmail.includes("@nhs.net") && !nhsEmail.includes("@nhs.uk") && !nhsEmail.includes("@nhft.nhs.uk")) {
-      setEmailError("Please enter a valid NHS email address (e.g. name@nhs.net)");
+    if (!nhsEmail.includes("@") || nhsEmail.length < 5) {
+      setEmailError("Please enter a valid email address");
       return;
     }
     setVerified(true);
@@ -277,14 +277,14 @@ export default function NHSStaff() {
             <div style={{ ...s.card, padding: "40px" }}>
               <div style={s.secLbl}>Access the portal</div>
               <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: "22px", fontWeight: "700", color: "#1a0800", marginBottom: "8px" }}>Verify your NHS email</h2>
-              <p style={{ fontSize: "14px", color: "#6b4030", marginBottom: "24px", lineHeight: "1.7" }}>Enter your NHS email address to access the staff portal. We verify you are an NHS professional before granting access.</p>
-              <input type="email" placeholder="yourname@nhs.net" value={nhsEmail} onChange={e => { setNhsEmail(e.target.value); setEmailError(""); }}
+              <p style={{ fontSize: "14px", color: "#6b4030", marginBottom: "24px", lineHeight: "1.7" }}>Enter your email address to access the NHS staff portal and resources.</p>
+              <input type="email" placeholder="your@email.com" value={nhsEmail} onChange={e => { setNhsEmail(e.target.value); setEmailError(""); }}
                 style={{ width: "100%", border: `1.5px solid ${emailError ? "#C4622D" : "#EDD8C8"}`, borderRadius: "10px", padding: "14px 16px", fontSize: "14px", fontFamily: "'DM Sans', sans-serif", outline: "none", background: "#FDF6F0", marginBottom: "8px" }} />
               {emailError && <p style={{ fontSize: "12px", color: "#C4622D", marginBottom: "12px", fontWeight: "600" }}>{emailError}</p>}
               <button onClick={handleVerify} style={{ width: "100%", background: "#1B4332", color: "white", border: "none", borderRadius: "10px", padding: "14px", fontSize: "15px", fontWeight: "700", cursor: "pointer", fontFamily: "'DM Sans', sans-serif", marginBottom: "16px" }}>
                 Access NHS Staff Portal →
               </button>
-              <p style={{ fontSize: "12px", color: "#aaa", textAlign: "center" }}>No patient data is stored. NHS email verification only.</p>
+              <p style={{ fontSize: "12px", color: "#aaa", textAlign: "center" }}>No patient data is stored.</p>
             </div>
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "12px", marginTop: "8px" }}>
               {[{ n: "Fast", d: "15-min appointment friendly" }, { n: "Safe", d: "No patient data stored" }, { n: "Trusted", d: "Midwife reviewed content" }].map((item, i) => (
