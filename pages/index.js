@@ -93,9 +93,9 @@ export default function Home() {
             <img src="/landingPageImages/ankara.png.png" alt="Ankara fabric pattern" className="ankaraImg" />
             <div className="overlay"></div>
             <div className="heroText">
-              <div className="badge"><span className="dot"></span>FOR BLACK AND MIXED-RACE MOTHERS</div>
+              <div className="badge"><span className="dot"></span>FOR BLACK AND MIXED HERITAGE MOTHERS</div>
               <h1 className="h1">Your Pregnancy.<br />Your Culture.<br /><em>Your Community.</em></h1>
-              <p className="sub">A safe, culturally-rooted space for Black and mixed-race women navigating pregnancy, birth and the postnatal journey — midwifery-led, community-powered.</p>
+              <p className="sub">A safe, culturally-rooted space for Black and mixed heritage women navigating pregnancy, birth and the postnatal journey — midwifery-led, community-powered.</p>
               <div className="btns">
                 <button className="btnP" onClick={() => router.push(user ? "/dashboard" : "/sign-up")}>
                   {user ? "Go to My Dashboard" : "Join Our Community"}
@@ -118,9 +118,9 @@ export default function Home() {
         </div>
 
         <div className="strip">
-          {[1, 2, 3].map((t) => (
-            <button key={t} className="trimBtn" onClick={() => router.push(`/trimester-${t}/summary`)}>
-              Explore Trimester {t}
+          {[1, 2, 3, 4].map((t) => (
+            <button key={t} className="trimBtn" onClick={() => router.push(t === 4 ? `/trimester-4/summary` : `/trimester-${t}/summary`)}>
+              {t === 4 ? "After Birth" : `Explore Trimester ${t}`}
             </button>
           ))}
         </div>
