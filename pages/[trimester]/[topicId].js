@@ -1,861 +1,477 @@
-import { Text, UnorderedList, ListItem, Heading } from "@chakra-ui/react";
-import Media from "../../components/Media";
+/* eslint-disable */
+import React, { useState } from "react";
+import Layout from "../../components/Layout";
+import topicSummaryArr from "../../lib/data/topicSummary";
+import { getArticleByTopic } from "../../lib/helper-functions.js";
+import { getArticlesByTrimester } from "../../firebase/firestore";
+import Head from "next/head";
 
-const topicSummaryArr = [
-  // =====================
-  // TRIMESTER 1
-  // =====================
-  {
-    id: "/trimester-1/summary",
-    title: "What to expect - 1st trimester",
-    content: (
-      <>
-        <Text className="topic_text">
-          The first trimester is the first 12 weeks of your pregnancy, where
-          your body will go through many changes for example you may find more
-          twinges or ligament pain and your emotions might be up and down, or
-          maybe you feel more weepy than usual too, due to the increase of
-          hormones supporting your baby's growth and preparing for birth.
-          Commons Signs and Symptoms of early pregnancy
-          <UnorderedList>
-            <ListItem> Missed period </ListItem>
-            <ListItem> Metalic taste </ListItem>
-            <ListItem> Nausea/Morning sickness </ListItem>
-            <ListItem> Tiredness </ListItem>
-            <ListItem> Heightened sense of smell </ListItem>
-            <ListItem> Peeing more frequently </ListItem>
-            <ListItem> A milky white discharge from the vagina </ListItem>
-            <ListItem> Cramping, light period pains </ListItem>
-            <ListItem>
-              Light spotting – implantation bleed (seek advice if you are
-              not sure)
-            </ListItem>
-            <ListItem>
-              Darkened skin on your face or brown patches – 'Mask of pregnancy'
-            </ListItem>
-            <ListItem> Bloating </ListItem>
-            <ListItem> Thicker and shiny hair </ListItem>
-          </UnorderedList>
-        </Text>
-        <Text className="topic_text">
-          Remember everyone's pregnancy journey is different, you may have a lot
-          of these symptoms, or you may only have a few, any questions contact
-          your healthcare professional for further advice. Please look at the
-          additional resources for further reading.
-        </Text>
-      </>
-    ),
-    resources: [
-      {
-        author: "NHS",
-        src: "https://www.nhs.uk/pregnancy/trying-for-a-baby/signs-and-symptoms-of-pregnancy/",
-        title: "Signs and symptoms of pregnancy",
-        topic: ["summary"],
-        trimesterRelated: [1],
-      },
-      {
-        author: "NHS",
-        src: "https://www.nhs.uk/start4life/pregnancy/week-by-week/1st-trimester/week-4/#anchor-tabs",
-        title: "Week-by-week guide to pregnancy",
-        topic: ["summary"],
-        trimesterRelated: [1],
-      },
-      {
-        author: "NHS",
-        src: "https://www.nct.org.uk/pregnancy/how-you-might-be-feeling/pregnancy-hormones-progesterone-oestrogen-and-mood-swings",
-        title: "Mood Swings",
-        topic: ["summary"],
-        trimesterRelated: [1],
-      },
-    ],
-  },
-  {
-    id: "/trimester-1/exercise",
-    title: "First Trimester: Exercises",
-    content: (
-      <>
-        <Text className="topic_text">
-          To keep yourself healthy during your pregnancy is to exercise, there
-          is no evidence that shows that exercising during your pregnancy is
-          harmful to the women and their babies who are healthy. Benefits of
-          being active during pregnancy:
-          <UnorderedList>
-            <ListItem>It can reduce your blood pressure</ListItem>
-            <ListItem>It can improve your fitness and energy levels</ListItem>
-            <ListItem>It can help prevent diabetes in pregnancy</ListItem>
-            <ListItem>It can help control your weight gain</ListItem>
-            <ListItem>It can improve your sleep</ListItem>
-            <ListItem>It can improve posture/balance</ListItem>
-            <ListItem>Decrease stress, anxiety, and tension</ListItem>
-            <ListItem>Increase your mood positively</ListItem>
-          </UnorderedList>
-          The UK Government guideline for being active during your pregnancy is
-          to do 150 minutes of exercise per week, but don't panic you do not
-          have to do it all at once. If you do not exercise or it has been a
-          while, you can start off by doing 10 minutes of daily walking and
-          gradually increase to build to 150 minutes per week. Always listen
-          to your body and the rule is you should be able to talk whilst
-          exercising if you can't then you should slow down and rest. Other
-          exercises you can do:
-          <UnorderedList>
-            <ListItem>Jogging/Running</ListItem>
-            <ListItem>swimming</ListItem>
-            <ListItem>Pregnancy Yoga/Pilates</ListItem>
-            <ListItem>Low impact aerobics/ water aerobics</ListItem>
-            <ListItem>Pelvic floor exercises</ListItem>
-            <ListItem>Stationary cycling</ListItem>
-            <ListItem>Low intensity free weight training</ListItem>
-          </UnorderedList>
-          Exercises to avoid:
-          <UnorderedList>
-            <ListItem>
-              Any exercises that have you laying on your back for more than a
-              few minutes, particularly after 16 weeks of pregnancy
-            </ListItem>
-            <ListItem>
-              Martial arts, football, rugby, tennis, squash, horse-riding,
-              skiing, or gymnastics as this increase the risk of your baby bump
-              being hit.
-            </ListItem>
-            <ListItem>Dizziness/light-headedness</ListItem>
-            <ListItem>Headaches (severe or prolonged)</ListItem>
-            <ListItem>Chest pain</ListItem>
-            <ListItem>Muscle weakness</ListItem>
-            <ListItem>Pain/swelling in calves (occurring suddenly)</ListItem>
-            <ListItem>Decreased fetal movement</ListItem>
-            <ListItem>Vaginal bleeding</ListItem>
-            <ListItem>Amniotic fluid/ waters leaking</ListItem>
-            <ListItem>Pre-term labour</ListItem>
-          </UnorderedList>
-        </Text>
-        <Heading as="h2">Abdominal exercise</Heading>
-        <iframe
-          src="https://www.youtube.com/embed/OnkIeuJe95M"
-          title="YouTube video player"
-          frameBorder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
-        ></iframe>
-        <Text className="topic_text">
-          Note: It is important during pregnancy to make sure that you get
-          your midwife's or doctor's advice of whether you should exercise
-          during this time especially if you have a high-risk pregnancy.
-        </Text>
-      </>
-    ),
-    resources: [
-      {
-        author: "NHS",
-        src: "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1054538/physical-activity-for-pregnant-women.pdf",
-        title: "Physical Activity for Pregnant women",
-        topic: ["exercise"],
-        trimesterRelated: [1],
-      },
-      {
-        author: "NHS",
-        src: "https://www.nhs.uk/start4life/pregnancy/exercising-in-pregnancy/",
-        title: "Exercising in pregnancy",
-        topic: ["exercise"],
-        trimesterRelated: [1],
-      },
-      {
-        author: "Colleen de Bellefonds",
-        src: "https://www.whattoexpect.com/pregnancy/exercise-benefits",
-        title: "Benefits of Exercise during pregnancy",
-        topic: ["exercise"],
-        trimesterRelated: [1],
-      },
-      {
-        author: "Elea Carey",
-        src: "https://www.healthline.com/health/pregnancy/first-trimester-exercise-fitness",
-        title: "Exercising in the first trimester: How to do it safely",
-        topic: ["exercise"],
-        trimesterRelated: [1],
-      },
-    ],
-  },
-  {
-    id: "/trimester-1/nutrition",
-    title: "Healthy Eating - 1st trimester",
-    content: (
-      <>
-        <Text className="topic_text">
-          It is important that you can eat healthy during pregnancy as it helps
-          baby grow, and there is no need to 'eat for two'. By making sure that you
-          are eating a variety of food groups with a mixture of proteins,
-          carbohydrates, fruits, and vegetables along with keeping yourself
-          hydrated with water and eating breakfast, lunch and dinner will give
-          you what you will need. It may be a challenge if you are experiencing
-          nausea or morning sickness, or even being put off some of your
-          favourite foods before pregnancy, so maybe try eating a little and
-          often. The chart below shows familiar foods that are great for
-          you and your baby, but also remember to increase your folic acid so that your baby will
-          develop and prevent neural tube defects for example spina bifada.
-        </Text>
-        <Media
-          mediaType="image"
-          mediaSrc="https://www.fountainmedical.co.uk/wp-content/uploads/sites/290/2021/10/AfricanCaribbeanEatwell-e1635149697112-1024x716.png"
-          height={"auto"}
-          width={"100%"}
-        />
-      </>
-    ),
-    resources: [
-      {
-        author: "NHS",
-        src: "https://www.nhs.uk/pregnancy/trying-for-a-baby/signs-and-symptoms-of-pregnancy/",
-        title: "Signs and Symptoms of pregnancy",
-        topic: ["nutrition"],
-        trimesterRelated: [1],
-      },
-      {
-        author: "British Heart Foundation",
-        src: "https://nhsforthvalley.com/wp-content/uploads/2021/11/g503_tradtional_foods_healthy_dishes.pdf",
-        title: "Traditional foods - Healthy Dishes",
-        topic: ["nutrition"],
-        trimesterRelated: [1],
-      },
-      {
-        author: "Heart UK",
-        src: "https://www.heartuk.org.uk/healthy-diets/heart-healthy-african-and-caribbean-diets-",
-        title: "Heart Healthy African and Carribbean diets",
-        topic: ["nutrition"],
-        trimesterRelated: [1],
-      },
-    ],
-  },
-  {
-    id: "/trimester-1/wellbeing",
-    title: "Well-being - 1st trimester",
-    content: (
-      <>
-        <Text className="topic_text">
-          Early pregnancy can be a journey of mixed emotions, excitement,
-          anxiety or low energy, so to help combat this it is important to take
-          care of ourselves as much as possible. As black women we tend to take
-          on a lot of extra responsibilities, with other members of the family,
-          work other than ourselves. Selfcare can be many things, like taking
-          time out, sitting quietly and practice breathing techniques, listening
-          to a relaxing meditation, writing down your feelings in a journal if
-          you are having a challenging time or write what you are grateful for.
-          Selfcare tips:
-          <UnorderedList>
-            <ListItem>Read a book/blog</ListItem>
-            <ListItem>Listen to your favourite podcast</ListItem>
-            <ListItem>Watch your favourite film</ListItem>
-            <ListItem>Breathing exercises</ListItem>
-            <ListItem>Create healthy boundaries with people and yourself</ListItem>
-            <ListItem>Take a walk-in nature</ListItem>
-          </UnorderedList>
-        </Text>
-      </>
-    ),
-    resources: [
-      {
-        author: "NHS",
-        src: "https://www.nhs.uk/pregnancy/keeping-well/mental-health/",
-        title: "Keeping well in pregnancy and mental health",
-        topic: ["wellbeing"],
-        trimesterRelated: [1],
-      },
-      {
-        author: "Dear Black Women",
-        src: "https://dearblackwomenproject.com",
-        title: "Dear Black Women",
-        topic: ["wellbeing"],
-        trimesterRelated: [1],
-      },
-      {
-        author: "Black Minds Matter",
-        src: "https://www.blackmindsmatteruk.com/",
-        title: "Black Minds Matter",
-        topic: ["wellbeing"],
-        trimesterRelated: [1],
-      },
-      {
-        author: "The Black African and Asian Therapy Network",
-        src: "https://www.baatn.org.uk/",
-        title: "The Black African and Asian Therapy Network",
-        topic: ["wellbeing"],
-        trimesterRelated: [1],
-      },
-    ],
-  },
-  // =====================
-  // TRIMESTER 2
-  // =====================
-  {
-    id: "/trimester-2/summary",
-    title: "What to expect - 2nd trimester",
-    content: (
-      <>
-        <Text className="topic_text">
-          You are now in your second trimester, so hopefully you are starting to
-          feel much better from the early pregnancy symptoms you may have been
-          experiencing and starting to enjoy foods again! You may notice body
-          changes, that your baby bump is growing, and you may start to feel
-          flutters of your baby's movements from 16 weeks of your pregnancy; but
-          you may also notice new pregnancy symptoms for this period. New
-          pregnancy symptoms:
-          <UnorderedList>
-            <ListItem> Mild swelling of the ankles and feet</ListItem>
-            <ListItem> Congestion</ListItem>
-            <ListItem> Sensitive/bleeding gums</ListItem>
-            <ListItem> Leg cramps</ListItem>
-            <ListItem> Ligament pain around your abdomen</ListItem>
-            <ListItem> Varicose veins</ListItem>
-            <ListItem> Weight gain</ListItem>
-          </UnorderedList>
-        </Text>
-      </>
-    ),
-    resources: [
-      {
-        author: "Marla Masters",
-        src: "https://www.whattoexpect.com/second-trimester-of-pregnancy.aspx",
-        title: "Your guide to the second trimester of pregnancy",
-        topic: ["summary"],
-        trimesterRelated: [2],
-      },
-      {
-        author: "Nina Cumberbatch",
-        src: "https://www.baby-chick.com/what-black-women-should-know-about-the-second-trimester/",
-        title: "What Black Women should know about the Second trimester",
-        topic: ["summary"],
-        trimesterRelated: [2],
-      },
-      {
-        author: "NHS",
-        src: "https://www.nhs.uk/start4life/pregnancy/week-by-week/2nd-trimester/week-13/",
-        title: "Week-by-week Pregnancy",
-        topic: ["summary"],
-        trimesterRelated: [2],
-      },
-    ],
-  },
-  {
-    id: "/trimester-2/exercise",
-    title: "Exercises - 2nd trimester",
-    content: (
-      <>
-        <iframe
-          src="https://www.youtube.com/embed/PAh8ZF8R3LA"
-          title="YouTube video player"
-          frameBorder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
-        ></iframe>
-        <Text className="topic_text">
-          Why not try yoga for a more gentle and relaxing way of moving
-          especially if you are experiencing ligament pain around your pelvis
-          and abdomen area. Opting for low-impact exercises such as swimming
-          and walking, may help reduce the risk of contact with your baby bump
-          or/and falling. For those who would like to continue with workout
-          routines, remember to seek advice from your midwife or doctor.
-        </Text>
-      </>
-    ),
-    resources: [
-      {
-        author: "magdacivilfitness.com",
-        src: "https://www.youtube.com/watch?v=x4uH6sX15bU",
-        title: "Pregnancy workout: 2nd Trimester for anyone 23 weeks",
-        topic: ["exercise"],
-        trimesterRelated: [2],
-      },
-      {
-        author: "BrownYogiGirl",
-        src: "https://www.youtube.com/watch?v=JFiP-q1Jp18",
-        title: "Everyday prenatal yoga | Pregnancy yoga for all trimesters",
-        topic: ["exercise"],
-        trimesterRelated: [2],
-      },
-      {
-        author: "Medically reviewed by Debra Rose Wilson Ph.D",
-        src: "https://www.healthline.com/health/pregnancy/second-trimester-exercise-fitness",
-        title: "What Exercises are safe in the second trimester?",
-        topic: ["exercise"],
-        trimesterRelated: [2],
-      },
-    ],
-  },
-  {
-    id: "/trimester-2/nutrition",
-    title: "Nutrition - 2nd trimester",
-    content: (
-      <>
-        <Text className="topic_text">
-          Continue to focus on food groups rather than calorie intake, why not
-          try adding more beans and pulses to your foods. You may find it easier
-          to batch cook to make sure that you get all the nutrients that you and
-          your baby need to continue growing. Have you begun to crave different
-          and strange foods? It may that you are craving more sugary or salty
-          foods, even foods that you have not liked before.
-        </Text>
-      </>
-    ),
-    resources: [
-      {
-        author: "Lora O'Brian",
-        src: "https://eluxemagazine.com/recipes/vegan-carribean-recipes/",
-        title: "Vegan Caribbean recipes the taste like sunshine",
-        topic: ["nutrition"],
-        trimesterRelated: [2],
-      },
-    ],
-  },
-  {
-    id: "/trimester-2/wellbeing",
-    title: "Well-being - 2nd trimester",
-    content: (
-      <>
-        <iframe
-          src="https://www.youtube.com/embed/atywJYp-a70"
-          title="YouTube video player"
-          frameBorder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
-        ></iframe>
-        <Text className="topic_text">
-          Emotionally the second trimester can be more of a sigh of relief
-          compared to the ups and downs of the first trimester. However, some
-          women can still experience some anxiety due to worries and fears about
-          their growing baby until the results of their scan. You may have more
-          thoughts of being mother/parents as you will notice more how your body
-          has changed since the first trimester. As women from our culture, we
-          are seen as people who are always strong and can handle anything and
-          may not take notice how feeling down or even depressed about our
-          pregnancy feelings should be taken seriously. If you don't know where
-          to start, try some affirmations (positive statements to challenge
-          negative thoughts)
-        </Text>
-      </>
-    ),
-    resources: [
-      {
-        author: "Valinda Riggins Nwadike",
-        src: "https://greatist.com/health/pregnancy-mood-swings",
-        title: "Baby Got You Wack? Here's What's Up with Pregnancy Mood Swings",
-        topic: ["wellbeing"],
-        trimesterRelated: [2],
-      },
-      {
-        author: "NHS",
-        src: "https://www.nhs.uk/pregnancy/support/feelings-and-relationships/",
-        title: "Feelings, Relationships and pregnancy",
-        topic: ["wellbeing"],
-        trimesterRelated: [2],
-      },
-      {
-        author: "Guys and St Thomas's",
-        src: "https://www.guysandstthomas.nhs.uk/news/support-pregnant-black-women",
-        title: "Support for Pregnant black women",
-        topic: ["wellbeing"],
-        trimesterRelated: [2],
-      },
-    ],
-  },
-  // =====================
-  // TRIMESTER 3
-  // =====================
-  {
-    id: "/trimester-3/summary",
-    title: "What to expect - 3rd trimester",
-    content: (
-      <>
-        <Text className="topic_text">
-          You are finally into the last stages of your pregnancy, here you maybe
-          feeling a lot more aches and pains especially lower back and your hips
-          due to your growing baby.
-        </Text>
-      </>
-    ),
-    resources: [
-      {
-        author: "Better Health – Start4Life",
-        src: "https://www.nhs.uk/start4life/pregnancy/week-by-week/3rd-trimester/week-28/",
-        title: "Week 28 – Your Third Trimester",
-        topic: ["summary"],
-        trimesterRelated: [3],
-      },
-    ],
-  },
-  {
-    id: "/trimester-3/exercise",
-    title: "Exercise - 3rd trimester",
-    content: (
-      <>
-        <iframe
-          src="https://www.youtube.com/embed/SVMRCH5CpGA"
-          title="YouTube video player"
-          frameBorder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
-        ></iframe>
-        <Text className="topic_text">
-          As your pregnancy progresses you may notice that you are feeling a
-          little bit more uncomfortable and exercising may be a challenge, keep
-          to low impact exercises like walking, swimming or try gentle
-          stretching, yoga or pilates. If you are more advanced in your fitness,
-          continue as long as you feel comfortable, why not try a dance workout!
-        </Text>
-      </>
-    ),
-    resources: [
-      {
-        author: "LOVVE SAMMAY @lovvesammay",
-        src: "https://www.youtube.com/watch?v=w6R7A3rHvlk",
-        title: "Pregnancy Workout Full Body 3rd Trimester",
-        topic: ["exercise"],
-        trimesterRelated: [3],
-      },
-      {
-        author: "Tommy's.org",
-        src: "https://www.tommys.org/pregnancy-information/im-pregnant/exercise-in-pregnancy/how-active-should-i-be-pregnancy",
-        title: "Exercising in pregnancy",
-        topic: ["exercise"],
-        trimesterRelated: [3],
-      },
-      {
-        author: "Erika L Harper",
-        src: "https://www.blackwomenhealingretreats.com/publication/the-importance-of-exercising-for-black-women",
-        title: "The importance of exercising for black Women",
-        topic: ["exercise"],
-        trimesterRelated: [3],
-      },
-    ],
-  },
-  {
-    id: "/trimester-3/nutrition",
-    title: "Healthy Eating - 3rd trimester",
-    content: (
-      <>
-        <Text className="topic_text">
-          Now that we are in the last stages of your pregnancy, you may find
-          that your energy levels are dipping slightly, so its important that
-          you choose foods that replace this. Continue to eat from the food
-          groups which cover nutrients needed but continue to avoid or try and
-          limit your intake of high sugary foods, like fizzy drinks, chocolate,
-          and cakes.
-        </Text>
-      </>
-    ),
-    resources: [],
-  },
-  {
-    id: "/trimester-3/wellbeing",
-    title: "Well-being - 3rd trimester",
-    content: (
-      <>
-        <Text className="topic_text">
-          You are finally into the last stages of your pregnancy, here you may be
-          feeling a lot more aches and pains especially in your lower back and your hips
-          due to your growing baby.
-        </Text>
-      </>
-    ),
-    resources: [],
-  },
-  // =====================
-  // TRIMESTER 4 (Postnatal)
-  // =====================
-  {
-    id: "/trimester-4/summary",
-    title: "The Fourth Trimester — Your Postnatal Journey",
-    content: (
-      <>
-        <Text className="topic_text">
-          The fourth trimester covers the first 12 weeks after your baby is born. This is one of the most transformative — and often most challenging — periods of your life. Your body is healing, your hormones are shifting dramatically, and you are learning to care for a new human while recovering yourself.
-        </Text>
-        <Text className="topic_text">
-          For Black and mixed-race mothers, this period comes with additional pressures. Research shows we are less likely to receive adequate postnatal care and more likely to experience postnatal depression without it being recognised or treated. You deserve support — please ask for it.
-        </Text>
-        <Text className="topic_text">
-          What to expect in the fourth trimester:
-          <UnorderedList>
-            <ListItem>Vaginal bleeding (lochia) for up to 6 weeks</ListItem>
-            <ListItem>Breast engorgement and tenderness</ListItem>
-            <ListItem>Night sweats as hormones regulate</ListItem>
-            <ListItem>Perineal soreness or C-section recovery</ListItem>
-            <ListItem>Baby blues — crying, mood swings in the first 2 weeks</ListItem>
-            <ListItem>Hair loss from around 3 months postpartum</ListItem>
-            <ListItem>Exhaustion — this is normal, ask for help</ListItem>
-            <ListItem>Your 6-week postnatal check — advocate for yourself</ListItem>
-          </UnorderedList>
-        </Text>
-        <Text className="topic_text">
-          Remember: you cannot pour from an empty cup. Taking care of yourself is taking care of your baby.
-        </Text>
-      </>
-    ),
-    resources: [
-      {
-        author: "NHS",
-        src: "https://www.nhs.uk/conditions/baby/support-and-services/your-postnatal-check/",
-        title: "Your postnatal check",
-        topic: ["summary"],
-        trimesterRelated: [4],
-      },
-      {
-        author: "Tommy's",
-        src: "https://www.tommys.org/pregnancy-information/after-birth/fourth-trimester",
-        title: "The fourth trimester — what to expect",
-        topic: ["summary"],
-        trimesterRelated: [4],
-      },
-      {
-        author: "Five X More",
-        src: "https://www.fivexmore.com/",
-        title: "Five X More — Black maternal health",
-        topic: ["summary"],
-        trimesterRelated: [4],
-      },
-      {
-        author: "Motherhood Group",
-        src: "https://themotherhoodgroup.com/",
-        title: "The Motherhood Group — support for Black mothers",
-        topic: ["summary"],
-        trimesterRelated: [4],
-      },
-    ],
-  },
-  {
-    id: "/trimester-4/exercise",
-    title: "Exercise & Recovery — Postnatal",
-    content: (
-      <>
-        <Text className="topic_text">
-          Your body has done something incredible — give it time to heal before returning to exercise. The timeline for returning to activity depends on whether you had a vaginal birth or caesarean, and whether you experienced any complications.
-        </Text>
-        <Text className="topic_text">
-          General guidance:
-          <UnorderedList>
-            <ListItem>Weeks 1–6: Gentle walking, pelvic floor exercises and deep breathing only</ListItem>
-            <ListItem>After your 6-week check: Begin low-impact activity if cleared by your GP or midwife</ListItem>
-            <ListItem>After C-section: Wait at least 8–12 weeks before any core or abdominal work</ListItem>
-            <ListItem>Signs to stop: pain, heaviness, leaking urine, or bleeding increasing</ListItem>
-          </UnorderedList>
-        </Text>
-        <Text className="topic_text">
-          Great postnatal exercises:
-          <UnorderedList>
-            <ListItem>Walking with your pram — great for mental health too</ListItem>
-            <ListItem>Postnatal yoga — gentle and restorative</ListItem>
-            <ListItem>Swimming — after bleeding has stopped</ListItem>
-            <ListItem>Postnatal Pilates — rebuilds core strength safely</ListItem>
-          </UnorderedList>
-        </Text>
-      </>
-    ),
-    resources: [
-      {
-        author: "NHS",
-        src: "https://www.nhs.uk/conditions/baby/support-and-services/keeping-fit-and-healthy-with-a-baby/",
-        title: "Keeping fit and healthy after having a baby",
-        topic: ["exercise"],
-        trimesterRelated: [4],
-      },
-      {
-        author: "Mutu System",
-        src: "https://mutusystem.com/",
-        title: "Postnatal recovery programme",
-        topic: ["exercise"],
-        trimesterRelated: [4],
-      },
-    ],
-  },
-  {
-    id: "/trimester-4/nutrition",
-    title: "Nutrition & Breastfeeding — Postnatal",
-    content: (
-      <>
-        <Text className="topic_text">
-          Whether you are breastfeeding or not, your nutritional needs postnatally are significant. Your body is healing and, if breastfeeding, producing milk — both require good fuel.
-        </Text>
-        <Text className="topic_text">
-          Key nutrients postnatally:
-          <UnorderedList>
-            <ListItem>Iron — to replenish losses from birth. Foods: red meat, beans, lentils, spinach, egusi</ListItem>
-            <ListItem>Calcium — essential if breastfeeding. Foods: dairy, fortified plant milks, sardines, kale</ListItem>
-            <ListItem>Omega-3 — supports brain health and mood. Foods: oily fish, walnuts, flaxseeds</ListItem>
-            <ListItem>Vitamin D — continue supplementing, especially in winter</ListItem>
-            <ListItem>Hydration — breastfeeding increases fluid needs significantly</ListItem>
-          </UnorderedList>
-        </Text>
-        <Text className="topic_text">
-          Traditional African and Caribbean postnatal foods — soups, stews, pepper soup, porridges — are often nutritionally excellent. Trust the wisdom of your community.
-        </Text>
-      </>
-    ),
-    resources: [
-      {
-        author: "NHS",
-        src: "https://www.nhs.uk/conditions/baby/breastfeeding-and-bottle-feeding/breastfeeding/",
-        title: "Breastfeeding — NHS guidance",
-        topic: ["nutrition"],
-        trimesterRelated: [4],
-      },
-      {
-        author: "La Leche League",
-        src: "https://www.laleche.org.uk/",
-        title: "Breastfeeding support — La Leche League GB",
-        topic: ["nutrition"],
-        trimesterRelated: [4],
-      },
-    ],
-  },
-  {
-    id: "/trimester-4/wellbeing",
-    title: "Mental Health & Wellbeing — Postnatal",
-    content: (
-      <>
-        <Text className="topic_text">
-          Postnatal mental health is one of the most important and most under-discussed topics for Black mothers. Up to 1 in 5 women experience postnatal depression, anxiety or a related condition — and Black women are significantly less likely to be diagnosed or offered support.
-        </Text>
-        <Text className="topic_text">
-          The difference between baby blues and postnatal depression:
-          <UnorderedList>
-            <ListItem>Baby blues: Crying, mood swings, feeling overwhelmed in the first 2 weeks — very common as hormones adjust</ListItem>
-            <ListItem>Postnatal depression: Persistent low mood, anxiety, feeling disconnected from your baby, lasting beyond 2 weeks — requires support</ListItem>
-            <ListItem>Postnatal anxiety: Excessive worry, panic attacks, intrusive thoughts — also very common and very treatable</ListItem>
-            <ListItem>Postpartum psychosis: Rare but serious — hallucinations, confusion, rapid mood changes. Call 999 or go to A&E immediately</ListItem>
-          </UnorderedList>
-        </Text>
-        <Text className="topic_text">
-          Self-care strategies:
-          <UnorderedList>
-            <ListItem>Accept help — from family, friends, your village</ListItem>
-            <ListItem>Sleep when you can — rest is not laziness</ListItem>
-            <ListItem>Stay connected — isolation makes everything harder</ListItem>
-            <ListItem>Seek culturally appropriate therapy if you need it</ListItem>
-            <ListItem>Join a postnatal group — connection with other mothers is powerful</ListItem>
-          </UnorderedList>
-        </Text>
-      </>
-    ),
-    resources: [
-      {
-        author: "PANDAS Foundation",
-        src: "https://pandasfoundation.org.uk/",
-        title: "PANDAS — postnatal depression support",
-        topic: ["wellbeing"],
-        trimesterRelated: [4],
-      },
-      {
-        author: "Black Minds Matter",
-        src: "https://www.blackmindsmatteruk.com/",
-        title: "Black Minds Matter UK",
-        topic: ["wellbeing"],
-        trimesterRelated: [4],
-      },
-      {
-        author: "BAATN",
-        src: "https://www.baatn.org.uk/",
-        title: "Black African and Asian Therapy Network",
-        topic: ["wellbeing"],
-        trimesterRelated: [4],
-      },
-    ],
-  },
-  {
-    id: "/trimester-4/baby-care",
-    title: "Baby Care Basics — Postnatal",
-    content: (
-      <>
-        <Text className="topic_text">
-          There is no single right way to care for your baby. Trust your instincts, ask questions and know that you are already doing an incredible job. Here are some essentials for the early weeks.
-        </Text>
-        <Text className="topic_text">
-          Sleep safety:
-          <UnorderedList>
-            <ListItem>Always place baby on their back to sleep</ListItem>
-            <ListItem>Keep the cot clear — no pillows, bumpers or loose bedding</ListItem>
-            <ListItem>Room temperature should be 16–20°C</ListItem>
-            <ListItem>If co-sleeping, follow the Lullaby Trust safer sleep guidance</ListItem>
-          </UnorderedList>
-        </Text>
-        <Text className="topic_text">
-          Skin care for Black and mixed-race babies:
-          <UnorderedList>
-            <ListItem>Use fragrance-free, gentle products</ListItem>
-            <ListItem>Shea butter and coconut oil are excellent natural moisturisers</ListItem>
-            <ListItem>Cradle cap is common — gentle massage with oil can help</ListItem>
-            <ListItem>Eczema is more common in Black babies — speak to your health visitor if concerned</ListItem>
-          </UnorderedList>
-        </Text>
-      </>
-    ),
-    resources: [
-      {
-        author: "Lullaby Trust",
-        src: "https://www.lullabytrust.org.uk/safer-sleep-advice/",
-        title: "Safer sleep for babies",
-        topic: ["baby-care"],
-        trimesterRelated: [4],
-      },
-      {
-        author: "NHS",
-        src: "https://www.nhs.uk/conditions/baby/newborn-behaviour/",
-        title: "Newborn baby behaviour",
-        topic: ["baby-care"],
-        trimesterRelated: [4],
-      },
-      {
-        author: "ICON",
-        src: "https://iconcope.org/",
-        title: "Coping with baby crying",
-        topic: ["baby-care"],
-        trimesterRelated: [4],
-      },
-    ],
-  },
-  {
-    id: "/trimester-4/relationships",
-    title: "Relationships & Support — Postnatal",
-    content: (
-      <>
-        <Text className="topic_text">
-          Having a baby changes every relationship in your life — your partner, your family, your friends, and your relationship with yourself. This is normal and it takes time to find your new normal.
-        </Text>
-        <Text className="topic_text">
-          You and your partner:
-          <UnorderedList>
-            <ListItem>Sleep deprivation puts enormous strain on relationships</ListItem>
-            <ListItem>Communicate openly about how you are feeling</ListItem>
-            <ListItem>Divide responsibilities — do not carry everything alone</ListItem>
-            <ListItem>Intimacy will change — be patient with each other</ListItem>
-            <ListItem>Seek couples support if needed — this is a sign of strength</ListItem>
-          </UnorderedList>
-        </Text>
-        <Text className="topic_text">
-          For Black mothers specifically, the expectation to be "strong" can be isolating. You do not have to hold everything together. Leaning on your community is a cultural strength — use it.
-        </Text>
-      </>
-    ),
-    resources: [
-      {
-        author: "NCT",
-        src: "https://www.nct.org.uk/life-parent/relationships/your-relationship-after-baby",
-        title: "Your relationship after having a baby",
-        topic: ["relationships"],
-        trimesterRelated: [4],
-      },
-      {
-        author: "Relate",
-        src: "https://www.relate.org.uk/",
-        title: "Relate — relationship support",
-        topic: ["relationships"],
-        trimesterRelated: [4],
-      },
-      {
-        author: "Gingerbread",
-        src: "https://www.gingerbread.org.uk/",
-        title: "Support for single parents",
-        topic: ["relationships"],
-        trimesterRelated: [4],
-      },
-    ],
-  },
-];
+export async function getServerSideProps({ params, resolvedUrl }) {
+  const topicId = params.topicId;
+  const trimester = params.trimester.slice(params.trimester.length - 1);
+  const trimesterArticlesDb = await getArticlesByTrimester(trimester);
+  return {
+    props: { trimesterArticlesDb, topicId, resolvedUrl },
+  };
+}
 
-export default topicSummaryArr;
+const trimesterConfig = {
+  "1": { from: "#3D1200", to: "#C4622D", label: "First Trimester", weeks: "Weeks 1–12" },
+  "2": { from: "#1B4332", to: "#2D6A4F", label: "Second Trimester", weeks: "Weeks 13–26" },
+  "3": { from: "#1a0800", to: "#5C1200", label: "Third Trimester", weeks: "Weeks 27–40" },
+  "4": { from: "#2D6A4F", to: "#1B4332", label: "After Birth", weeks: "The Fourth Trimester" },
+};
+
+const topicIcons = { summary: "◉", exercise: "❋", nutrition: "✦", wellbeing: "◈", "baby-care": "◆", relationships: "❖" };
+
+const keyTips = {
+  summary: ["Book your midwife appointment early", "Take folic acid daily", "Rest when you need to", "Stay hydrated", "Avoid alcohol & smoking"],
+  exercise: ["Aim for 150 mins activity per week", "Always warm up and cool down", "Stop if you feel pain or dizzy", "Talk whilst exercising — if you can't, slow down", "Get midwife sign-off if high-risk"],
+  nutrition: ["Eat little and often if nauseous", "Include iron-rich foods daily", "Take folic acid & vitamin D", "Stay well hydrated", "Avoid raw fish, soft cheeses & liver"],
+  wellbeing: ["Take time for yourself every day", "Talk to someone you trust", "Try breathing or meditation", "Write in a journal", "Reach out to your midwife if struggling"],
+  "baby-care": ["Always place baby on their back to sleep", "Start pelvic floor exercises early", "Watch for hunger cues", "Keep room temperature 16–20°C", "Ask your health visitor for support"],
+  relationships: ["Accept help when it is offered", "Communicate openly with your partner", "Set boundaries with visitors", "Connect with other new mothers", "You do not have to hold everything together"],
+};
+
+const sectionIntros = {
+  summary: "Your body goes through incredible changes each trimester. Here's everything you need to know — from symptoms to self-care.",
+  exercise: "Staying active during pregnancy is one of the best things you can do for you and your baby. Here's how to do it safely.",
+  nutrition: "Eating well during pregnancy doesn't mean eating for two — it means eating smart. Here's your guide to nourishing yourself and your baby.",
+  wellbeing: "Your mental and emotional health matters just as much as your physical health. Here's how to look after yourself.",
+  "baby-care": "Welcome to parenthood. Here are the essentials for caring for your newborn in the early weeks — from feeding to sleep safety.",
+  relationships: "Having a baby changes every relationship. Here's how to nurture your connections and build your village in the postnatal period.",
+};
+
+const topicOverviewVideos = {
+  "/trimester-1/summary": "https://www.youtube.com/embed/-pyp6xy_vRE",
+  "/trimester-1/exercise": "https://www.youtube.com/embed/OnkIeuJe95M",
+  "/trimester-1/nutrition": "https://www.youtube.com/embed/ZrV09MRqAeo",
+  "/trimester-1/wellbeing": "https://www.youtube.com/embed/ZrV09MRqAeo",
+  "/trimester-2/summary": "https://www.youtube.com/embed/ZrV09MRqAeo",
+  "/trimester-2/exercise": "https://www.youtube.com/embed/PAh8ZF8R3LA",
+  "/trimester-2/wellbeing": "https://www.youtube.com/embed/atywJYp-a70",
+  "/trimester-3/exercise": "https://www.youtube.com/embed/SVMRCH5CpGA",
+};
+
+const topicShortSummary = {
+  "/trimester-1/summary": "The first trimester covers weeks 1–12. Your body is working hard — you may feel tired, nauseous or emotional. All of this is completely normal. Explore the sections below for guidance on exercise, nutrition and wellbeing.",
+  "/trimester-1/exercise": "Gentle exercise in the first trimester is safe and beneficial. Aim for 150 minutes of activity per week — walking, swimming and yoga are all great options.",
+  "/trimester-1/nutrition": "Eating well doesn't mean eating for two. Focus on variety, stay hydrated, and take your folic acid daily. Cultural foods like jollof rice, plantain and egusi are all great choices.",
+  "/trimester-1/wellbeing": "Early pregnancy brings mixed emotions. Taking care of your mental health is just as important as your physical health — give yourself permission to rest and reach out when you need support.",
+  "/trimester-2/summary": "Welcome to the second trimester — weeks 13–26. Many women start to feel better at this stage. Your bump is growing and you may feel your baby's first movements from around 16 weeks.",
+  "/trimester-2/exercise": "Low-impact exercises like swimming, walking and yoga are ideal in the second trimester. As your bump grows, avoid exercises that put pressure on your abdomen.",
+  "/trimester-2/nutrition": "Continue focusing on balanced food groups. Batch cooking can help you stay nourished even on tiring days. Cravings are common — try healthier swaps where you can.",
+  "/trimester-2/wellbeing": "The second trimester can feel more settled emotionally, but worries about your baby are normal. Try affirmations, journaling or talking to a trusted person.",
+  "/trimester-3/summary": "You are in the final stretch — weeks 27–40. Aches and pains are common as your baby grows. Rest as much as you can and prepare for birth.",
+  "/trimester-3/exercise": "Keep movement gentle in the third trimester — walking, stretching, yoga and swimming are all great. Listen to your body and rest when you need to.",
+  "/trimester-3/nutrition": "Energy levels may dip in the third trimester. Choose nutrient-dense foods and limit sugary snacks. Keep hydrated and eat little and often.",
+  "/trimester-3/wellbeing": "The final weeks can bring excitement and anxiety. Talk to your midwife about any worries, prepare your birth plan, and lean on your community for support.",
+};
+
+const Topic = ({ trimesterArticlesDb, topicId, resolvedUrl }) => {
+  const [postcode, setPostcode] = useState("");
+  const [postcodeSubmitted, setPostcodeSubmitted] = useState(false);
+  const [articleSearch, setArticleSearch] = useState("");
+  const [articlesOpen, setArticlesOpen] = useState(false);
+
+  const topicContent = topicSummaryArr.find((topic) => topic.id === resolvedUrl);
+  if (!topicContent) return null;
+
+  const localTopicArticles = topicContent.resources;
+  const topicArticles = getArticleByTopic(
+    [...localTopicArticles, ...trimesterArticlesDb],
+    topicId
+  );
+
+  const trimesterNum = resolvedUrl.match(/trimester-(\d)/)?.[1] || "1";
+  const config = trimesterConfig[trimesterNum];
+  const icon = topicIcons[topicId] || "◉";
+  const tips = keyTips[topicId] || keyTips.summary;
+  const intro = sectionIntros[topicId] || "";
+  const t4Topics = ["summary", "exercise", "nutrition", "wellbeing", "baby-care", "relationships"];
+  const stdTopics = ["summary", "exercise", "nutrition", "wellbeing"];
+  const otherTopics = (trimesterNum === "4" ? t4Topics : stdTopics).filter(t => t !== topicId);
+
+  const AKOKO = "/akoko-nan-medium.png";
+
+  const s = {
+    page: { background: "#FDF6F0", fontFamily: "'DM Sans', sans-serif" },
+    hero: {
+      background: `linear-gradient(135deg, ${config.from} 0%, ${config.to} 100%)`,
+      padding: "56px 80px", position: "relative", overflow: "hidden",
+    },
+    heroSymbol: {
+      position: "absolute", right: "-20px", top: "50%", transform: "translateY(-50%)",
+      width: "260px", height: "260px",
+      backgroundImage: `url('${AKOKO}')`, backgroundSize: "contain",
+      backgroundRepeat: "no-repeat", opacity: 0.07, pointerEvents: "none",
+    },
+    badge: {
+      display: "inline-flex", alignItems: "center", gap: "8px",
+      background: "rgba(45,106,79,0.35)", border: "1px solid rgba(82,183,136,0.45)",
+      borderRadius: "24px", padding: "6px 16px", color: "#74C69D",
+      fontSize: "11px", fontWeight: "800", letterSpacing: "1.5px",
+      marginBottom: "20px", fontFamily: "'DM Sans', sans-serif",
+    },
+    badgeDot: { width: "8px", height: "8px", background: "#52B788", borderRadius: "50%", display: "inline-block", flexShrink: 0 },
+    heroTitle: {
+      fontFamily: "'Playfair Display', serif", fontSize: "clamp(32px,4vw,54px)",
+      fontWeight: "700", color: "white", lineHeight: "1.1", marginBottom: "14px",
+    },
+    heroSub: { fontSize: "15px", color: "rgba(255,255,255,0.88)", lineHeight: "1.7", maxWidth: "500px", fontWeight: "400", marginBottom: "24px" },
+    pill: { background: "rgba(255,255,255,0.25)", color: "white", borderRadius: "20px", padding: "6px 16px", fontSize: "12px", fontWeight: "700", border: "1px solid rgba(255,255,255,0.4)", fontFamily: "'DM Sans', sans-serif" },
+    pillOther: { background: "rgba(255,255,255,0.08)", color: "rgba(255,255,255,0.82)", borderRadius: "20px", padding: "6px 16px", fontSize: "12px", fontWeight: "500", border: "1px solid rgba(255,255,255,0.2)", textDecoration: "none", fontFamily: "'DM Sans', sans-serif" },
+    body: { padding: "48px 80px", background: "#FDF6F0" },
+    sectionLabel: { fontSize: "11px", fontWeight: "800", letterSpacing: "2px", textTransform: "uppercase", color: "#52B788", marginBottom: "8px" },
+    divider: { display: "flex", alignItems: "center", gap: "12px", marginBottom: "24px" },
+    dividerLine: { flex: 1, height: "1px", background: "#EDD8C8" },
+    sectionTitle: { fontFamily: "'Playfair Display', serif", fontSize: "22px", fontWeight: "700", color: "#1a0800", marginBottom: "12px" },
+    card: { background: "white", borderRadius: "16px", border: "1px solid #EDD8C8", padding: "28px", position: "relative", overflow: "hidden" },
+    greenCard: { background: "linear-gradient(135deg, #1B4332, #2D6A4F)", borderRadius: "16px", padding: "28px", position: "relative", overflow: "hidden" },
+    articleRow: { background: "white", borderRadius: "10px", border: "1px solid #EDD8C8", padding: "14px 18px", display: "flex", alignItems: "center", justifyContent: "space-between", gap: "12px", marginBottom: "10px", textDecoration: "none" },
+    arrow: { fontSize: "18px", color: "#C4622D", fontWeight: "700", flexShrink: 0 },
+    greenArrow: { fontSize: "18px", color: "#2D6A4F", fontWeight: "700", flexShrink: 0 },
+  };
+
+  return (
+    <Layout>
+      <Head>
+        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+      </Head>
+
+      <div style={s.page}>
+
+        {/* ── Hero ── */}
+        <div className="topic-hero" style={s.hero}>
+          <div style={s.heroSymbol}></div>
+          <div style={s.badge}>
+            <span style={s.badgeDot}></span>
+            {config.label.toUpperCase()} · {config.weeks.toUpperCase()}
+          </div>
+          <h1 style={s.heroTitle}>{topicContent.title}</h1>
+          <p style={s.heroSub}>{intro}</p>
+          <div className="pills-row" style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
+            <span style={s.pill}>{icon} {topicId.charAt(0).toUpperCase() + topicId.slice(1)}</span>
+            {otherTopics.map(t => (
+              <a key={t} href={`/trimester-${trimesterNum}/${t}`} style={s.pillOther}>
+                {topicIcons[t]} {t.charAt(0).toUpperCase() + t.slice(1)}
+              </a>
+            ))}
+          </div>
+        </div>
+
+        {/* ── Body ── */}
+        <div className="topic-body" style={s.body}>
+          <div style={{ maxWidth: "1000px", margin: "0 auto" }}>
+
+            {/* Overview + Key Tips */}
+            <div className="overview-grid" style={{ display: "grid", gridTemplateColumns: "1.4fr 1fr", gap: "20px", marginBottom: "40px" }}>
+              <div style={s.card}>
+                <div style={{ position: "absolute", right: "-20px", bottom: "-20px", width: "130px", height: "130px", backgroundImage: `url('${AKOKO}')`, backgroundSize: "contain", backgroundRepeat: "no-repeat", opacity: 0.05, transform: "rotate(90deg)", pointerEvents: "none" }}></div>
+                <div style={s.sectionLabel}>Overview</div>
+                <h2 style={s.sectionTitle}>{topicContent.title}</h2>
+
+                {/* Featured overview video */}
+                <div style={{ borderRadius: "12px", overflow: "hidden", marginBottom: "16px", position: "relative", paddingBottom: "56.25%", background: config.from }}>
+                  <div style={{ position: "absolute", inset: 0, backgroundImage: `url('${AKOKO}')`, backgroundSize: "80px", backgroundRepeat: "no-repeat", backgroundPosition: "center", opacity: 0.07 }}></div>
+                  <iframe
+                    src={topicOverviewVideos[resolvedUrl] || "https://www.youtube.com/embed/ZrV09MRqAeo"}
+                    style={{ position: "absolute", inset: 0, width: "100%", height: "100%", border: "none" }}
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                    title="Overview video"
+                  />
+                </div>
+
+                {/* Short summary text */}
+                <p style={{ fontSize: "14px", color: "#3a1808", lineHeight: "1.75", fontWeight: "400" }}>
+                  {topicShortSummary[resolvedUrl] || "Watch the video above for a quick overview, then explore the sections below for detailed guidance."}
+                </p>
+              </div>
+              <div style={s.greenCard}>
+                <div style={{ position: "absolute", right: "-16px", top: "-16px", width: "100px", height: "100px", backgroundImage: `url('${AKOKO}')`, backgroundSize: "contain", backgroundRepeat: "no-repeat", opacity: 0.08, pointerEvents: "none" }}></div>
+                <div style={{ fontSize: "11px", fontWeight: "800", letterSpacing: "2px", color: "#74C69D", textTransform: "uppercase", marginBottom: "16px" }}>Key tips</div>
+                <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+                  {tips.map((tip, i) => (
+                    <div key={i} style={{ display: "flex", alignItems: "flex-start", gap: "10px" }}>
+                      <span style={{ width: "7px", height: "7px", background: "#52B788", borderRadius: "50%", flexShrink: 0, marginTop: "6px", display: "inline-block" }}></span>
+                      <span style={{ fontSize: "13px", color: "rgba(255,255,255,0.95)", fontWeight: "500", lineHeight: "1.5" }}>{tip}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Videos */}
+            <div style={{ marginBottom: "40px" }}>
+              <div style={s.divider}>
+                <div style={s.sectionLabel}>Videos</div>
+                <div style={s.dividerLine}></div>
+              </div>
+              <div className="video-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: "16px" }}>
+                {topicContent.content?.props?.children && React.Children.toArray(topicContent.content.props.children)
+                  .filter(child => child?.props?.src?.includes("youtube"))
+                  .slice(0, 3)
+                  .map((video, i) => (
+                    <div key={i} style={{ background: "white", borderRadius: "12px", border: "1px solid #EDD8C8", overflow: "hidden" }}>
+                      <div style={{ position: "relative", paddingBottom: "56.25%", background: i === 0 ? config.from : i === 1 ? "#1B4332" : "#5C1200" }}>
+                        <div style={{ position: "absolute", inset: 0, backgroundImage: `url('${AKOKO}')`, backgroundSize: "80px", backgroundRepeat: "no-repeat", backgroundPosition: "center", opacity: 0.07 }}></div>
+                        <iframe
+                          src={video.props.src}
+                          style={{ position: "absolute", inset: 0, width: "100%", height: "100%", border: "none" }}
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                          allowFullScreen
+                        />
+                      </div>
+                      <div style={{ padding: "12px 14px" }}>
+                        <div style={{ fontSize: "13px", fontWeight: "600", color: "#1a0800" }}>
+                          {["Abdominal exercises", "Yoga & movement", "Breathing techniques"][i]}
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                {/* If no videos in content, show placeholder */}
+                {(!topicContent.content?.props?.children || !React.Children.toArray(topicContent.content.props.children).some(c => c?.props?.src?.includes("youtube"))) && (
+                  <div style={{ gridColumn: "1/-1", background: "white", borderRadius: "12px", border: "1px solid #EDD8C8", padding: "32px", textAlign: "center" }}>
+                    <div style={{ fontSize: "14px", color: "#888", fontWeight: "500" }}>Video content coming soon for this section.</div>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Articles + Recipes */}
+            <div className="articles-recipes-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "24px", marginBottom: "40px" }}>
+
+              {/* Articles — searchable dropdown */}
+              <div>
+                <div style={s.divider}>
+                  <div style={s.sectionLabel}>Articles & Resources</div>
+                  <div style={s.dividerLine}></div>
+                </div>
+
+                {/* Search toggle bar */}
+                <div
+                  onClick={() => setArticlesOpen(!articlesOpen)}
+                  style={{ background: "white", borderRadius: "12px", border: `1.5px solid ${articlesOpen ? "#C4622D" : "#EDD8C8"}`, padding: "14px 18px", display: "flex", alignItems: "center", justifyContent: "space-between", cursor: "pointer", marginBottom: articlesOpen ? "12px" : "0" }}
+                >
+                  <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                    <span style={{ fontSize: "16px", color: "#C4622D" }}>◎</span>
+                    <span style={{ fontSize: "14px", fontWeight: "600", color: "#1a0800" }}>Search articles & resources</span>
+                  </div>
+                  <span style={{ fontSize: "18px", color: "#C4622D", fontWeight: "700", transform: articlesOpen ? "rotate(45deg)" : "none", transition: "transform 0.2s" }}>+</span>
+                </div>
+
+                {articlesOpen && (
+                  <div style={{ background: "white", borderRadius: "12px", border: "1px solid #EDD8C8", overflow: "hidden" }}>
+                    {/* Search input */}
+                    <div style={{ padding: "14px 16px", borderBottom: "1px solid #EDD8C8" }}>
+                      <input
+                        type="text"
+                        placeholder="Search by title or author..."
+                        value={articleSearch}
+                        onChange={e => setArticleSearch(e.target.value)}
+                        onClick={e => e.stopPropagation()}
+                        style={{ width: "100%", border: "1.5px solid #EDD8C8", borderRadius: "8px", padding: "10px 14px", fontSize: "14px", color: "#1a0800", fontFamily: "'DM Sans', sans-serif", fontWeight: "500", outline: "none", background: "#FDF6F0" }}
+                      />
+                    </div>
+
+                    {/* Filtered results */}
+                    <div style={{ maxHeight: "320px", overflowY: "auto" }}>
+                      {topicArticles
+                        .filter(a => !articleSearch || a.title.toLowerCase().includes(articleSearch.toLowerCase()) || (a.author || "").toLowerCase().includes(articleSearch.toLowerCase()))
+                        .map((article, i, arr) => (
+                          <a key={i} href={article.src} target="_blank" rel="noreferrer" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "12px", padding: "14px 18px", borderBottom: i < arr.length - 1 ? "1px solid #EDD8C8" : "none", textDecoration: "none", background: "white" }}>
+                            <div>
+                              <div style={{ fontSize: "13px", fontWeight: "600", color: "#1a0800", marginBottom: "3px" }}>{article.title}</div>
+                              <div style={{ fontSize: "11px", color: "#888", fontWeight: "500" }}>{article.author}</div>
+                            </div>
+                            <span style={s.arrow}>→</span>
+                          </a>
+                        ))
+                      }
+                      {topicArticles.filter(a => !articleSearch || a.title.toLowerCase().includes(articleSearch.toLowerCase()) || (a.author || "").toLowerCase().includes(articleSearch.toLowerCase())).length === 0 && (
+                        <div style={{ padding: "24px", textAlign: "center", fontSize: "13px", color: "#888" }}>No articles found for "{articleSearch}"</div>
+                      )}
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* Recipes */}
+              <div>
+                <div style={s.divider}>
+                  <div style={s.sectionLabel}>Recipe ideas</div>
+                  <div style={s.dividerLine}></div>
+                </div>
+                {[
+                  { title: "Jollof rice with spinach", tag: "Iron-rich", tagBg: "#E8F5EE", tagColor: "#1B4332", img: "https://images.unsplash.com/photo-1694671688249-a63c29a3b364?w=80&h=80&fit=crop", bg: "#8B2500", href: "https://www.bbc.co.uk/food/recipes/jollof_rice_16203" },
+                  { title: "Plantain & bean stew", tag: "High protein", tagBg: "#E8F5EE", tagColor: "#1B4332", img: "https://images.unsplash.com/photo-1511690743698-d9d85f2fbf38?w=80&h=80&fit=crop", bg: "#1B4332", href: "https://www.bbc.co.uk/food/recipes" },
+                  { title: "Ginger & lemon tea", tag: "Nausea relief", tagBg: "#FEF3E8", tagColor: "#854F0B", img: "https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=80&h=80&fit=crop", bg: "#5C1200", href: "https://www.bbcgoodfood.com/recipes/ginger-tea" },
+                  { title: "African Eatwell plate", tag: "Balanced diet", tagBg: "#E8F5EE", tagColor: "#1B4332", img: "https://www.fountainmedical.co.uk/wp-content/uploads/sites/290/2021/10/AfricanCaribbeanEatwell-e1635149697112-1024x716.png", bg: "#3D1200", href: "https://www.fountainmedical.co.uk" },
+                ].map((r, i) => (
+                  <a key={i} href={r.href} target="_blank" rel="noreferrer" style={{ ...s.articleRow, padding: 0, overflow: "hidden", alignItems: "stretch", display: "flex", marginBottom: "10px", textDecoration: "none" }}>
+                    <div style={{ width: "72px", flexShrink: 0, background: r.bg, position: "relative", overflow: "hidden", minHeight: "64px" }}>
+                      <img src={r.img} alt={r.title} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} onError={e => e.target.style.display = "none"} />
+                    </div>
+                    <div style={{ padding: "12px 14px", flex: 1 }}>
+                      <div style={{ fontSize: "13px", fontWeight: "600", color: "#1a0800", marginBottom: "5px" }}>{r.title}</div>
+                      <span style={{ fontSize: "10px", background: r.tagBg, color: r.tagColor, borderRadius: "20px", padding: "2px 8px", fontWeight: "700" }}>{r.tag}</span>
+                    </div>
+                    <div style={{ display: "flex", alignItems: "center", paddingRight: "14px" }}>
+                      <span style={s.greenArrow}>→</span>
+                    </div>
+                  </a>
+                ))}
+              </div>
+            </div>
+
+            {/* Local Services */}
+            <div style={{ marginBottom: "40px" }}>
+              <div style={s.divider}>
+                <div style={s.sectionLabel}>Local Services</div>
+                <div style={s.dividerLine}></div>
+              </div>
+              <div style={{ ...s.card, padding: "32px" }}>
+                <div style={{ position: "absolute", right: "-20px", bottom: "-20px", width: "140px", height: "140px", backgroundImage: `url('${AKOKO}')`, backgroundSize: "contain", backgroundRepeat: "no-repeat", opacity: 0.05, transform: "rotate(-15deg)", pointerEvents: "none" }}></div>
+                <div className="services-row" style={{ display: "flex", alignItems: "center", gap: "24px", flexWrap: "wrap" }}>
+                  <div style={{ flex: 1, minWidth: "200px" }}>
+                    <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: "20px", fontWeight: "700", color: "#1a0800", marginBottom: "8px" }}>Find services near you</h3>
+                    <p style={{ fontSize: "14px", color: "#6b4030", fontWeight: "400", lineHeight: "1.6" }}>Midwives, antenatal classes, mental health support and community groups in your area.</p>
+                  </div>
+                  <div className="services-input-row" style={{ display: "flex", gap: "10px", alignItems: "center" }}>
+                    <input
+                      type="text"
+                      placeholder="Enter postcode..."
+                      value={postcode}
+                      onChange={e => setPostcode(e.target.value)}
+                      style={{ border: "1.5px solid #EDD8C8", borderRadius: "10px", padding: "12px 16px", fontSize: "14px", color: "#1a0800", width: "180px", outline: "none", background: "#FDF6F0", fontFamily: "'DM Sans', sans-serif", fontWeight: "500" }}
+                    />
+                    <button
+                      onClick={() => postcode && setPostcodeSubmitted(true)}
+                      style={{ background: "#C4622D", color: "white", border: "none", borderRadius: "10px", padding: "12px 20px", fontSize: "14px", fontWeight: "700", cursor: "pointer", fontFamily: "'DM Sans', sans-serif" }}
+                    >
+                      Search
+                    </button>
+                  </div>
+                </div>
+                {postcodeSubmitted && (
+                  <div style={{ marginTop: "24px", padding: "20px", background: "#FDF6F0", borderRadius: "10px", border: "1px solid #EDD8C8" }}>
+                    <p style={{ fontSize: "14px", color: "#3a1808", fontWeight: "500", marginBottom: "12px" }}>Services near <strong>{postcode.toUpperCase()}</strong>:</p>
+                    {[
+                      { name: "NHS Antenatal Services", type: "Midwifery" },
+                      { name: "Black Mums Upfront", type: "Community support" },
+                      { name: "Perinatal Mental Health Team", type: "Mental health" },
+                    ].map((svc, i) => (
+                      <div key={i} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "10px 0", borderBottom: i < 2 ? "1px solid #EDD8C8" : "none" }}>
+                        <div>
+                          <div style={{ fontSize: "13px", fontWeight: "600", color: "#1a0800" }}>{svc.name}</div>
+                          <div style={{ fontSize: "11px", color: "#888", fontWeight: "500" }}>{svc.type}</div>
+                        </div>
+                        <span style={{ fontSize: "13px", color: "#2D6A4F", fontWeight: "700" }}>→</span>
+                      </div>
+                    ))}
+                    <p style={{ fontSize: "11px", color: "#aaa", marginTop: "12px" }}>* Postcode search integration coming soon. Showing sample services.</p>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Community Q&A */}
+            <div>
+              <div style={s.divider}>
+                <div style={s.sectionLabel}>Community Q&A</div>
+                <div style={s.dividerLine}></div>
+              </div>
+              <div className="qa-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px", marginBottom: "20px" }}>
+                {[
+                  { q: "Is it safe to exercise in the first trimester?", a: "Yes — gentle exercise like walking and swimming is encouraged throughout pregnancy as long as you feel well." },
+                  { q: "When should I book my midwife appointment?", a: "Book as soon as possible, ideally before 10 weeks. Contact your GP or self-refer to your local maternity unit." },
+                  { q: "What cultural foods are safe during pregnancy?", a: "Many traditional African and Caribbean foods are excellent — jollof rice, plantain, egusi soup and more. Avoid soft cheeses and raw fish." },
+                  { q: "How do I manage morning sickness?", a: "Eat little and often, try ginger tea, keep crackers nearby for the morning and stay hydrated throughout the day." },
+                ].map((qa, i) => (
+                  <div key={i} style={{ ...s.card, padding: "20px" }}>
+                    <div style={{ position: "absolute", right: "-10px", bottom: "-10px", width: "70px", height: "70px", backgroundImage: `url('${AKOKO}')`, backgroundSize: "contain", backgroundRepeat: "no-repeat", opacity: 0.06, transform: i % 2 === 0 ? "none" : "rotate(90deg)", pointerEvents: "none" }}></div>
+                    <div style={{ fontSize: "13px", fontWeight: "700", color: "#C4622D", marginBottom: "10px" }}>Q: {qa.q}</div>
+                    <div style={{ fontSize: "13px", color: "#3a1808", lineHeight: "1.7", fontWeight: "400" }}>{qa.a}</div>
+                  </div>
+                ))}
+              </div>
+              <div style={{ textAlign: "center" }}>
+                <a href="https://amai-mtoto.forumotion.com/" target="_blank" rel="noreferrer" style={{ display: "inline-block", background: "#1B4332", color: "white", borderRadius: "32px", padding: "14px 32px", fontSize: "14px", fontWeight: "700", textDecoration: "none", fontFamily: "'DM Sans', sans-serif" }}>
+                  Join the forum for more →
+                </a>
+              </div>
+            </div>
+
+            {/* Bottom trimester nav */}
+            <div className="bottom-nav" style={{ marginTop: "56px", background: `linear-gradient(135deg, ${config.from}, ${config.to})`, borderRadius: "20px", padding: "36px 40px", display: "flex", alignItems: "center", justifyContent: "space-between", gap: "20px", flexWrap: "wrap", position: "relative", overflow: "hidden" }}>
+              <div style={{ position: "absolute", right: "-20px", bottom: "-20px", width: "160px", height: "160px", backgroundImage: `url('${AKOKO}')`, backgroundSize: "contain", backgroundRepeat: "no-repeat", opacity: 0.07, pointerEvents: "none" }}></div>
+              <div>
+                <p style={{ fontFamily: "'Playfair Display', serif", fontSize: "20px", color: "white", marginBottom: "6px", fontWeight: "700" }}>Explore more</p>
+                <p style={{ fontSize: "13px", color: "rgba(255,255,255,0.75)", fontWeight: "400" }}>Continue your pregnancy journey</p>
+              </div>
+              <div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
+                {otherTopics.map(t => (
+                  <a key={t} href={`/trimester-${trimesterNum}/${t}`} style={{ background: "rgba(255,255,255,0.15)", color: "white", borderRadius: "24px", padding: "10px 20px", fontSize: "14px", fontWeight: "600", fontFamily: "'DM Sans', sans-serif", border: "1px solid rgba(255,255,255,0.25)", textDecoration: "none" }}>
+                    {topicIcons[t]} {t.charAt(0).toUpperCase() + t.slice(1)}
+                  </a>
+                ))}
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500;600;700&display=swap');
+
+        @media (max-width: 768px) {
+          /* Hero */
+          .topic-hero { padding: 32px 20px !important; }
+          .topic-hero h1 { font-size: 28px !important; }
+          .topic-hero p { font-size: 13px !important; }
+
+          /* Body */
+          .topic-body { padding: 24px 16px !important; }
+
+          /* All 2-col grids -> single col */
+          .grid-2col { grid-template-columns: 1fr !important; }
+          .grid-3col { grid-template-columns: 1fr !important; }
+
+          /* Overview + tips stacked */
+          .overview-grid { grid-template-columns: 1fr !important; }
+
+          /* Recipe cards - make image smaller */
+          .recipe-img { width: 56px !important; }
+
+          /* Bottom nav wrap */
+          .bottom-nav { flex-direction: column !important; align-items: flex-start !important; }
+          .bottom-nav-links { flex-wrap: wrap !important; }
+
+          /* Local services */
+          .services-row { flex-direction: column !important; align-items: flex-start !important; }
+          .services-input-row { width: 100% !important; }
+          .services-input-row input { width: 100% !important; flex: 1 !important; }
+
+          /* Q&A grid */
+          .qa-grid { grid-template-columns: 1fr !important; }
+
+          /* Video grid */
+          .video-grid { grid-template-columns: 1fr !important; }
+
+          /* Article + recipe grid */
+          .articles-recipes-grid { grid-template-columns: 1fr !important; }
+
+          /* Pills wrap */
+          .pills-row { flex-wrap: wrap !important; }
+
+          /* iframe */
+          iframe { border-radius: 8px !important; }
+        }
+      `}</style>
+    </Layout>
+  );
+};
+
+export default Topic;
