@@ -39,6 +39,7 @@ const navItems = [
   { label: "FAQ", href: "/faq" },
   { label: "About Us", href: "/about-us" },
   { label: "Local Services", href: "/local-services" },
+  { label: "NHS Staff", href: "/nhs-staff" },
   ...trimesterItems,
   createTrimester4(),
 ];
