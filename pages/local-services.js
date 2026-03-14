@@ -172,7 +172,7 @@ export default function LocalServices() {
       </Head>
 
       {/* Hero */}
-      <div style={{ background: "linear-gradient(135deg, #1B4332 0%, #2D6A4F 50%, #C4622D 100%)", padding: "64px 80px", position: "relative", overflow: "hidden" }}>
+      <div className="ls-hero" style={{ background: "linear-gradient(135deg, #1B4332 0%, #2D6A4F 50%, #C4622D 100%)", padding: "64px 80px", position: "relative", overflow: "hidden" }}>
         <div style={{ position: "absolute", right: "-20px", top: "50%", transform: "translateY(-50%)", width: "240px", height: "240px", backgroundImage: `url('${AKOKO}')`, backgroundSize: "contain", backgroundRepeat: "no-repeat", opacity: 0.07, pointerEvents: "none" }}></div>
         <div style={{ display: "inline-flex", alignItems: "center", gap: "8px", background: "rgba(45,106,79,0.35)", border: "1px solid rgba(82,183,136,0.45)", borderRadius: "24px", padding: "6px 16px", color: "#74C69D", fontSize: "11px", fontWeight: "800", letterSpacing: "1.5px", marginBottom: "20px", fontFamily: "'DM Sans', sans-serif" }}>
           <span style={{ width: "8px", height: "8px", background: "#52B788", borderRadius: "50%", display: "inline-block" }}></span>
@@ -186,7 +186,7 @@ export default function LocalServices() {
         </p>
 
         {/* Postcode search */}
-        <div style={{ display: "flex", gap: "12px", flexWrap: "wrap", alignItems: "center" }}>
+        <div className="ls-search-row" style={{ display: "flex", gap: "12px", flexWrap: "wrap", alignItems: "center" }}>
           <input
             type="text"
             placeholder="Enter your postcode..."
@@ -205,7 +205,7 @@ export default function LocalServices() {
         </div>
       </div>
 
-      <div style={{ background: "#FDF6F0", padding: "48px 80px", fontFamily: "'DM Sans', sans-serif" }}>
+      <div className="ls-body" style={{ background: "#FDF6F0", padding: "48px 80px", fontFamily: "'DM Sans', sans-serif" }}>
         <div style={{ maxWidth: "1000px", margin: "0 auto" }}>
 
           {/* NHS Local Results */}
@@ -219,7 +219,7 @@ export default function LocalServices() {
               </div>
 
               {nhsResults.length > 0 ? (
-                <div style={{ display: "grid", gridTemplateColumns: "repeat(2,1fr)", gap: "16px" }}>
+                <div className="ls-nhs-grid" style={{ display: "grid", gridTemplateColumns: "repeat(2,1fr)", gap: "16px" }}>
                   {nhsResults.map((r, i) => (
                     <div key={i} style={{ background: "white", borderRadius: "14px", border: "1px solid #EDD8C8", padding: "20px", borderTop: "3px solid #C4622D" }}>
                       <div style={{ fontSize: "15px", fontWeight: "700", color: "#1a0800", marginBottom: "6px" }}>{r.OrganisationName}</div>
@@ -246,7 +246,7 @@ export default function LocalServices() {
             <div style={{ flex: 1, height: "1px", background: "#EDD8C8" }}></div>
           </div>
 
-          <div style={{ display: "flex", gap: "8px", flexWrap: "wrap", marginBottom: "28px" }}>
+          <div className="ls-filters" style={{ display: "flex", gap: "8px", flexWrap: "wrap", marginBottom: "28px" }}>
             {SERVICE_TYPES.map(t => (
               <button
                 key={t.id}
@@ -259,7 +259,7 @@ export default function LocalServices() {
           </div>
 
           {/* National services grid */}
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(2,1fr)", gap: "16px", marginBottom: "48px" }}>
+          <div className="ls-national-grid" style={{ display: "grid", gridTemplateColumns: "repeat(2,1fr)", gap: "16px", marginBottom: "48px" }}>
             {filteredNational.map((svc, i) => (
               <div key={i} style={{ background: "white", borderRadius: "14px", border: "1px solid #EDD8C8", padding: "24px", borderTop: `3px solid ${svc.color}`, position: "relative", overflow: "hidden" }}>
                 <div style={{ position: "absolute", right: "-12px", bottom: "-12px", width: "70px", height: "70px", backgroundImage: `url('${AKOKO}')`, backgroundSize: "contain", backgroundRepeat: "no-repeat", opacity: 0.05, pointerEvents: "none" }}></div>
@@ -270,7 +270,7 @@ export default function LocalServices() {
                   </div>
                 </div>
                 <p style={{ fontSize: "13px", color: "#6b4030", lineHeight: "1.65", fontWeight: "400", marginBottom: "14px" }}>{svc.desc}</p>
-                <div style={{ display: "flex", gap: "10px", alignItems: "center", flexWrap: "wrap" }}>
+                <div className="ls-svc-card-btns" style={{ display: "flex", gap: "10px", alignItems: "center", flexWrap: "wrap" }}>
                   <a href={svc.href} target="_blank" rel="noreferrer" style={{ background: svc.color, color: "white", borderRadius: "20px", padding: "7px 16px", fontSize: "12px", fontWeight: "700", textDecoration: "none", fontFamily: "'DM Sans', sans-serif" }}>
                     Visit website →
                   </a>
@@ -285,13 +285,13 @@ export default function LocalServices() {
           </div>
 
           {/* Emergency banner */}
-          <div style={{ background: "linear-gradient(135deg, #3D1200, #8B2500)", borderRadius: "16px", padding: "32px 40px", display: "flex", alignItems: "center", gap: "24px", flexWrap: "wrap", position: "relative", overflow: "hidden" }}>
+          <div className="ls-emergency" style={{ background: "linear-gradient(135deg, #3D1200, #8B2500)", borderRadius: "16px", padding: "32px 40px", display: "flex", alignItems: "center", gap: "24px", flexWrap: "wrap", position: "relative", overflow: "hidden" }}>
             <div style={{ position: "absolute", right: "-20px", bottom: "-20px", width: "140px", height: "140px", backgroundImage: `url('${AKOKO}')`, backgroundSize: "contain", backgroundRepeat: "no-repeat", opacity: 0.07, pointerEvents: "none" }}></div>
             <div style={{ flex: 1, minWidth: "200px" }}>
               <div style={{ fontFamily: "'Playfair Display', serif", fontSize: "20px", color: "white", fontWeight: "700", marginBottom: "8px" }}>In an emergency</div>
               <p style={{ fontSize: "14px", color: "rgba(255,255,255,0.85)", lineHeight: "1.7", fontWeight: "400" }}>If you or your baby are in immediate danger, call <strong style={{ color: "#F5A623" }}>999</strong>. For urgent medical advice during pregnancy, call <strong style={{ color: "#F5A623" }}>111</strong> or contact your maternity unit directly.</p>
             </div>
-            <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+            <div className="ls-emergency-btns" style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
               <a href="tel:999" style={{ background: "#F5A623", color: "#3D1200", borderRadius: "24px", padding: "12px 24px", fontSize: "15px", fontWeight: "700", textDecoration: "none", textAlign: "center", fontFamily: "'DM Sans', sans-serif" }}>Call 999</a>
               <a href="tel:111" style={{ background: "rgba(255,255,255,0.15)", color: "white", borderRadius: "24px", padding: "12px 24px", fontSize: "15px", fontWeight: "600", textDecoration: "none", textAlign: "center", border: "1px solid rgba(255,255,255,0.3)", fontFamily: "'DM Sans', sans-serif" }}>Call 111</a>
             </div>
@@ -302,12 +302,21 @@ export default function LocalServices() {
 
       <style>{`
         @media (max-width: 768px) {
-          .ls-hero { padding: 40px 20px !important; }
+          .ls-hero { padding: 36px 20px !important; }
+          .ls-hero h1 { font-size: 28px !important; }
+          .ls-hero p { font-size: 14px !important; }
+          .ls-search-row { flex-direction: column !important; width: 100% !important; }
+          .ls-search-row input { width: 100% !important; }
+          .ls-search-row button { width: 100% !important; }
           .ls-body { padding: 32px 16px !important; }
-          .ls-grid { grid-template-columns: 1fr !important; }
+          .ls-national-grid { grid-template-columns: 1fr !important; }
+          .ls-nhs-grid { grid-template-columns: 1fr !important; }
           .ls-filters { gap: 6px !important; }
-          .ls-emergency { flex-direction: column !important; }
-          input[type="text"] { width: 100% !important; }
+          .ls-filters button { font-size: 12px !important; padding: 6px 12px !important; }
+          .ls-emergency { flex-direction: column !important; padding: 24px 20px !important; }
+          .ls-emergency-btns { flex-direction: row !important; width: 100% !important; }
+          .ls-emergency-btns a { flex: 1 !important; text-align: center !important; }
+          .ls-svc-card-btns { flex-direction: column !important; }
         }
       `}</style>
     </Layout>
