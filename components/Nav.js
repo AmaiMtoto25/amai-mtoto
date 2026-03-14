@@ -11,10 +11,11 @@ function createTrimesterItems() {
     { label: "Exercise", subLabel: "Exercises tailored for you", href_key: "exercise" },
     { label: "Wellbeing", subLabel: "Advice on how to feel good", href_key: "wellbeing" },
     { label: "Nutrition", subLabel: "Sort the facts from the fads", href_key: "nutrition" },
+    { label: "Wellbeing Check-in", subLabel: "Your weekly mood & mental health check-in", href: "/wellbeing-checkin" },
   ];
   return Array.from({ length: TRIMESTERS }, (_, i) => ({
     label: `Trimester ${i + 1}`,
-    children: TOPICS.map((t) => ({ ...t, href: `/trimester-${i + 1}/${t.href_key}` })),
+    children: TOPICS.map((t) => t.href ? t : { ...t, href: `/trimester-${i + 1}/${t.href_key}` }),
   }));
 }
 
@@ -26,10 +27,11 @@ function createTrimester4() {
     { label: "Mental Health", subLabel: "Postnatal wellbeing", href_key: "wellbeing" },
     { label: "Baby Care", subLabel: "Essentials for new parents", href_key: "baby-care" },
     { label: "Relationships", subLabel: "Support and connection", href_key: "relationships" },
+    { label: "Wellbeing Check-in", subLabel: "Your weekly mood & mental health check-in", href: "/wellbeing-checkin" },
   ];
   return {
     label: "After Birth",
-    children: TOPICS.map(t => ({ ...t, href: `/trimester-4/${t.href_key}` })),
+    children: TOPICS.map(t => t.href ? t : { ...t, href: `/trimester-4/${t.href_key}` }),
   };
 }
 
@@ -77,9 +79,11 @@ export default function Nav() {
         .am-nav-link { color: white; text-decoration: none; font-size: 14px; font-weight: 500; opacity: 0.9; padding: 8px 12px; border-radius: 8px; display: block; background: transparent; border: none; cursor: pointer; font-family: 'DM Sans', sans-serif; white-space: nowrap; }
         .am-nav-link:hover { opacity: 1; background: rgba(255,255,255,0.12); }
         .am-nav-link.active { opacity: 1; text-decoration: underline; text-underline-offset: 4px; }
-        .am-dropdown { position: absolute; top: calc(100% + 8px); left: 0; background: white; border-radius: 12px; padding: 8px; min-width: 240px; box-shadow: 0 8px 32px rgba(0,0,0,0.15); z-index: 100; }
+        .am-dropdown { position: absolute; top: calc(100% + 8px); left: 0; background: white; border-radius: 12px; padding: 8px; min-width: 260px; box-shadow: 0 8px 32px rgba(0,0,0,0.15); z-index: 100; }
         .am-dropdown-item { display: block; padding: 10px 14px; border-radius: 8px; text-decoration: none; color: #1a0800; transition: background 0.15s; }
         .am-dropdown-item:hover { background: #FFF0E8; }
+        .am-dropdown-item.checkin { border-top: 1px solid #EDD8C8; margin-top: 4px; padding-top: 12px; }
+        .am-dropdown-item.checkin .am-dropdown-label { color: #2D6A4F; }
         .am-dropdown-label { font-size: 14px; font-weight: 500; color: #1a0800; }
         .am-dropdown-sub { font-size: 12px; color: #888; margin-top: 2px; }
         .am-nav-right { display: flex; gap: 10px; align-items: center; }
@@ -89,6 +93,7 @@ export default function Nav() {
         .am-hamburger span { display: block; width: 22px; height: 2px; background: white; margin: 5px 0; border-radius: 2px; transition: all 0.3s; }
         .am-mobile-menu { display: none; background: #3D1200; padding: 16px 24px; }
         .am-mobile-link { display: block; color: white; text-decoration: none; padding: 10px 0; font-size: 15px; border-bottom: 1px solid rgba(255,255,255,0.1); font-family: 'DM Sans', sans-serif; }
+        .am-mobile-link.checkin { color: #74C69D; }
         .am-mobile-group { font-size: 12px; font-weight: 700; letter-spacing: 1.5px; color: #F5A623; text-transform: uppercase; padding: 14px 0 6px; }
         @media (max-width: 900px) {
           .am-topbar { padding: 6px 20px; flex-direction: column; gap: 6px; text-align: center; }
@@ -104,7 +109,7 @@ export default function Nav() {
         <span>Welcome to <strong>Amai-Mtoto</strong> — choose your space</span>
         <div className="am-topbar-btns">
           <button className="am-tbactive">For Mothers</button>
-          <button className="am-tbbtn">NHS Staff</button>
+          <button className="am-tbbtn" onClick={() => router.push("/nhs-staff")}>NHS Staff</button>
           <button className="am-tbbtn">Lambeth</button>
         </div>
       </div>
@@ -129,8 +134,14 @@ export default function Nav() {
               {item.children && openDropdown === item.label && (
                 <div className="am-dropdown">
                   {item.children.map((child) => (
-                    <a key={child.label} className="am-dropdown-item" href={child.href}>
-                      <div className="am-dropdown-label">{child.label}</div>
+                    <a
+                      key={child.label}
+                      className={`am-dropdown-item ${child.href === "/wellbeing-checkin" ? "checkin" : ""}`}
+                      href={child.href}
+                    >
+                      <div className="am-dropdown-label">
+                        {child.href === "/wellbeing-checkin" ? "💚 " : ""}{child.label}
+                      </div>
                       <div className="am-dropdown-sub">{child.subLabel}</div>
                     </a>
                   ))}
@@ -162,8 +173,13 @@ export default function Nav() {
               <>
                 <div className="am-mobile-group">{item.label}</div>
                 {item.children.map((child) => (
-                  <a key={child.label} className="am-mobile-link" href={child.href} style={{paddingLeft: "12px", fontSize: "14px"}}>
-                    {child.label}
+                  <a
+                    key={child.label}
+                    className={`am-mobile-link ${child.href === "/wellbeing-checkin" ? "checkin" : ""}`}
+                    href={child.href}
+                    style={{ paddingLeft: "12px", fontSize: "14px" }}
+                  >
+                    {child.href === "/wellbeing-checkin" ? "💚 " : ""}{child.label}
                   </a>
                 ))}
               </>
