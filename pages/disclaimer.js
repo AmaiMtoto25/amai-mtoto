@@ -96,7 +96,7 @@ export default function Disclaimer() {
           <div style={{ background: "linear-gradient(135deg, #1B4332, #2D6A4F)", borderRadius: "16px", padding: "32px 36px", marginTop: "8px", position: "relative", overflow: "hidden" }}>
             <div style={{ position: "absolute", right: "-16px", bottom: "-16px", width: "100px", height: "100px", backgroundImage: `url('${AKOKO}')`, backgroundSize: "contain", backgroundRepeat: "no-repeat", opacity: 0.08, pointerEvents: "none" }}></div>
             <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: "20px", fontWeight: "700", color: "white", marginBottom: "10px" }}>Questions about this disclaimer?</h3>
-            <p style={{ fontSize: "14px", color: "rgba(255,255,255,0.82)", lineHeight: "1.7", marginBottom: "20px" }}>Contact us at <a href="mailto:hello@amai-mtoto.co.uk" style={{ color: "#B7E4C7", fontWeight: "600" }}>hello@amai-mtoto.co.uk</a> and we will respond within 2–3 working days.</p>
+            <p style={{ fontSize: "14px", color: "rgba(255,255,255,0.82)", lineHeight: "1.7", marginBottom: "20px" }}>Contact us at <a href="mailto:amaimtoto@gmail.com" style={{ color: "#B7E4C7", fontWeight: "600" }}>amaimtoto@gmail.com</a> and we will respond within 2–3 working days.</p>
             <a href="/contact-us" style={{ display: "inline-block", background: "#F5A623", color: "#3D1200", borderRadius: "24px", padding: "12px 28px", fontSize: "14px", fontWeight: "700", textDecoration: "none", fontFamily: "'DM Sans', sans-serif" }}>
               Contact us →
             </a>
