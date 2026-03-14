@@ -214,12 +214,12 @@ export default function AboutUs() {
         </nav>
 
         <div className="aboutHero">
-          <img src="/womensmiling.png" alt="Four Black and mixed-race women laughing together in ankara print" className="heroImgBg" />
+          <img src="/womensmiling.png" alt="Four Black and mixed heritage women laughing together in ankara print" className="heroImgBg" />
           <div className="heroImgOverlay"></div>
           <div className="heroContent">
             <div className="heroBadge"><span className="dot"></span>OUR STORY</div>
             <h1 className="heroTitle">Born from <em>community.</em><br />Built for change.</h1>
-            <p className="heroSub">Amai Mtoto was created because Black and mixed-race women in the UK are four times more likely to die in childbirth than white women. We refuse to accept that statistic as inevitable.</p>
+            <p className="heroSub">Amai Mtoto was created because Black and mixed heritage women in the UK are four times more likely to die in childbirth than white women. We refuse to accept that statistic as inevitable.</p>
           </div>
         </div>
 
@@ -239,11 +239,11 @@ export default function AboutUs() {
               <p className="sectionLabel">Our Mission</p>
               <h2 className="sectionTitle">Why <em>Amai Mtoto</em> exists</h2>
               <p><em style={{color:"#2D6A4F"}}>Amai</em> means Mother in Shona. <em style={{color:"#2D6A4F"}}>Mtoto</em> means Child in Swahili. Together they represent the heart of everything this platform stands for — empowering mothers, supporting families, and building a community that carries each other through the pregnancy journey and beyond.</p>
-              <p>I created Amai Mtoto because I wanted Black and mixed-race women and their families to have a space where they could take ownership of their own health. A place built on evidence-based practice that speaks directly to our community — covering nutrition and cultural foods, exercise, parent education, mental wellbeing, and the medical topics that disproportionately affect us.</p>
+              <p>I created Amai Mtoto because I wanted Black and mixed heritage women and their families to have a space where they could take ownership of their own health. A place built on evidence-based practice that speaks directly to our community — covering nutrition and cultural foods, exercise, parent education, mental wellbeing, and the medical topics that disproportionately affect us.</p>
               <p>But it's more than information. It's about building a village. A community where mothers continue to support each other long after the birth — because that network is just as vital as any clinical resource.</p>
             </div>
             <div className="quoteCard">
-              <p className="quoteText">"I wanted to create a space where Black and mixed-race women could take ownership of their health — with the knowledge, tools and community to do it confidently."</p>
+              <p className="quoteText">"I wanted to create a space where Black and mixed heritage women could take ownership of their health — with the knowledge, tools and community to do it confidently."</p>
               <p className="quoteAuthor">— Founder, Amai Mtoto</p>
             </div>
           </div>
