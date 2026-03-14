@@ -267,14 +267,14 @@ export default function NHSStaff() {
           <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
         </Head>
         <div style={s.page}>
-          <div style={s.hero}>
+          <div className="nhs-hero" style={s.hero}>
             <div style={s.heroSymbol}></div>
             <div style={s.badge}><span style={s.badgeDot}></span>NHS STAFF PORTAL</div>
             <h1 style={s.heroTitle}>For NHS midwives, <em style={{ fontStyle: "italic", color: "#B7E4C7" }}>health visitors</em> & GPs</h1>
             <p style={s.heroSub}>Fast, simple cultural signposting tools — designed to fit into your 15-minute appointment.</p>
           </div>
-          <div style={{ ...s.body, maxWidth: "560px", margin: "0 auto" }}>
-            <div style={{ ...s.card, padding: "40px" }}>
+          <div className="nhs-body" style={{ ...s.body, maxWidth: "560px", margin: "0 auto" }}>
+            <div className="nhs-login-card" style={{ ...s.card, padding: "40px" }}>
               <div style={s.secLbl}>Access the portal</div>
               <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: "22px", fontWeight: "700", color: "#1a0800", marginBottom: "8px" }}>Verify your NHS email</h2>
               <p style={{ fontSize: "14px", color: "#6b4030", marginBottom: "24px", lineHeight: "1.7" }}>Enter your email address to access the NHS staff portal and resources.</p>
@@ -309,7 +309,7 @@ export default function NHSStaff() {
       <div style={s.page}>
 
         {/* Hero */}
-        <div style={s.hero}>
+        <div className="nhs-hero" style={s.hero}>
           <div style={s.heroSymbol}></div>
           <div style={s.badge}><span style={s.badgeDot}></span>NHS STAFF PORTAL</div>
           <h1 style={s.heroTitle}>Welcome back — <em style={{ fontStyle: "italic", color: "#B7E4C7" }}>signpost in seconds</em></h1>
@@ -317,7 +317,7 @@ export default function NHSStaff() {
         </div>
 
         {/* Tab nav */}
-        <div style={{ background: "#FFF8F3", borderBottom: "1px solid #EDD8C8", padding: "16px 80px", display: "flex", gap: "10px", flexWrap: "wrap" }}>
+        <div className="nhs-tabs" style={{ background: "#FFF8F3", borderBottom: "1px solid #EDD8C8", padding: "16px 80px", display: "flex", gap: "10px", flexWrap: "wrap" }}>
           {[
             { id: "signposting", label: "📋 Signposting cards" },
             { id: "cultural", label: "🌍 Cultural guides" },
@@ -328,7 +328,7 @@ export default function NHSStaff() {
           ))}
         </div>
 
-        <div style={{ ...s.body, maxWidth: "1100px", margin: "0 auto" }}>
+        <div className="nhs-body" style={{ ...s.body, maxWidth: "1100px", margin: "0 auto" }}>
 
           {/* ── Signposting cards ── */}
           {activeTab === "signposting" && (
@@ -336,7 +336,7 @@ export default function NHSStaff() {
               <div style={s.secLbl}>Quick send</div>
               <h2 style={s.secTitle}>Signposting <em style={{ fontStyle: "italic", color: "#C4622D" }}>cards</em></h2>
               <p style={{ fontSize: "14px", color: "#6b4030", marginBottom: "32px", lineHeight: "1.7", maxWidth: "640px" }}>One tap to copy a message and link to send to your patient. Each card is matched to the right appointment stage.</p>
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: "16px" }}>
+              <div className="nhs-cards-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: "16px" }}>
                 {SIGNPOSTING_CARDS.map((card, i) => (
                   <div key={i} style={{ background: "white", borderRadius: "14px", border: "1px solid #EDD8C8", borderTop: `3px solid ${card.color}`, padding: "22px", position: "relative", overflow: "hidden" }}>
                     <div style={{ position: "absolute", right: "-10px", bottom: "-10px", width: "60px", height: "60px", backgroundImage: `url('${AKOKO}')`, backgroundSize: "contain", backgroundRepeat: "no-repeat", opacity: 0.05, pointerEvents: "none" }}></div>
@@ -380,7 +380,7 @@ export default function NHSStaff() {
                       <span style={{ fontSize: "20px", color: guide.color, fontWeight: "700", transform: openGuide === i ? "rotate(45deg)" : "none", transition: "transform 0.2s" }}>+</span>
                     </div>
                     {openGuide === i && (
-                      <div style={{ padding: "0 24px 24px", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "14px" }}>
+                      <div className="nhs-guide-grid" style={{ padding: "0 24px 24px", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "14px" }}>
                         {guide.practices.map((p, j) => (
                           <div key={j} style={{ background: "#FDF6F0", borderRadius: "10px", padding: "16px", borderTop: `2px solid ${guide.color}` }}>
                             <div style={{ fontSize: "13px", fontWeight: "700", color: "#1a0800", marginBottom: "6px" }}>{p.title}</div>
@@ -392,7 +392,7 @@ export default function NHSStaff() {
                   </div>
                 ))}
               </div>
-              <div style={{ background: "linear-gradient(135deg,#1B4332,#2D6A4F)", borderRadius: "16px", padding: "28px 32px", marginTop: "24px", display: "flex", alignItems: "center", justifyContent: "space-between", gap: "16px", flexWrap: "wrap" }}>
+              <div className="nhs-banner" style={{ background: "linear-gradient(135deg,#1B4332,#2D6A4F)", borderRadius: "16px", padding: "28px 32px", marginTop: "24px", display: "flex", alignItems: "center", justifyContent: "space-between", gap: "16px", flexWrap: "wrap" }}>
                 <div>
                   <div style={{ fontFamily: "'Playfair Display', serif", fontSize: "18px", color: "white", marginBottom: "6px", fontWeight: "700" }}>Important reminder</div>
                   <p style={{ fontSize: "13px", color: "rgba(255,255,255,0.82)", lineHeight: "1.7", maxWidth: "560px" }}>These guides are starting points — not stereotypes. Always ask your patient what matters to her. Cultural practices vary enormously within communities.</p>
@@ -454,7 +454,7 @@ export default function NHSStaff() {
               <p style={{ fontSize: "14px", color: "#6b4030", marginBottom: "24px", lineHeight: "1.7", maxWidth: "640px" }}>Culturally relevant meal planning for gestational diabetes. Share this with your patient at diagnosis — it uses the foods she actually eats.</p>
 
               {/* Heritage selector */}
-              <div style={{ display: "flex", gap: "10px", marginBottom: "28px", flexWrap: "wrap" }}>
+              <div className="nhs-gd-btns" style={{ display: "flex", gap: "10px", marginBottom: "28px", flexWrap: "wrap" }}>
                 {[{ id: "westAfrican", label: "🇳🇬 West African" }, { id: "caribbean", label: "🇯🇲 Caribbean" }].map(h => (
                   <button key={h.id} onClick={() => setGdHeritage(h.id)} style={{ background: gdHeritage === h.id ? "#1B4332" : "white", color: gdHeritage === h.id ? "white" : "#6b4030", border: `1.5px solid ${gdHeritage === h.id ? "#1B4332" : "#EDD8C8"}`, borderRadius: "24px", padding: "10px 20px", fontSize: "14px", fontWeight: "700", cursor: "pointer", fontFamily: "'DM Sans', sans-serif" }}>
                     {h.label}
@@ -463,7 +463,7 @@ export default function NHSStaff() {
               </div>
 
               {/* GD content tabs */}
-              <div style={{ display: "flex", gap: "8px", marginBottom: "24px", flexWrap: "wrap" }}>
+              <div className="nhs-gd-btns" style={{ display: "flex", gap: "8px", marginBottom: "24px", flexWrap: "wrap" }}>
                 {[{ id: "swaps", label: "Low GI swaps" }, { id: "enjoy", label: "Enjoy freely" }, { id: "limit", label: "Limit or avoid" }, { id: "meals", label: "Sample meals" }].map(t => (
                   <button key={t.id} onClick={() => setGdTab(t.id)} style={{ background: gdTab === t.id ? "#C4622D" : "white", color: gdTab === t.id ? "white" : "#6b4030", border: `1.5px solid ${gdTab === t.id ? "#C4622D" : "#EDD8C8"}`, borderRadius: "20px", padding: "8px 18px", fontSize: "13px", fontWeight: "700", cursor: "pointer", fontFamily: "'DM Sans', sans-serif" }}>
                     {t.label}
@@ -494,7 +494,7 @@ export default function NHSStaff() {
               {gdTab === "enjoy" && (
                 <div style={{ background: "white", borderRadius: "14px", border: "1px solid #EDD8C8", borderTop: "3px solid #2D6A4F", padding: "24px" }}>
                   <div style={{ fontSize: "11px", fontWeight: "800", letterSpacing: "2px", color: "#2D6A4F", textTransform: "uppercase", marginBottom: "16px" }}>Eat freely — these are excellent choices</div>
-                  <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: "10px" }}>
+                  <div className="nhs-food-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: "10px" }}>
                     {GD_FOODS[gdHeritage].enjoy.map((food, i) => (
                       <div key={i} style={{ background: "#E8F5EE", borderRadius: "8px", padding: "10px 14px", fontSize: "13px", fontWeight: "600", color: "#1B4332", display: "flex", alignItems: "center", gap: "8px" }}>
                         <span style={{ width: "6px", height: "6px", background: "#2D6A4F", borderRadius: "50%", flexShrink: 0 }}></span>
@@ -509,7 +509,7 @@ export default function NHSStaff() {
               {gdTab === "limit" && (
                 <div style={{ background: "white", borderRadius: "14px", border: "1px solid #EDD8C8", borderTop: "3px solid #C4622D", padding: "24px" }}>
                   <div style={{ fontSize: "11px", fontWeight: "800", letterSpacing: "2px", color: "#C4622D", textTransform: "uppercase", marginBottom: "16px" }}>Limit or avoid — or eat with protein to reduce impact</div>
-                  <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: "10px" }}>
+                  <div className="nhs-food-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: "10px" }}>
                     {GD_FOODS[gdHeritage].limit.map((food, i) => (
                       <div key={i} style={{ background: "#FEF3E8", borderRadius: "8px", padding: "10px 14px", fontSize: "13px", fontWeight: "600", color: "#8B2500", display: "flex", alignItems: "center", gap: "8px" }}>
                         <span style={{ width: "6px", height: "6px", background: "#C4622D", borderRadius: "50%", flexShrink: 0 }}></span>
@@ -527,7 +527,7 @@ export default function NHSStaff() {
                   {[{ label: "Breakfast", meal: GD_FOODS[gdHeritage].meals.breakfast, color: "#C4622D", icon: "🌅" },
                     { label: "Lunch", meal: GD_FOODS[gdHeritage].meals.lunch, color: "#2D6A4F", icon: "☀️" },
                     { label: "Dinner", meal: GD_FOODS[gdHeritage].meals.dinner, color: "#1B4332", icon: "🌙" }].map((m, i) => (
-                    <div key={i} style={{ background: "white", borderRadius: "14px", border: "1px solid #EDD8C8", borderLeft: `4px solid ${m.color}`, padding: "20px 24px", display: "flex", alignItems: "flex-start", gap: "16px" }}>
+                    <div key={i} className="nhs-meal-card" style={{ background: "white", borderRadius: "14px", border: "1px solid #EDD8C8", borderLeft: `4px solid ${m.color}`, padding: "20px 24px", display: "flex", alignItems: "flex-start", gap: "16px" }}>
                       <span style={{ fontSize: "28px", flexShrink: 0 }}>{m.icon}</span>
                       <div>
                         <div style={{ fontSize: "11px", fontWeight: "800", letterSpacing: "1.5px", color: m.color, textTransform: "uppercase", marginBottom: "6px" }}>{m.label}</div>
@@ -544,12 +544,12 @@ export default function NHSStaff() {
               )}
 
               {/* Share button */}
-              <div style={{ marginTop: "28px", background: "white", borderRadius: "14px", border: "1px solid #EDD8C8", padding: "24px", display: "flex", alignItems: "center", justifyContent: "space-between", gap: "16px", flexWrap: "wrap" }}>
+              <div className="nhs-share-card" style={{ marginTop: "28px", background: "white", borderRadius: "14px", border: "1px solid #EDD8C8", padding: "24px", display: "flex", alignItems: "center", justifyContent: "space-between", gap: "16px", flexWrap: "wrap" }}>
                 <div>
                   <div style={{ fontFamily: "'Playfair Display', serif", fontSize: "18px", fontWeight: "700", color: "#1a0800", marginBottom: "4px" }}>Share with your patient</div>
                   <p style={{ fontSize: "13px", color: "#6b4030" }}>Send her directly to the GD meal planner page — available to mothers too.</p>
                 </div>
-                <div style={{ display: "flex", gap: "10px" }}>
+                <div className="nhs-share-btns" style={{ display: "flex", gap: "10px" }}>
                   <button onClick={() => {}} style={{ background: "#C4622D", color: "white", border: "none", borderRadius: "10px", padding: "12px 24px", fontSize: "13px", fontWeight: "700", cursor: "pointer", fontFamily: "'DM Sans', sans-serif" }}>Copy patient link</button>
                   <a href="/gd-meal-planner" style={{ background: "transparent", color: "#C4622D", border: "1.5px solid #C4622D", borderRadius: "10px", padding: "12px 24px", fontSize: "13px", fontWeight: "700", textDecoration: "none", fontFamily: "'DM Sans', sans-serif" }}>View patient page</a>
                 </div>
@@ -561,13 +561,49 @@ export default function NHSStaff() {
       </div>
 
       <style>{`
-        @media (max-width: 900px) {
-          .nhs-hero { padding: 40px 20px !important; }
-          .nhs-body { padding: 32px 16px !important; }
-          .nhs-tabs { padding: 12px 16px !important; }
+        @media (max-width: 768px) {
+          /* Hero */
+          .nhs-hero { padding: 36px 20px !important; }
+          .nhs-hero h1 { font-size: 26px !important; }
+          .nhs-hero p { font-size: 13px !important; }
+
+          /* Body */
+          .nhs-body { padding: 24px 16px !important; }
+
+          /* Tabs */
+          .nhs-tabs { padding: 12px 16px !important; overflow-x: auto !important; flex-wrap: nowrap !important; }
+
+          /* Signposting cards — single column */
           .nhs-cards-grid { grid-template-columns: 1fr !important; }
+
+          /* Cultural guide grid — single column */
           .nhs-guide-grid { grid-template-columns: 1fr !important; }
-          .nhs-food-grid { grid-template-columns: 1fr 1fr !important; }
+
+          /* CPD modules */
+          .nhs-cpd-header { flex-direction: column !important; align-items: flex-start !important; gap: 10px !important; }
+
+          /* GD food grid — single column */
+          .nhs-food-grid { grid-template-columns: 1fr !important; }
+
+          /* GD heritage + tab selectors */
+          .nhs-gd-btns { flex-wrap: wrap !important; gap: 8px !important; }
+
+          /* Share card */
+          .nhs-share-card { flex-direction: column !important; align-items: flex-start !important; }
+          .nhs-share-btns { flex-direction: column !important; width: 100% !important; }
+          .nhs-share-btns a, .nhs-share-btns button { width: 100% !important; text-align: center !important; }
+
+          /* Emergency / info banners */
+          .nhs-banner { flex-direction: column !important; padding: 20px 16px !important; }
+
+          /* Login card */
+          .nhs-login-card { padding: 24px 20px !important; }
+
+          /* Meal cards */
+          .nhs-meal-card { flex-direction: column !important; }
+
+          /* Swap cards */
+          .nhs-swap-label { flex-wrap: wrap !important; }
         }
       `}</style>
     </Layout>
