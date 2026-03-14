@@ -30,7 +30,7 @@ const Footer = () => {
         <div className="am-footer-top">
           <div>
             <div className="am-footer-logo">Amai-<span>Mtoto</span></div>
-            <p className="am-footer-tagline">A culturally-rooted pregnancy wellbeing hub for Black and mixed-race mothers — midwifery-led, community-powered.</p>
+            <p className="am-footer-tagline">A culturally-rooted pregnancy wellbeing hub for Black and mixed heritage mothers — midwifery-led, community-powered.</p>
           </div>
           <div>
             <div className="am-footer-col-title">Explore</div>
@@ -54,7 +54,7 @@ const Footer = () => {
         </div>
         <div className="am-footer-bottom">
           <p className="am-footer-copy">© {new Date().getFullYear()} <strong>Amai-Mtoto</strong>. All rights reserved.</p>
-          <p className="am-footer-copy">Built for Black and mixed-race mothers.</p>
+          <p className="am-footer-copy">Built for Black and mixed heritage mothers.</p>
         </div>
       </footer>
     </>
