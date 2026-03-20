@@ -152,7 +152,6 @@ export default function Dashboard() {
   const daysLeft = getDaysLeft(dueDateMs);
   const weeksLeft = daysLeft ? Math.floor(daysLeft / 7) : null;
   const content = TRIMESTER_CONTENT[trimester];
-  const daysPregnant = weeks ? weeks * 7 : null;
   const progressPct = weeks ? Math.min((weeks / 40) * 100, 100) : 0;
 
   return (
@@ -191,10 +190,9 @@ export default function Dashboard() {
             {/* Stats row */}
             <div style={{ display: "flex", alignItems: "center", marginBottom: "20px" }}>
               {[
-                { n: weeks || "–", l: "WEEKS" },
-                { n: daysPregnant || "–", l: "DAYS" },
+                { n: weeks ? `${weeks}w ${extraDays}d` : "–", l: "PREGNANT" },
                 { n: trimester === 4 ? "4th" : `T${trimester}`, l: "TRIMESTER" },
-                { n: weeksLeft !== null ? weeksLeft : "–", l: "WEEKS LEFT" },
+                { n: daysLeft !== null ? `${Math.floor(daysLeft/7)}w ${daysLeft%7}d` : "–", l: "UNTIL DUE DATE" },
               ].map((item, i, arr) => (
                 <React.Fragment key={i}>
                   <div style={{ flex: 1, textAlign: "center" }}>
