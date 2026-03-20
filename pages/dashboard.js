@@ -1,243 +1,318 @@
 /* eslint-disable */
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import Head from "next/head";
+import { useAuth } from "../context/AuthContext";
 import { useRouter } from "next/router";
-import Layout from "../components/Layout";
-import { auth } from "../firebase/auth";
-import { getUserById } from "../firebase/firestore";
-import { updateDoc, doc, getFirestore } from "firebase/firestore";
-import { Box, Heading, Text, Input, Button, VStack, HStack, Grid, GridItem, Spinner, Center, FormLabel, FormControl } from "@chakra-ui/react";
+import Nav from "../components/Nav";
+import Footer from "../components/Footer";
+import { getUserData } from "../firebase/firestore";
 
-const db = getFirestore();
+export async function getServerSideProps() {
+  return { props: {} };
+}
 
-const milestones = {
-  4: "Your baby is the size of a poppy seed! The neural tube is forming right now.",
-  5: "A tiny heart has started beating. Your baby is about the size of a sesame seed.",
-  6: "The baby face is beginning to form - tiny nostrils and the start of ears are appearing.",
-  7: "Your baby hands and feet are forming as little paddles. About the size of a blueberry!",
-  8: "All essential organs have begun to develop. Your baby moves, though you cannot feel it yet.",
-  9: "Tiny toes are forming! Your baby is now about the size of a grape.",
-  10: "Your baby can now swallow and produce urine. Tiny fingernails are starting to grow.",
-  11: "Your baby is almost fully formed. Movements are becoming more distinct.",
-  12: "You have reached the end of your first trimester! The risk of miscarriage drops significantly now.",
-  13: "Your baby fingerprints are forming - completely unique to them!",
-  14: "Your baby may be sucking their thumb. They can make facial expressions now.",
-  15: "Your baby bones are getting stronger. You might start to feel fluttery movements soon.",
-  16: "Your baby can hear sounds from outside the womb. Try talking or singing to them!",
-  17: "Fat is beginning to form under your baby skin to keep them warm.",
-  18: "Your baby ears are developed enough to hear your heartbeat.",
-  19: "Your baby is covered in a white waxy coating called vernix that protects their skin.",
-  20: "Halfway there! Your baby is about the size of a banana.",
-  21: "Your baby can feel you moving and may respond to touch on your belly.",
-  22: "Your baby grip is strong enough to hold a finger. Their face looks fully formed.",
-  23: "Your baby lungs are developing rapidly. They practice breathing amniotic fluid.",
-  24: "Your baby brain is growing fast. They respond to light and sound from outside.",
-  25: "Your baby is gaining weight and filling out. They look more like a newborn every day.",
-  26: "Eyes are opening for the first time! Your baby can blink and respond to light.",
-  27: "You are entering the third trimester! Your baby sleeps and wakes in regular cycles.",
-  28: "Your baby brain and lungs continue to mature. They can dream during REM sleep!",
-  29: "Your baby is putting on about 200g per week now. Movements may feel stronger.",
-  30: "Your baby brain and lungs continue to mature. They can dream during REM sleep!",
-  31: "Your baby can turn their head and may respond to your voice with movement.",
-  32: "Your baby is practicing breathing movements 30-40% of the time now.",
-  33: "Your baby immune system is developing. They are getting antibodies from you.",
-  34: "Your baby lungs are nearly fully developed. If born now they would likely do very well.",
-  35: "Your baby is running out of room but still moving. Their skull stays soft for birth.",
-  36: "Your baby is considered early term. Most organs are fully developed.",
-  37: "Your baby is full term! They could arrive any day now.",
-  38: "Your baby is shedding the waxy vernix coating. They are getting ready to meet you!",
-  39: "Your baby brain and lungs are fully mature. Your body is preparing for labour.",
-  40: "Your due date is here! Every baby comes in their own time. You are doing amazingly.",
-  41: "Your baby will arrive very soon. Rest, stay hydrated, and trust your body.",
-  42: "Your care team is watching over you both. Baby is coming soon - you have got this!",
+const AKOKO = "/akoko-nan-medium.png";
+
+const TRIMESTER_CONTENT = {
+  1: {
+    label: "First Trimester",
+    weeks: "Weeks 1–12",
+    color: "#C4622D",
+    babySize: "a poppy seed growing into a lime",
+    summary: "Your body is working incredibly hard right now — even if you can't see it yet. Hormones are surging, your baby's major organs are forming, and you may be feeling the full force of early pregnancy symptoms.",
+    symptoms: ["Nausea", "Tiredness", "Tender breasts", "Heightened smell", "Frequent urination", "Mood changes"],
+    tip: {
+      tag: "PARENT EDUCATION",
+      headline: "Book your midwife appointment as early as possible",
+      fact: "Your first midwife booking appointment should happen before 10 weeks. This is where your care plan begins — ask every question you have.",
+      gap: "Many Black women report feeling rushed at this appointment. You are entitled to take your time.",
+      sayThis: "\"I'd like to make sure we cover my cultural background and any specific risks relevant to my community today.\"",
+      source: "NICE Antenatal Care Guidelines NG201",
+    },
+    links: [
+      { label: "What to expect", href: "/trimester-1/summary", icon: "◉", color: "#C4622D" },
+      { label: "Nutrition", href: "/trimester-1/nutrition", icon: "✦", color: "#2D6A4F" },
+      { label: "Wellbeing", href: "/trimester-1/wellbeing", icon: "◈", color: "#1B4332" },
+      { label: "Exercise", href: "/trimester-1/exercise", icon: "❋", color: "#8B2500" },
+    ],
+  },
+  2: {
+    label: "Second Trimester",
+    weeks: "Weeks 13–26",
+    color: "#2D6A4F",
+    babySize: "a corn on the cob — and can now hear your voice",
+    summary: "Many women start to feel more like themselves in the second trimester. Your bump is growing, early symptoms often ease, and you may feel your baby's first movements from around 16–20 weeks.",
+    symptoms: ["Mild swelling", "Leg cramps", "Congestion", "Weight gain", "Ligament pain", "Varicose veins"],
+    tip: {
+      tag: "NUTRITION",
+      headline: "Check your iron levels at your next appointment",
+      fact: "Iron deficiency anaemia is more common in Black and mixed heritage women during pregnancy. Ask your midwife to check your levels — don't wait to be offered it.",
+      gap: "Standard NHS guidance doesn't always flag this proactively for Black and mixed heritage women.",
+      sayThis: "\"Can we check my iron levels today? I want to make sure I'm not becoming anaemic.\"",
+      source: "NICE Anaemia in Pregnancy Guidelines",
+    },
+    links: [
+      { label: "What to expect", href: "/trimester-2/summary", icon: "◉", color: "#2D6A4F" },
+      { label: "Nutrition", href: "/trimester-2/nutrition", icon: "✦", color: "#C4622D" },
+      { label: "Wellbeing", href: "/trimester-2/wellbeing", icon: "◈", color: "#1B4332" },
+      { label: "Exercise", href: "/trimester-2/exercise", icon: "❋", color: "#8B2500" },
+    ],
+  },
+  3: {
+    label: "Third Trimester",
+    weeks: "Weeks 27–40",
+    color: "#8B2500",
+    babySize: "a butternut squash and putting on weight every day",
+    summary: "You're in the home stretch. Your baby is growing rapidly and getting ready for birth. Aches and pains are common as your body adjusts. Rest when you can and prepare your birth plan.",
+    symptoms: ["Back pain", "Pelvic pressure", "Shortness of breath", "Heartburn", "Frequent urination", "Swollen feet"],
+    tip: {
+      tag: "SAFETY",
+      headline: "Know the signs of pre-eclampsia — they can be subtle",
+      fact: "Pre-eclampsia is the leading cause of Black maternal death in the UK. Symptoms include persistent headaches, vision changes, sudden swelling, or pain under your ribs.",
+      gap: "Black women's concerns about these symptoms are more likely to be dismissed. Trust your body and persist.",
+      sayThis: "\"I have a persistent headache and I want to rule out pre-eclampsia. Can you check my blood pressure and urine today?\"",
+      source: "MBRRACE-UK 2024, NICE Hypertension in Pregnancy NG133",
+    },
+    links: [
+      { label: "What to expect", href: "/trimester-3/summary", icon: "◉", color: "#8B2500" },
+      { label: "Nutrition", href: "/trimester-3/nutrition", icon: "✦", color: "#2D6A4F" },
+      { label: "Wellbeing", href: "/trimester-3/wellbeing", icon: "◈", color: "#1B4332" },
+      { label: "Exercise", href: "/trimester-3/exercise", icon: "❋", color: "#C4622D" },
+    ],
+  },
+  4: {
+    label: "After Birth",
+    weeks: "The Fourth Trimester",
+    color: "#2D6A4F",
+    babySize: "here and in your arms",
+    summary: "You've done something extraordinary. The fourth trimester covers the first 12 weeks after birth — a time of recovery, adjustment and learning. Your needs matter just as much as your baby's.",
+    symptoms: ["Postnatal bleeding", "Night sweats", "Exhaustion", "Emotional changes", "Breast changes", "Pelvic floor recovery"],
+    tip: {
+      tag: "MENTAL WELLBEING",
+      headline: "Your 6-week check should cover YOUR mental health too",
+      fact: "Your 6-week postnatal check should include questions about your emotional wellbeing, not just your physical recovery. If your GP doesn't ask, bring it up yourself.",
+      gap: "Black mothers are significantly less likely to be screened for postnatal depression at this appointment.",
+      sayThis: "\"I'd like to talk about how I'm feeling emotionally today, not just my physical recovery.\"",
+      source: "NICE Postnatal Care Guidelines NG194",
+    },
+    links: [
+      { label: "After birth", href: "/trimester-4/summary", icon: "◉", color: "#2D6A4F" },
+      { label: "Recovery", href: "/trimester-4/exercise", icon: "❋", color: "#C4622D" },
+      { label: "Mental health", href: "/trimester-4/wellbeing", icon: "◈", color: "#8B2500" },
+      { label: "Baby care", href: "/trimester-4/baby-care", icon: "◆", color: "#1B4332" },
+    ],
+  },
 };
 
-function getWeeksPregnant(dueDateStr) {
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-  const due = new Date(dueDateStr);
-  due.setHours(0, 0, 0, 0);
-  const conception = new Date(due.getTime() - 280 * 86400000);
-  const daysPregnant = Math.floor((today - conception) / 86400000);
-  return Math.max(0, Math.floor(daysPregnant / 7));
-}
+const getTrimester = (dueDateMs) => {
+  if (!dueDateMs) return 1;
+  const now = Date.now();
+  const dueDate = Number(dueDateMs);
+  const conceptionMs = dueDate - (40 * 7 * 24 * 60 * 60 * 1000);
+  const weeks = Math.floor((now - conceptionMs) / (7 * 24 * 60 * 60 * 1000));
+  if (weeks > 40) return 4;
+  if (weeks >= 27) return 3;
+  if (weeks >= 13) return 2;
+  return 1;
+};
 
-function getDaysUntilDue(dueDateStr) {
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-  const due = new Date(dueDateStr);
-  due.setHours(0, 0, 0, 0);
-  return Math.ceil((due - today) / 86400000);
-}
+const getWeeks = (dueDateMs) => {
+  if (!dueDateMs) return null;
+  const now = Date.now();
+  const dueDate = Number(dueDateMs);
+  const conceptionMs = dueDate - (40 * 7 * 24 * 60 * 60 * 1000);
+  const weeks = Math.floor((now - conceptionMs) / (7 * 24 * 60 * 60 * 1000));
+  return Math.min(Math.max(weeks, 1), 42);
+};
 
-function getTrimester(weeks) {
-  if (weeks <= 13) return "First Trimester";
-  if (weeks <= 26) return "Second Trimester";
-  return "Third Trimester";
-}
-
-function getProgress(weeks) {
-  return Math.min(100, Math.round((weeks / 40) * 100));
-}
-
-function getMilestone(weeks) {
-  const key = Math.min(42, Math.max(4, weeks));
-  return milestones[key] || "Your baby is growing beautifully. Every week is a miracle!";
-}
-
-function formatDueDate(dueDateStr) {
-  return new Date(dueDateStr).toLocaleDateString("en-GB", {
-    day: "numeric", month: "long", year: "numeric",
-  });
-}
+const getGreeting = () => {
+  const h = new Date().getHours();
+  if (h < 12) return "Good morning";
+  if (h < 17) return "Good afternoon";
+  return "Good evening";
+};
 
 export default function Dashboard() {
+  const { user } = useAuth();
   const router = useRouter();
-  const [user, setUser] = useState(null);
-  const [userData, setUserData] = useState(null);
+  const [tipExpanded, setTipExpanded] = useState(false);
+  const [userName, setUserName] = useState("");
+  const [dueDateMs, setDueDateMs] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [dueDateInput, setDueDateInput] = useState("");
-  const [locationInput, setLocationInput] = useState("");
-  const [saving, setSaving] = useState(false);
-  const [error, setError] = useState("");
 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged(async (firebaseUser) => {
-      if (!firebaseUser) {
-        router.push("/log-in");
-        return;
+    if (!user) { router.push("/log-in"); return; }
+    const loadUser = async () => {
+      try {
+        const data = await getUserData(user.uid);
+        if (data?.name) setUserName(data.name.split(" ")[0]);
+        if (data?.dueDate) setDueDateMs(data.dueDate);
+      } catch (e) {
+        if (user.displayName) setUserName(user.displayName.split(" ")[0]);
       }
-      setUser(firebaseUser);
-      const data = await getUserById(firebaseUser.uid);
-      setUserData(data);
       setLoading(false);
-    });
-    return () => unsubscribe();
-  }, []);
+    };
+    loadUser();
+  }, [user]);
 
-  async function handleSave() {
-    if (!dueDateInput) {
-      setError("Please enter your due date.");
-      return;
-    }
-    setError("");
-    setSaving(true);
-    try {
-      await updateDoc(doc(db, "users", user.uid), {
-        dueDate: dueDateInput,
-        location: locationInput,
-      });
-      setUserData((prev) => ({ ...prev, dueDate: dueDateInput, location: locationInput }));
-    } catch (e) {
-      setError("Something went wrong saving your details. Please try again.");
-    }
-    setSaving(false);
-  }
+  if (loading) return (
+    <div style={{ minHeight: "100vh", background: "#FDF6F0", display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "'DM Sans', sans-serif" }}>
+      <div style={{ textAlign: "center" }}>
+        <div style={{ fontFamily: "'Playfair Display', serif", fontSize: "24px", color: "#C4622D", marginBottom: "8px" }}>Amai-Mtoto</div>
+        <div style={{ fontSize: "14px", color: "#888" }}>Loading your dashboard...</div>
+      </div>
+    </div>
+  );
 
-  if (loading) {
-    return (
-      <Layout>
-        <Center h="60vh"><Spinner size="xl" color="pink.400" /></Center>
-      </Layout>
-    );
-  }
+  const trimester = getTrimester(dueDateMs);
+  const weeks = getWeeks(dueDateMs);
+  const content = TRIMESTER_CONTENT[trimester];
 
-  const hasDueDate = userData?.dueDate;
-
-  if (!hasDueDate) {
-    return (
-      <Layout>
-        <Box maxW="460px" w="100%" bg="white" borderRadius="2xl" p={8} boxShadow="md" mt={10}>
-          <Heading as="h2" fontSize="2xl" mb={2} color="pink.700">Welcome, Mama</Heading>
-          <Text color="gray.500" fontSize="sm" mb={8}>
-            Let us personalise your experience. Enter your details once and we will track your journey every time you log in.
-          </Text>
-          <VStack spacing={5} align="stretch">
-            <FormControl>
-              <FormLabel fontSize="sm" color="gray.500" fontWeight="600">YOUR DUE DATE</FormLabel>
-              <Input type="date" value={dueDateInput} onChange={(e) => setDueDateInput(e.target.value)} borderRadius="xl" borderColor="orange.200" size="lg" />
-            </FormControl>
-            <FormControl>
-              <FormLabel fontSize="sm" color="gray.500" fontWeight="600">YOUR TOWN OR CITY</FormLabel>
-              <Input type="text" placeholder="e.g. Nairobi, Lagos, London" value={locationInput} onChange={(e) => setLocationInput(e.target.value)} borderRadius="xl" borderColor="orange.200" size="lg" />
-            </FormControl>
-            {error && <Text color="red.500" fontSize="sm">{error}</Text>}
-            <Button onClick={handleSave} isLoading={saving} loadingText="Saving" bg="orange.400" color="white" size="lg" borderRadius="xl" _hover={{ bg: "orange.500" }}>
-              Start My Journey
-            </Button>
-          </VStack>
-        </Box>
-      </Layout>
-    );
-  }
-
-  const weeks = getWeeksPregnant(userData.dueDate);
-  const days = getDaysUntilDue(userData.dueDate);
-  const progress = getProgress(weeks);
-  const trimester = getTrimester(weeks);
-  const milestone = getMilestone(weeks);
-  const mapsQuery = encodeURIComponent("maternity hospital near " + (userData.location || "my location"));
+  const inp = { width: "100%", border: "1.5px solid #EDD8C8", borderRadius: "10px", padding: "14px 16px", fontSize: "14px", fontFamily: "'DM Sans', sans-serif", outline: "none", background: "#FDF6F0", color: "#1a0800", boxSizing: "border-box" };
 
   return (
-    <Layout>
-      <Box maxW="480px" w="100%" mt={8} pb={16}>
-        <Heading as="h2" fontSize="xl" color="pink.700" mb={1}>Hello, {userData.username || "Mama"}</Heading>
-        <Text fontSize="sm" color="gray.400" mb={6}>
-          {new Date().toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long", year: "numeric" })}
-        </Text>
-        <Box bg="linear-gradient(135deg, #C4622D 0%, #8B4513 100%)" borderRadius="2xl" p={8} color="white" mb={4}>
-          <Text fontSize="xs" letterSpacing="widest" opacity={0.8} mb={1}>YOU ARE</Text>
-          <Heading fontSize="6xl" lineHeight="1" mb={1}>{weeks}</Heading>
-          <Text fontSize="lg" opacity={0.85} fontWeight="300">weeks pregnant</Text>
-          <Box display="inline-block" bg="whiteAlpha.200" border="1px solid" borderColor="whiteAlpha.300" borderRadius="full" px={4} py={1} fontSize="sm" mt={4} mb={6}>{trimester}</Box>
-          <Box>
-            <HStack justify="space-between" fontSize="xs" opacity={0.75} mb={2}>
-              <Text>Conception</Text><Text>{progress}%</Text><Text>Due Date</Text>
-            </HStack>
-            <Box bg="whiteAlpha.300" borderRadius="full" h="6px">
-              <Box bg="white" borderRadius="full" h="6px" w={progress + "%"} />
-            </Box>
-          </Box>
-        </Box>
-        <Grid templateColumns="1fr 1fr" gap={3} mb={4}>
-          <GridItem bg="white" borderRadius="2xl" p={5} boxShadow="sm">
-            <Text fontSize="2xl" mb={2}>📅</Text>
-            <Text fontSize="xs" color="gray.400" fontWeight="600" textTransform="uppercase">Days to go</Text>
-            <Heading fontSize="2xl" color="gray.700">{days > 0 ? days : "Any day!"}</Heading>
-            <Text fontSize="xs" color="gray.400">until due date</Text>
-          </GridItem>
-          <GridItem bg="white" borderRadius="2xl" p={5} boxShadow="sm">
-            <Text fontSize="2xl" mb={2}>🌙</Text>
-            <Text fontSize="xs" color="gray.400" fontWeight="600" textTransform="uppercase">Due date</Text>
-            <Heading fontSize="lg" color="gray.700">{formatDueDate(userData.dueDate)}</Heading>
-          </GridItem>
-        </Grid>
-        <Box bg="white" borderRadius="2xl" p={6} boxShadow="sm" mb={4} borderLeft="4px solid" borderColor="orange.300">
-          <HStack mb={3}>
-            <Box bg="orange.400" borderRadius="lg" w="36px" h="36px" display="flex" alignItems="center" justifyContent="center" fontSize="lg">✨</Box>
-            <Heading fontSize="md" color="gray.700">This week</Heading>
-          </HStack>
-          <Text fontSize="sm" color="gray.600" lineHeight="1.7">{milestone}</Text>
-        </Box>
-        <Box bg="white" borderRadius="2xl" p={6} boxShadow="sm" mb={4}>
-          <Heading fontSize="md" color="gray.700" mb={1}>Nearby Maternity Care</Heading>
-          <Text fontSize="sm" color="gray.400" mb={4}>
-            Based on your location: <Box as="span" fontWeight="600" color="gray.600">{userData.location || "not set"}</Box>
-          </Text>
-          <Button as="a" href={"https://www.google.com/maps/search/" + mapsQuery} target="_blank" rel="noopener noreferrer" w="100%" bg="orange.50" color="orange.500" borderRadius="xl" _hover={{ bg: "orange.100" }} fontWeight="500">
-            Find Maternity Hospitals Near Me
-          </Button>
-        </Box>
-        <Text fontSize="sm" color="gray.400" textAlign="center">
-          Wrong details?{" "}
-          <Box as="span" color="orange.400" cursor="pointer" textDecoration="underline"
-            onClick={async () => {
-              await updateDoc(doc(db, "users", user.uid), { dueDate: "", location: "" });
-              setUserData((prev) => ({ ...prev, dueDate: "", location: "" }));
-            }}>
-            Update your information
-          </Box>
-        </Text>
-      </Box>
-    </Layout>
+    <>
+      <Head>
+        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+      </Head>
+      <Nav />
+
+      <div style={{ background: "#FDF6F0", minHeight: "100vh", fontFamily: "'DM Sans', sans-serif" }}>
+
+        {/* Safety strip */}
+        <div style={{ background: "#1a0800", padding: "10px 40px", display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "8px" }}>
+          <span style={{ fontSize: "13px", color: "rgba(255,255,255,0.8)" }}>
+            Need urgent help? <strong style={{ color: "#F5A623" }}>Call 999</strong> for emergencies · <strong style={{ color: "#F5A623" }}>Call 111</strong> for urgent pregnancy advice
+          </span>
+          <a href="/local-services" style={{ fontSize: "12px", color: "#74C69D", fontWeight: "600", textDecoration: "none" }}>Find local support →</a>
+        </div>
+
+        <div style={{ maxWidth: "800px", margin: "0 auto", padding: "48px 24px" }}>
+
+          {/* Greeting + week badge */}
+          <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: "16px", marginBottom: "32px", flexWrap: "wrap" }}>
+            <div>
+              <h1 style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(24px,4vw,36px)", fontWeight: "700", color: "#1a0800", lineHeight: "1.2", marginBottom: "8px" }}>
+                {getGreeting()}{userName ? `, ${userName}` : ""}. 👋
+              </h1>
+              <p style={{ fontSize: "15px", color: "#6b4030", lineHeight: "1.7", maxWidth: "460px", fontWeight: "400" }}>
+                {weeks ? `You're ${weeks} weeks pregnant. Your baby is ${content.babySize}.` : content.babySize === "here and in your arms" ? "Your baby is here and in your arms." : "Welcome to your dashboard."}
+              </p>
+            </div>
+            <div style={{ background: "white", borderRadius: "14px", border: `2px solid ${content.color}`, padding: "14px 20px", textAlign: "center", flexShrink: 0 }}>
+              <div style={{ fontFamily: "'Playfair Display', serif", fontSize: "26px", fontWeight: "700", color: content.color }}>
+                {weeks ? `${weeks}w` : "T" + trimester}
+              </div>
+              <div style={{ fontSize: "10px", color: "#888", fontWeight: "600", letterSpacing: "0.5px", marginTop: "2px" }}>{content.weeks.toUpperCase()}</div>
+            </div>
+          </div>
+
+          {/* Trimester summary */}
+          <div style={{ background: `linear-gradient(135deg, ${content.color}ee, ${content.color}aa)`, borderRadius: "16px", padding: "24px 28px", marginBottom: "20px", position: "relative", overflow: "hidden" }}>
+            <div style={{ position: "absolute", right: "-16px", bottom: "-16px", width: "120px", height: "120px", backgroundImage: `url('${AKOKO}')`, backgroundSize: "contain", backgroundRepeat: "no-repeat", opacity: 0.08, pointerEvents: "none" }}></div>
+            <div style={{ fontSize: "10px", fontWeight: "800", letterSpacing: "1.5px", color: "rgba(255,255,255,0.8)", textTransform: "uppercase", marginBottom: "8px" }}>{content.label} · {content.weeks}</div>
+            <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: "20px", color: "white", fontWeight: "700", marginBottom: "10px" }}>What's happening right now</h2>
+            <p style={{ fontSize: "14px", color: "rgba(255,255,255,0.9)", lineHeight: "1.75", marginBottom: "16px", fontWeight: "400" }}>{content.summary}</p>
+            <div style={{ display: "flex", gap: "8px", flexWrap: "wrap", marginBottom: "16px" }}>
+              {content.symptoms.map((s, i) => (
+                <span key={i} style={{ background: "rgba(255,255,255,0.18)", color: "white", borderRadius: "20px", padding: "4px 12px", fontSize: "12px", fontWeight: "500" }}>{s}</span>
+              ))}
+            </div>
+            <a href={content.links[0].href} style={{ display: "inline-block", background: "white", color: content.color, borderRadius: "20px", padding: "9px 20px", fontSize: "13px", fontWeight: "700", textDecoration: "none" }}>
+              Full {content.label.toLowerCase()} guide →
+            </a>
+          </div>
+
+          {/* Today's tip */}
+          <div style={{ background: "white", borderRadius: "16px", border: "1px solid #EDD8C8", borderTop: `3px solid ${content.color}`, padding: "22px 26px", marginBottom: "20px", position: "relative", overflow: "hidden" }}>
+            <div style={{ position: "absolute", right: "-10px", bottom: "-10px", width: "80px", height: "80px", backgroundImage: `url('${AKOKO}')`, backgroundSize: "contain", backgroundRepeat: "no-repeat", opacity: 0.05, pointerEvents: "none" }}></div>
+            <div style={{ fontSize: "10px", fontWeight: "800", letterSpacing: "1.5px", color: content.color, textTransform: "uppercase", marginBottom: "6px" }}>Today's tip · {content.tip.tag}</div>
+            <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: "18px", fontWeight: "700", color: "#1a0800", marginBottom: "10px", lineHeight: "1.3" }}>{content.tip.headline}</h3>
+            <p style={{ fontSize: "14px", color: "#4a2010", lineHeight: "1.8", fontWeight: "400" }}>{content.tip.fact}</p>
+            {tipExpanded && (
+              <>
+                <p style={{ fontSize: "13px", color: "#6b4030", lineHeight: "1.7", fontStyle: "italic", margin: "14px 0", paddingLeft: "12px", borderLeft: `3px solid ${content.color}` }}>{content.tip.gap}</p>
+                <div style={{ background: "#FDF6F0", borderRadius: "10px", border: "1px solid #EDD8C8", padding: "14px 18px", marginBottom: "12px" }}>
+                  <div style={{ fontSize: "10px", fontWeight: "800", letterSpacing: "1.5px", color: content.color, textTransform: "uppercase", marginBottom: "6px" }}>Say this at your appointment</div>
+                  <p style={{ fontSize: "14px", color: "#1a0800", fontWeight: "500", lineHeight: "1.7" }}>{content.tip.sayThis}</p>
+                </div>
+                <p style={{ fontSize: "11px", color: "#aaa" }}>Source: {content.tip.source}</p>
+              </>
+            )}
+            <div style={{ display: "flex", gap: "10px", marginTop: "16px", flexWrap: "wrap" }}>
+              <button onClick={() => setTipExpanded(!tipExpanded)} style={{ background: content.color, color: "white", border: "none", borderRadius: "20px", padding: "9px 18px", fontSize: "13px", fontWeight: "700", cursor: "pointer", fontFamily: "'DM Sans', sans-serif" }}>
+                {tipExpanded ? "Show less" : "Read more →"}
+              </button>
+              <button style={{ background: "transparent", color: content.color, border: `1.5px solid ${content.color}`, borderRadius: "20px", padding: "9px 18px", fontSize: "13px", fontWeight: "600", cursor: "pointer", fontFamily: "'DM Sans', sans-serif" }}>
+                Save tip
+              </button>
+            </div>
+          </div>
+
+          {/* Nutrition, Exercise, Wellbeing */}
+          <div style={{ fontSize: "11px", fontWeight: "800", letterSpacing: "2px", color: "#2D6A4F", textTransform: "uppercase", marginBottom: "12px" }}>Your wellbeing</div>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "12px", marginBottom: "20px" }}>
+            {content.links.slice(1).map((link, i) => (
+              <a key={i} href={link.href} style={{ background: "white", borderRadius: "12px", border: "1px solid #EDD8C8", borderTop: `3px solid ${link.color}`, padding: "18px 16px", textDecoration: "none" }}>
+                <span style={{ fontSize: "22px", color: link.color, display: "block", marginBottom: "8px" }}>{link.icon}</span>
+                <div style={{ fontSize: "14px", fontWeight: "700", color: "#1a0800", marginBottom: "4px" }}>{link.label}</div>
+                <div style={{ fontSize: "12px", color: "#6b4030", lineHeight: "1.5" }}>
+                  {link.label === "Nutrition" || link.label === "Nutrition & Feeding" ? "Cultural foods & trimester guides" :
+                   link.label === "Exercise" || link.label === "Recovery" ? "Safe movement for this stage" :
+                   link.label === "Wellbeing" || link.label === "Mental health" ? "Mental health & self-care" :
+                   "Essentials for new parents"}
+                </div>
+              </a>
+            ))}
+          </div>
+
+          {/* Wellbeing check-in */}
+          <div style={{ background: "linear-gradient(135deg, #1B4332, #2D6A4F)", borderRadius: "14px", padding: "20px 24px", marginBottom: "20px", display: "flex", alignItems: "center", justifyContent: "space-between", gap: "16px", flexWrap: "wrap", position: "relative", overflow: "hidden" }}>
+            <div style={{ position: "absolute", right: "-16px", top: "50%", transform: "translateY(-50%)", width: "90px", height: "90px", backgroundImage: `url('${AKOKO}')`, backgroundSize: "contain", backgroundRepeat: "no-repeat", opacity: 0.08, pointerEvents: "none" }}></div>
+            <div>
+              <div style={{ fontSize: "10px", fontWeight: "800", letterSpacing: "1.5px", color: "#74C69D", textTransform: "uppercase", marginBottom: "4px" }}>Weekly check-in</div>
+              <div style={{ fontFamily: "'Playfair Display', serif", fontSize: "17px", color: "white", fontWeight: "700", marginBottom: "3px" }}>How are you feeling today?</div>
+              <div style={{ fontSize: "12px", color: "rgba(255,255,255,0.72)" }}>2 minutes · private · just for you</div>
+            </div>
+            <a href="/wellbeing-checkin" style={{ background: "#F5A623", color: "#3D1200", borderRadius: "24px", padding: "12px 24px", fontSize: "14px", fontWeight: "700", textDecoration: "none", whiteSpace: "nowrap", fontFamily: "'DM Sans', sans-serif" }}>
+              Check in →
+            </a>
+          </div>
+
+          {/* Services */}
+          <div style={{ fontSize: "11px", fontWeight: "800", letterSpacing: "2px", color: "#2D6A4F", textTransform: "uppercase", marginBottom: "12px" }}>Support & services</div>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px", marginBottom: "32px" }}>
+            {[
+              { label: "Local services", sub: "Find support near you", href: "/local-services", icon: "◉", color: "#C4622D" },
+              { label: "Community forum", sub: "Connect with other mothers", href: "https://amai-mtoto.forumotion.com/", icon: "◈", color: "#2D6A4F", external: true },
+              { label: "NHS staff portal", sub: "For midwives & health visitors", href: "/nhs-staff", icon: "✦", color: "#1B4332" },
+              { label: "FAQ", sub: "Common pregnancy questions", href: "/faq", icon: "❋", color: "#8B2500" },
+            ].map((s, i) => (
+              <a key={i} href={s.href} target={s.external ? "_blank" : "_self"} rel="noreferrer" style={{ background: "white", borderRadius: "12px", border: "1px solid #EDD8C8", borderLeft: `3px solid ${s.color}`, padding: "16px 18px", textDecoration: "none", display: "flex", alignItems: "center", gap: "12px" }}>
+                <span style={{ fontSize: "20px", color: s.color, flexShrink: 0 }}>{s.icon}</span>
+                <div>
+                  <div style={{ fontSize: "13px", fontWeight: "700", color: "#1a0800" }}>{s.label}</div>
+                  <div style={{ fontSize: "11px", color: "#888", marginTop: "2px" }}>{s.sub}</div>
+                </div>
+              </a>
+            ))}
+          </div>
+
+        </div>
+      </div>
+
+      <Footer />
+
+      <style>{`
+        @media (max-width: 768px) {
+          .db-greeting { flex-direction: column !important; }
+          .db-pillars { grid-template-columns: 1fr 1fr !important; }
+          .db-services { grid-template-columns: 1fr !important; }
+          .db-safety { padding: 10px 20px !important; }
+          .db-body { padding: 32px 16px !important; }
+          .db-checkin { flex-direction: column !important; }
+        }
+      `}</style>
+    </>
   );
 }
