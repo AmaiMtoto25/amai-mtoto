@@ -29,7 +29,7 @@ const Signup = () => {
       await signUp(data.email, data.password).then((userCredential) => {
         const user = userCredential.user;
         addNewUser(user.uid, data.name, ms);
-        router.push(`/home-page?trimester=1`);
+        router.push('/dashboard');
       });
     } catch (error) {
       if (error.message === "Firebase: Error (auth/invalid-email).") {
