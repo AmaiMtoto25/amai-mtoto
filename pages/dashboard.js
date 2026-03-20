@@ -5,7 +5,7 @@ import { useAuth } from "../context/AuthContext";
 import { useRouter } from "next/router";
 import Nav from "../components/Nav";
 import Footer from "../components/Footer";
-import { getUserData } from "../firebase/firestore";
+
 
 export async function getServerSideProps() {
   return { props: {} };
@@ -142,17 +142,9 @@ export default function Dashboard() {
 
   useEffect(() => {
     if (!user) { router.push("/log-in"); return; }
-    const loadUser = async () => {
-      try {
-        const data = await getUserData(user.uid);
-        if (data?.name) setUserName(data.name.split(" ")[0]);
-        if (data?.dueDate) setDueDateMs(data.dueDate);
-      } catch (e) {
-        if (user.displayName) setUserName(user.displayName.split(" ")[0]);
-      }
-      setLoading(false);
-    };
-    loadUser();
+    // Use displayName from Firebase Auth
+    if (user.displayName) setUserName(user.displayName.split(" ")[0]);
+    setLoading(false);
   }, [user]);
 
   if (loading) return (
