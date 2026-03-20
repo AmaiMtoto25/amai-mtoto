@@ -200,21 +200,7 @@ export default function Dashboard() {
                 {weeks ? `You're ${weeks} weeks pregnant. Your baby is ${content.babySize}.` : content.babySize === "here and in your arms" ? "Your baby is here and in your arms." : "Welcome to your dashboard."}
               </p>
             </div>
-            <div style={{ background: "#1a0800", borderRadius: "16px", padding: "16px 24px", display: "flex", gap: "20px", alignItems: "center", flexShrink: 0 }}>
-              <div style={{ textAlign: "center" }}>
-                <span style={{ fontFamily: "'Playfair Display', serif", fontSize: "32px", color: "#F5A623", fontWeight: "700", display: "block", lineHeight: 1 }}>
-                  {weeks ? `${weeks}w` : "–"}
-                </span>
-                <span style={{ fontSize: "9px", color: "rgba(255,255,255,0.6)", fontWeight: "600", letterSpacing: "0.5px" }}>PREGNANT</span>
-              </div>
-              <div style={{ width: "1px", height: "36px", background: "rgba(255,255,255,0.1)" }}></div>
-              <div style={{ textAlign: "center" }}>
-                <span style={{ fontFamily: "'Playfair Display', serif", fontSize: "32px", color: "#F5A623", fontWeight: "700", display: "block", lineHeight: 1 }}>
-                  {trimester === 4 ? "4th" : `T${trimester}`}
-                </span>
-                <span style={{ fontSize: "9px", color: "rgba(255,255,255,0.6)", fontWeight: "600", letterSpacing: "0.5px" }}>TRIMESTER</span>
-              </div>
-            </div>
+
           </div>
 
           {/* Trimester summary */}
