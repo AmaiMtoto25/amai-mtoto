@@ -36,21 +36,24 @@ function createTrimester4() {
 }
 
 const trimesterItems = createTrimesterItems();
-const navItems = [
-  { label: "Home", href: "/" },
+
+function getNavItems(user) {
+  return [
+  { label: user ? "Dashboard" : "Home", href: user ? "/dashboard" : "/" },
   { label: "FAQ", href: "/faq" },
   { label: "About Us", href: "/about-us" },
   { label: "Local Services", href: "/local-services" },
   { label: "NHS Staff", href: "/nhs-staff" },
   ...trimesterItems,
   createTrimester4(),
-];
+];}
 
 export default function Nav() {
   const { user, logOut, setUser } = useAuth();
   const router = useRouter();
   const [openDropdown, setOpenDropdown] = useState(null);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const navItems = getNavItems(user);
 
   const handleLogout = async () => {
     try {
@@ -115,7 +118,7 @@ export default function Nav() {
       </div>
 
       <nav className="am-nav">
-        <a className="am-nav-logo" onClick={() => router.push("/")}>Amai-<span>Mtoto</span></a>
+        <a className="am-nav-logo" onClick={() => router.push(user ? "/dashboard" : "/")}>Amai-<span>Mtoto</span></a>
 
         <div className="am-nav-links">
           {navItems.map((item) => (
