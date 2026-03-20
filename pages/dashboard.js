@@ -85,8 +85,26 @@ const getWeeks = (dueDateMs) => {
   const now = Date.now();
   const dueDate = Number(dueDateMs);
   const conceptionMs = dueDate - (40 * 7 * 24 * 60 * 60 * 1000);
-  const weeks = Math.floor((now - conceptionMs) / (7 * 24 * 60 * 60 * 1000));
-  return Math.min(Math.max(weeks, 1), 42);
+  const totalDays = Math.floor((now - conceptionMs) / (24 * 60 * 60 * 1000));
+  const weeks = Math.min(Math.max(Math.floor(totalDays / 7), 1), 42);
+  return weeks;
+};
+
+const getExtraDays = (dueDateMs) => {
+  if (!dueDateMs) return 0;
+  const now = Date.now();
+  const dueDate = Number(dueDateMs);
+  const conceptionMs = dueDate - (40 * 7 * 24 * 60 * 60 * 1000);
+  const totalDays = Math.floor((now - conceptionMs) / (24 * 60 * 60 * 1000));
+  return totalDays % 7;
+};
+
+const getDaysLeft = (dueDateMs) => {
+  if (!dueDateMs) return null;
+  const now = Date.now();
+  const dueDate = Number(dueDateMs);
+  const daysLeft = Math.ceil((dueDate - now) / (24 * 60 * 60 * 1000));
+  return Math.max(daysLeft, 0);
 };
 
 const getGreeting = () => {
@@ -130,6 +148,9 @@ export default function Dashboard() {
 
   const trimester = getTrimester(dueDateMs);
   const weeks = getWeeks(dueDateMs);
+  const extraDays = getExtraDays(dueDateMs);
+  const daysLeft = getDaysLeft(dueDateMs);
+  const weeksLeft = daysLeft ? Math.floor(daysLeft / 7) : null;
   const content = TRIMESTER_CONTENT[trimester];
   const weeksLeft = weeks ? Math.max(40 - weeks, 0) : null;
   const daysPregnant = weeks ? weeks * 7 : null;
