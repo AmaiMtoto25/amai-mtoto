@@ -7,7 +7,6 @@ import Nav from "../components/Nav";
 import Footer from "../components/Footer";
 import { getUserById } from "../firebase/firestore";
 
-
 export async function getServerSideProps() {
   return { props: {} };
 }
@@ -16,20 +15,11 @@ const AKOKO = "/akoko-nan-medium.png";
 
 const TRIMESTER_CONTENT = {
   1: {
-    label: "First Trimester",
-    weeks: "Weeks 1–12",
-    color: "#C4622D",
+    label: "First Trimester", weeks: "Weeks 1–12", color: "#C4622D",
     babySize: "a poppy seed growing into a lime",
     summary: "Your body is working incredibly hard right now — even if you can't see it yet. Hormones are surging, your baby's major organs are forming, and you may be feeling the full force of early pregnancy symptoms.",
     symptoms: ["Nausea", "Tiredness", "Tender breasts", "Heightened smell", "Frequent urination", "Mood changes"],
-    tip: {
-      tag: "PARENT EDUCATION",
-      headline: "Book your midwife appointment as early as possible",
-      fact: "Your first midwife booking appointment should happen before 10 weeks. This is where your care plan begins — ask every question you have.",
-      gap: "Many Black women report feeling rushed at this appointment. You are entitled to take your time.",
-      sayThis: "\"I'd like to make sure we cover my cultural background and any specific risks relevant to my community today.\"",
-      source: "NICE Antenatal Care Guidelines NG201",
-    },
+    tip: { tag: "PARENT EDUCATION", headline: "Book your midwife appointment as early as possible", fact: "Your first midwife booking appointment should happen before 10 weeks. This is where your care plan begins — ask every question you have.", gap: "Many Black women report feeling rushed at this appointment. You are entitled to take your time.", sayThis: "\"I'd like to make sure we cover my cultural background and any specific risks relevant to my community today.\"", source: "NICE Antenatal Care Guidelines NG201" },
     links: [
       { label: "What to expect", href: "/trimester-1/summary", icon: "◉", color: "#C4622D" },
       { label: "Nutrition", href: "/trimester-1/nutrition", icon: "✦", color: "#2D6A4F" },
@@ -38,20 +28,11 @@ const TRIMESTER_CONTENT = {
     ],
   },
   2: {
-    label: "Second Trimester",
-    weeks: "Weeks 13–26",
-    color: "#2D6A4F",
+    label: "Second Trimester", weeks: "Weeks 13–26", color: "#2D6A4F",
     babySize: "a corn on the cob — and can now hear your voice",
     summary: "Many women start to feel more like themselves in the second trimester. Your bump is growing, early symptoms often ease, and you may feel your baby's first movements from around 16–20 weeks.",
     symptoms: ["Mild swelling", "Leg cramps", "Congestion", "Weight gain", "Ligament pain", "Varicose veins"],
-    tip: {
-      tag: "NUTRITION",
-      headline: "Check your iron levels at your next appointment",
-      fact: "Iron deficiency anaemia is more common in Black and mixed heritage women during pregnancy. Ask your midwife to check your levels — don't wait to be offered it.",
-      gap: "Standard NHS guidance doesn't always flag this proactively for Black and mixed heritage women.",
-      sayThis: "\"Can we check my iron levels today? I want to make sure I'm not becoming anaemic.\"",
-      source: "NICE Anaemia in Pregnancy Guidelines",
-    },
+    tip: { tag: "NUTRITION", headline: "Check your iron levels at your next appointment", fact: "Iron deficiency anaemia is more common in Black and mixed heritage women during pregnancy. Ask your midwife to check your levels — don't wait to be offered it.", gap: "Standard NHS guidance doesn't always flag this proactively for Black and mixed heritage women.", sayThis: "\"Can we check my iron levels today? I want to make sure I'm not becoming anaemic.\"", source: "NICE Anaemia in Pregnancy Guidelines" },
     links: [
       { label: "What to expect", href: "/trimester-2/summary", icon: "◉", color: "#2D6A4F" },
       { label: "Nutrition", href: "/trimester-2/nutrition", icon: "✦", color: "#C4622D" },
@@ -60,20 +41,11 @@ const TRIMESTER_CONTENT = {
     ],
   },
   3: {
-    label: "Third Trimester",
-    weeks: "Weeks 27–40",
-    color: "#8B2500",
+    label: "Third Trimester", weeks: "Weeks 27–40", color: "#8B2500",
     babySize: "a butternut squash and putting on weight every day",
     summary: "You're in the home stretch. Your baby is growing rapidly and getting ready for birth. Aches and pains are common as your body adjusts. Rest when you can and prepare your birth plan.",
     symptoms: ["Back pain", "Pelvic pressure", "Shortness of breath", "Heartburn", "Frequent urination", "Swollen feet"],
-    tip: {
-      tag: "SAFETY",
-      headline: "Know the signs of pre-eclampsia — they can be subtle",
-      fact: "Pre-eclampsia is the leading cause of Black maternal death in the UK. Symptoms include persistent headaches, vision changes, sudden swelling, or pain under your ribs.",
-      gap: "Black women's concerns about these symptoms are more likely to be dismissed. Trust your body and persist.",
-      sayThis: "\"I have a persistent headache and I want to rule out pre-eclampsia. Can you check my blood pressure and urine today?\"",
-      source: "MBRRACE-UK 2024, NICE Hypertension in Pregnancy NG133",
-    },
+    tip: { tag: "SAFETY", headline: "Know the signs of pre-eclampsia — they can be subtle", fact: "Pre-eclampsia is the leading cause of Black maternal death in the UK. Symptoms include persistent headaches, vision changes, sudden swelling, or pain under your ribs.", gap: "Black women's concerns about these symptoms are more likely to be dismissed. Trust your body and persist.", sayThis: "\"I have a persistent headache and I want to rule out pre-eclampsia. Can you check my blood pressure and urine today?\"", source: "MBRRACE-UK 2024, NICE Hypertension in Pregnancy NG133" },
     links: [
       { label: "What to expect", href: "/trimester-3/summary", icon: "◉", color: "#8B2500" },
       { label: "Nutrition", href: "/trimester-3/nutrition", icon: "✦", color: "#2D6A4F" },
@@ -82,20 +54,11 @@ const TRIMESTER_CONTENT = {
     ],
   },
   4: {
-    label: "After Birth",
-    weeks: "The Fourth Trimester",
-    color: "#2D6A4F",
+    label: "After Birth", weeks: "The Fourth Trimester", color: "#2D6A4F",
     babySize: "here and in your arms",
     summary: "You've done something extraordinary. The fourth trimester covers the first 12 weeks after birth — a time of recovery, adjustment and learning. Your needs matter just as much as your baby's.",
     symptoms: ["Postnatal bleeding", "Night sweats", "Exhaustion", "Emotional changes", "Breast changes", "Pelvic floor recovery"],
-    tip: {
-      tag: "MENTAL WELLBEING",
-      headline: "Your 6-week check should cover YOUR mental health too",
-      fact: "Your 6-week postnatal check should include questions about your emotional wellbeing, not just your physical recovery. If your GP doesn't ask, bring it up yourself.",
-      gap: "Black mothers are significantly less likely to be screened for postnatal depression at this appointment.",
-      sayThis: "\"I'd like to talk about how I'm feeling emotionally today, not just my physical recovery.\"",
-      source: "NICE Postnatal Care Guidelines NG194",
-    },
+    tip: { tag: "MENTAL WELLBEING", headline: "Your 6-week check should cover YOUR mental health too", fact: "Your 6-week postnatal check should include questions about your emotional wellbeing, not just your physical recovery. If your GP doesn't ask, bring it up yourself.", gap: "Black mothers are significantly less likely to be screened for postnatal depression at this appointment.", sayThis: "\"I'd like to talk about how I'm feeling emotionally today, not just my physical recovery.\"", source: "NICE Postnatal Care Guidelines NG194" },
     links: [
       { label: "After birth", href: "/trimester-4/summary", icon: "◉", color: "#2D6A4F" },
       { label: "Recovery", href: "/trimester-4/exercise", icon: "❋", color: "#C4622D" },
@@ -168,8 +131,9 @@ export default function Dashboard() {
   const trimester = getTrimester(dueDateMs);
   const weeks = getWeeks(dueDateMs);
   const content = TRIMESTER_CONTENT[trimester];
-
-  const inp = { width: "100%", border: "1.5px solid #EDD8C8", borderRadius: "10px", padding: "14px 16px", fontSize: "14px", fontFamily: "'DM Sans', sans-serif", outline: "none", background: "#FDF6F0", color: "#1a0800", boxSizing: "border-box" };
+  const weeksLeft = weeks ? Math.max(40 - weeks, 0) : null;
+  const daysPregnant = weeks ? weeks * 7 : null;
+  const progressPct = weeks ? Math.min((weeks / 40) * 100, 100) : 0;
 
   return (
     <>
@@ -190,17 +154,49 @@ export default function Dashboard() {
 
         <div style={{ maxWidth: "800px", margin: "0 auto", padding: "48px 24px" }}>
 
-          {/* Greeting + week badge */}
-          <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: "16px", marginBottom: "32px", flexWrap: "wrap" }}>
-            <div>
-              <h1 style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(24px,4vw,36px)", fontWeight: "700", color: "#1a0800", lineHeight: "1.2", marginBottom: "8px" }}>
-                {getGreeting()}{userName ? `, ${userName}` : ""}. 👋
-              </h1>
-              <p style={{ fontSize: "15px", color: "#6b4030", lineHeight: "1.7", maxWidth: "460px", fontWeight: "400" }}>
-                {weeks ? `You're ${weeks} weeks pregnant. Your baby is ${content.babySize}.` : content.babySize === "here and in your arms" ? "Your baby is here and in your arms." : "Welcome to your dashboard."}
-              </p>
+          {/* Greeting */}
+          <div style={{ marginBottom: "24px" }}>
+            <h1 style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(24px,4vw,36px)", fontWeight: "700", color: "#1a0800", lineHeight: "1.2", marginBottom: "8px" }}>
+              {getGreeting()}{userName ? `, ${userName}` : ""}. 👋
+            </h1>
+            <p style={{ fontSize: "15px", color: "#6b4030", lineHeight: "1.7", maxWidth: "500px", fontWeight: "400" }}>
+              {weeks ? `You're ${weeks} weeks pregnant. Your baby is ${content.babySize}.` : trimester === 4 ? "Your baby is here and in your arms." : "Welcome to your dashboard."}
+            </p>
+          </div>
+
+          {/* Journey progress bar */}
+          <div style={{ background: "linear-gradient(135deg, #1B4332, #2D6A4F)", borderRadius: "16px", padding: "24px 28px", marginBottom: "28px", position: "relative", overflow: "hidden" }}>
+            <div style={{ position: "absolute", right: "-16px", bottom: "-16px", width: "120px", height: "120px", backgroundImage: `url('${AKOKO}')`, backgroundSize: "contain", backgroundRepeat: "no-repeat", opacity: 0.08, pointerEvents: "none" }}></div>
+
+            {/* Stats row */}
+            <div style={{ display: "flex", alignItems: "center", marginBottom: "20px" }}>
+              {[
+                { n: weeks || "–", l: "WEEKS" },
+                { n: daysPregnant || "–", l: "DAYS" },
+                { n: trimester === 4 ? "4th" : `T${trimester}`, l: "TRIMESTER" },
+                { n: weeksLeft !== null ? weeksLeft : "–", l: "WEEKS LEFT" },
+              ].map((item, i, arr) => (
+                <React.Fragment key={i}>
+                  <div style={{ flex: 1, textAlign: "center" }}>
+                    <span style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(24px,3vw,36px)", color: "#F5A623", fontWeight: "700", display: "block", lineHeight: 1, marginBottom: "6px" }}>
+                      {item.n}
+                    </span>
+                    <span style={{ fontSize: "9px", color: "rgba(255,255,255,0.6)", fontWeight: "700", letterSpacing: "1px" }}>{item.l}</span>
+                  </div>
+                  {i < arr.length - 1 && <div style={{ width: "1px", height: "44px", background: "rgba(255,255,255,0.15)", flexShrink: 0 }}></div>}
+                </React.Fragment>
+              ))}
             </div>
 
+            {/* Progress track */}
+            <div style={{ background: "rgba(255,255,255,0.15)", borderRadius: "8px", height: "8px", position: "relative", overflow: "hidden", marginBottom: "8px" }}>
+              <div style={{ background: "linear-gradient(90deg, #F5A623, #74C69D)", height: "100%", width: `${progressPct}%`, borderRadius: "8px" }}></div>
+            </div>
+            <div style={{ display: "flex", justifyContent: "space-between", fontSize: "10px", color: "rgba(255,255,255,0.45)", fontWeight: "600" }}>
+              <span>Week 1</span>
+              {weeks && <span style={{ color: "#F5A623", fontWeight: "700" }}>Week {weeks} ✦</span>}
+              <span>Week 40</span>
+            </div>
           </div>
 
           {/* Trimester summary */}
@@ -301,7 +297,6 @@ export default function Dashboard() {
 
       <style>{`
         @media (max-width: 768px) {
-          .db-greeting { flex-direction: column !important; }
           .db-pillars { grid-template-columns: 1fr 1fr !important; }
           .db-services { grid-template-columns: 1fr !important; }
           .db-safety { padding: 10px 20px !important; }
