@@ -152,7 +152,6 @@ export default function Dashboard() {
   const daysLeft = getDaysLeft(dueDateMs);
   const weeksLeft = daysLeft ? Math.floor(daysLeft / 7) : null;
   const content = TRIMESTER_CONTENT[trimester];
-  const weeksLeft = weeks ? Math.max(40 - weeks, 0) : null;
   const daysPregnant = weeks ? weeks * 7 : null;
   const progressPct = weeks ? Math.min((weeks / 40) * 100, 100) : 0;
 
