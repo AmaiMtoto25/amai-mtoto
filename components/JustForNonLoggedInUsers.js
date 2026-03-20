@@ -8,7 +8,7 @@ const JustForNonLoggedInUsers = ({ children }) => {
 
   useEffect(() => {
     if (user?.uid) {
-      router.push(`home-page`);
+      router.push(`/dashboard`);
     }
   }, [router, user]);
   return <div>{!user ? children : null}</div>;
