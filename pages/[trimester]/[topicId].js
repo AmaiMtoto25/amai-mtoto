@@ -50,7 +50,6 @@ const topicOverviewVideos = {
   "/trimester-2/summary": "https://www.youtube.com/embed/ZrV09MRqAeo",
   "/trimester-2/exercise": "https://www.youtube.com/embed/PAh8ZF8R3LA",
   "/trimester-2/wellbeing": "https://www.youtube.com/embed/atywJYp-a70",
-  "/trimester-3/summary": "https://www.youtube.com/embed/dI3htnro8T4?si=HAAdKQM1CvJKe5kP",
   "/trimester-3/exercise": "https://www.youtube.com/embed/SVMRCH5CpGA",
 };
 
