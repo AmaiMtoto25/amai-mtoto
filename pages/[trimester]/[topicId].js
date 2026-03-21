@@ -225,7 +225,10 @@ const Topic = ({ trimesterArticlesDb, topicId, resolvedUrl }) => {
                       </div>
                       <div style={{ padding: "12px 14px" }}>
                         <div style={{ fontSize: "13px", fontWeight: "600", color: "#1a0800" }}>
-                          {["Abdominal exercises", "Yoga & movement", "Breathing techniques"][i]}
+                          {topicId === "summary" ? ["Signs of Labour", "Yoga & movement", "Breathing techniques"][i] :
+                           topicId === "nutrition" ? ["Nutrition guide", "Cultural foods", "Meal planning"][i] :
+                           topicId === "wellbeing" ? ["Wellbeing guide", "Mindfulness", "Self-care"][i] :
+                           ["Exercise guide", "Yoga & movement", "Breathing techniques"][i]}
                         </div>
                       </div>
                     </div>
